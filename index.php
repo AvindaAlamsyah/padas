@@ -307,6 +307,21 @@ switch (ENVIRONMENT)
 
 /*
  * --------------------------------------------------------------------
+ * Composer auto-loading & Dotenv
+ * --------------------------------------------------------------------
+ *
+ * Since the pre_system hook is executed too late there is no other
+ * way than to load Composer and Dotenv here
+ * 
+ * @link https://github.com/vlucas/phpdotenv/issues/412
+ * @link https://stackoverflow.com/a/59515340/1990745
+ */
+	require_once APPPATH.'vendor/autoload.php';
+	$dotenv = Dotenv\Dotenv::createImmutable(APPPATH);
+    $dotenv->safeLoad();
+
+/*
+ * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
  * --------------------------------------------------------------------
  *
