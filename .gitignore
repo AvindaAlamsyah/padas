@@ -15,3 +15,8 @@ application/logs/*
 !application/logs/index.html
 !application/logs/.htaccess
 /vendor/
+
+.env
+application/.env
+application/vendor
+application/controllers/Test.php
