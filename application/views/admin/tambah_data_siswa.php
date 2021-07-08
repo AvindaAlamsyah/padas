@@ -24,6 +24,7 @@
 
     <!-- Specific Page Vendor CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/select2/select2.css" />
 
     <!-- Theme CSS -->
@@ -104,6 +105,7 @@
                                             <div class="well well-sm dark text-center">
                                                 <strong>Data Pribadi Peserta</strong>
                                             </div>
+
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="nama-siswa">Nama Lengkap <span class="required">*</span></label>
                                                 <div class="col-sm-9">
@@ -141,25 +143,70 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Tempat Lahir <span class="required">*</span></label>
-                                                <div class="col-sm-9">
-                                                    <select name="tempat-lahir" id="tempat-lahir" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih tempat lahir" }' required>
-                                                        <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
+                                                <label class="col-md-3 control-label">Tempat Lahir <span class="required">*</span></label>
+                                                <div class="col-md-9">
+                                                    <select name="tempat-lahir" data-plugin-selectTwo class="form-control populate" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih tempat lahir" }' required>
+                                                        <option value=""></option>
+                                                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                                                            <option value="AK">Alaska</option>
+                                                            <option value="HI">Hawaii</option>
+                                                        </optgroup>
+                                                        <optgroup label="Pacific Time Zone">
+                                                            <option value="CA">California</option>
+                                                            <option value="NV">Nevada</option>
+                                                            <option value="OR">Oregon</option>
+                                                            <option value="WA">Washington</option>
+                                                        </optgroup>
+                                                        <optgroup label="Mountain Time Zone">
+                                                            <option value="AZ">Arizona</option>
+                                                            <option value="CO">Colorado</option>
+                                                            <option value="ID">Idaho</option>
+                                                            <option value="MT">Montana</option>
+                                                            <option value="NE">Nebraska</option>
+                                                            <option value="NM">New Mexico</option>
+                                                            <option value="ND">North Dakota</option>
+                                                            <option value="UT">Utah</option>
+                                                            <option value="WY">Wyoming</option>
+                                                        </optgroup>
+                                                        <optgroup label="Central Time Zone">
+                                                            <option value="AL">Alabama</option>
+                                                            <option value="AR">Arkansas</option>
+                                                            <option value="IL">Illinois</option>
+                                                            <option value="IA">Iowa</option>
+                                                            <option value="KS">Kansas</option>
+                                                            <option value="KY">Kentucky</option>
+                                                            <option value="LA">Louisiana</option>
+                                                            <option value="MN">Minnesota</option>
+                                                            <option value="MS">Mississippi</option>
+                                                            <option value="MO">Missouri</option>
+                                                            <option value="OK">Oklahoma</option>
+                                                            <option value="SD">South Dakota</option>
+                                                            <option value="TX">Texas</option>
+                                                            <option value="TN">Tennessee</option>
+                                                            <option value="WI">Wisconsin</option>
+                                                        </optgroup>
+                                                        <optgroup label="Eastern Time Zone">
+                                                            <option value="CT">Connecticut</option>
+                                                            <option value="DE">Delaware</option>
+                                                            <option value="FL">Florida</option>
+                                                            <option value="GA">Georgia</option>
+                                                            <option value="IN">Indiana</option>
+                                                            <option value="ME">Maine</option>
+                                                            <option value="MD">Maryland</option>
+                                                            <option value="MA">Massachusetts</option>
+                                                            <option value="MI">Michigan</option>
+                                                            <option value="NH">New Hampshire</option>
+                                                            <option value="NJ">New Jersey</option>
+                                                            <option value="NY">New York</option>
+                                                            <option value="NC">North Carolina</option>
+                                                            <option value="OH">Ohio</option>
+                                                            <option value="PA">Pennsylvania</option>
+                                                            <option value="RI">Rhode Island</option>
+                                                            <option value="SC">South Carolina</option>
+                                                            <option value="VT">Vermont</option>
+                                                            <option value="VA">Virginia</option>
+                                                            <option value="WV">West Virginia</option>
+                                                        </optgroup>
                                                     </select>
                                                 </div>
                                             </div>
@@ -189,7 +236,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Kewarganegaraan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="kewarganegaraan" id="kewarganegaraan" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kewarganegaraan" }' required>
+                                                    <select name="kewarganegaraan" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kewarganegaraan" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -212,7 +259,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Berkebutuhan Khusus <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select multiple name="kebutuhan-khusus[]" id="kebutuhan-khusus" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih kebutuhan khusus" }'>
+                                                    <select multiple name="kebutuhan-khusus[]" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih kebutuhan khusus" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -242,7 +289,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Kecamatan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="kecamatan" id="kecamatan" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kecamatan" }' required>
+                                                    <select name="kecamatan" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kecamatan" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -265,7 +312,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Kelurahan/Desa <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="kel-desa" id="kel-desa" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kelurahan/desa" }' required disabled>
+                                                    <select name="kel-desa" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kelurahan/desa" }' required disabled>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -327,7 +374,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Tempat Tinggal <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="tempat-tinggal" id="tempat-tinggal" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih kepemilikan tempat tinggal peserta didik saat ini" }' required>
+                                                    <select name="tempat-tinggal" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih kepemilikan tempat tinggal peserta didik saat ini" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -350,7 +397,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Moda Transportasi <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="transportasi" id="transportasi" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih transportasi" }' required>
+                                                    <select name="transportasi" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih transportasi" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -381,7 +428,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="anak-ke">Anak ke- <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="anak-ke" id="anak-ke" minlength="1" maxlength="2" digits="true">
+                                                    <input type="text" class="form-control" name="anak-ke" id="anak-ke" minlength="1" maxlength="2" digits="true" required>
                                                     <small id="anak-ke" class="form-text text-muted">Anak ke-berapa berdasarkan Kartu Keluarga.</small>
                                                 </div>
                                             </div>
@@ -451,7 +498,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Alasan Layak PIP</label>
                                                 <div class="col-sm-9">
-                                                    <select name="alasan-pip" id="alasan-pip" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih alasan dari sekolah" }' disabled>
+                                                    <select name="alasan-pip" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih alasan dari sekolah" }' disabled>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -1083,6 +1130,8 @@
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-validation/jquery.validate.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/select2/select2.js"></script>
 
     <!-- Theme Base, Components and Settings -->
