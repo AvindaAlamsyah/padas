@@ -573,35 +573,35 @@
                                                 <strong>Data Periodik Peserta</strong>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="tinggi-badan">Tinggi Badan</label>
+                                                <label class="col-sm-3 control-label" for="tinggi-badan">Tinggi Badan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="tinggi-badan" id="tinggi-badan" required maxlength="3" digits="true">
-                                                    <small id="nama-siswa" class="form-text text-muted">Tinggi badan peserta dalam satuan sentimeter.</small>
+                                                    <small id="tinggi-badan" class="form-text text-muted">Tinggi badan peserta dalam satuan <mark>sentimeter</mark>.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="berat-badan">Berat Badan</label>
+                                                <label class="col-sm-3 control-label" for="berat-badan">Berat Badan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="berat-badan" id="berat-badan" required maxlength="3" digits="true">
-                                                    <small id="nama-siswa" class="form-text text-muted">Berat badan peserta dalam satuan sentimeter.</small>
+                                                    <small id="berat-badan" class="form-text text-muted">Berat badan peserta dalam satuan <mark>kilogram</mark>.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="lingkar-kepala">Lingkar Kepala</label>
+                                                <label class="col-sm-3 control-label" for="lingkar-kepala">Lingkar Kepala <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="lingkar-kepala" id="lingkar-kepala" required maxlength="2" digits="true">
-                                                    <small id="nama-siswa" class="form-text text-muted">Lingkar kepala peserta dalam satuan sentimeter.</small>
+                                                    <small id="lingkar-kepala" class="form-text text-muted">Lingkar kepala peserta dalam satuan <mark>sentimeter</mark>.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="jarak-sekolah">Jarak ke Sekolah <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <div class="radio-custom radio-primary">
-                                                        <input name="jarak-sekolah" id="jarak-sekolah1" value="1" type="radio" required />
+                                                        <input name="jarak-sekolah" id="jarak-sekolah1" value="0" type="radio" required />
                                                         <label for="jarak-sekolah1">Kurang dari 1 km</label>
                                                     </div>
                                                     <div class="radio-custom radio-primary">
-                                                        <input name="jarak-sekolah" id="jarak-sekolah2" value="0" type="radio" />
+                                                        <input name="jarak-sekolah" id="jarak-sekolah2" value="1" type="radio" />
                                                         <label for="jarak-sekolah2">Lebih dari 1 km</label>
                                                     </div>
                                                     <label class="error" for="jarak-sekolah"></label>
@@ -610,29 +610,35 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="sebutkan-jarak">Sebutkan</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="sebutkan-jarak" id="sebutkan-jarak" required maxlength="2" digits="true">
-                                                    <small id="nama-siswa" class="form-text text-muted">Apabila jarak rumah peserta didik ke sekolah lebih dari 1 km, isikan dengan angka jarak yang sebenarnya pada kolom ini dalam satuan kilometer.</small>
+                                                    <input type="text" class="form-control" name="sebutkan-jarak" id="sebutkan-jarak" maxlength="2" digits="true" disabled>
+                                                    <small id="sebutkan-jarak" class="form-text text-muted">Apabila jarak rumah peserta didik ke sekolah <mark>lebih dari 1 km</mark>, isikan dengan angka jarak yang sebenarnya pada kolom ini dalam satuan <mark>kilometer</mark>.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="waktu-tempuh">Waktu Tempuh ke Sekolah</label>
+                                                <label class="col-sm-3 control-label" for="waktu-tempuh">Waktu Tempuh ke Sekolah <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="waktu-tempuh" id="waktu-tempuh" required maxlength="3" digits="true">
-                                                    <small id="nama-siswa" class="form-text text-muted">Waktu Tempuh ke Sekolah dalam satuan menit.</small>
+                                                    <small id="waktu-tempuh" class="form-text text-muted">Waktu Tempuh ke Sekolah dalam satuan <mark>menit</mark>.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="jumlah-saudara">Jumlah Saudara Kandung</label>
+                                                <label class="col-sm-3 control-label" for="jumlah-saudara">Jumlah Saudara Kandung <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="jumlah-saudara" id="wjumlah-saudara" required maxlength="2" digits="true">
-                                                    <small id="nama-siswa" class="form-text text-muted">Jumlah saudara kandung yang dimiliki peserta didik. Jumlah saudara kandung dihitung tanpa menyertakan peserta didik, dengan rumus jumlah kakak ditambah jumlah adik. Isikan 0 apabila anak tunggal.</small>
+                                                    <small id="jumlah-saudara" class="form-text text-muted">Jumlah saudara kandung yang dimiliki peserta didik. Jumlah saudara kandung <mark>dihitung tanpa menyertakan peserta didik</mark>, dengan rumus jumlah kakak ditambah jumlah adik. <mark>Isikan 0</mark> apabila anak tunggal.</small>
                                                 </div>
                                             </div>
                                             <div class="well well-sm dark text-center">
                                                 <strong>Prestasi</strong>
                                             </div>
+                                            <button type="button" id="new-prestasi" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-plus-square"></i> Tambah Prestasi Baru</button>
+                                            <div class="panel-new-prestasi">
+                                            </div>
                                             <div class="well well-sm dark text-center">
                                                 <strong>Beasiswa</strong>
+                                            </div>
+                                            <button type="button" id="new-beasiswa" class="mb-xs mt-xs mr-xs btn btn-primary"><i class="fa fa-plus-square"></i> Tambah Beasiswa Baru</button>
+                                            <div class="panel-new-beasiswa">
                                             </div>
                                         </div>
                                         <div id="w-registrasi" class="tab-pane">
@@ -668,18 +674,20 @@
                                                         <option value="02">Pindahan</option>
                                                         <option value="03">Kembali Bersekolah</option>
                                                     </select>
+                                                    <small id="jumlah-saudara" class="form-text text-muted">Status peserta didik saat <mark>pertama kali diterima</mark> di sekolah ini.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="nis">NIS</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="nis" id="nis" required minlength="10" maxlength="10" digits="true" placeholder="Nomor Induk Siswa">
+                                                    <input type="text" class="form-control" name="nis" id="nis" required digits="true" placeholder="Nomor Induk Siswa">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="tanggal-masuk">Tanggal Masuk Sekolah</label>
                                                 <div class="col-sm-9">
                                                     <input type="date" class="form-control" name="tanggal-masuk" id="tanggal-masuk" required>
+                                                    <small id="jumlah-saudara" class="form-text text-muted">Tanggal pertama kali peserta didik diterima di sekolah ini. Jika <mark>siswa baru</mark>, maka isikan tanggal awal tahun pelajaran saat peserta didik masuk. Jika <mark>siswa mutasi/pindahan</mark>, maka isikan tanggal sesuai tanggal diterimanya peserta didik di sekolah ini atau tanggal yang tercantum pada lembar mutasi masuk yang umumnya terdapat di bagian akhir buku rapor</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -691,34 +699,35 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="no-ujian">Nomor Peserta Ujian</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-ujian" id="no-ujian" required minlength="10" maxlength="10" digits="true">
+                                                    <input type="text" class="form-control" name="no-ujian" id="no-ujian" required digits="true">
+                                                    <small id="jumlah-saudara" class="form-text text-muted">Nomor peserta Ujian adalah 20 Digit yang tertera dalam SKHU (Format Baku 2-12-02-01-001-002-7), diisi bagi peserta didik jenjang SMP.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="no-ijazah">Nomor Seri Ijazah</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-ijazah" id="no-ijazah" required minlength="10" maxlength="10" digits="true">
+                                                    <input type="text" class="form-control" name="no-ijazah" id="no-ijazah" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="no-khusus">Nomor Seri Khusus</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-khusus" id="no-khusus" required minlength="10" maxlength="10" digits="true">
+                                                    <input type="text" class="form-control" name="no-khusus" id="no-khusus" required digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="no-skhun">Nomor Seri SKHUN</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-skhun" id="no-skhun" required minlength="10" maxlength="10" digits="true">
+                                                    <input type="text" class="form-control" name="no-skhun" id="no-skhun" required digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Tahun Pelajaran</label>
                                                 <div class="col-sm-4">
                                                     <div class="input-daterange input-group">
-                                                        <input type="text" class="form-control" name="start" required>
+                                                        <input type="text" class="form-control" name="start-tahun" digits="true" minlength="4" maxlength="4" required>
                                                         <span class="input-group-addon">/</span>
-                                                        <input type="text" class="form-control" name="end" required>
+                                                        <input type="text" class="form-control" name="end-tahun" digits="true" minlength="4" maxlength="4" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -731,7 +740,7 @@
                                                 <label class="col-sm-3 control-label" for="nama-ayah">Nama Ayah Kandung</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="nama-ayah" id="nama-ayah" required>
-                                                    <small id="nama-siswa" class="form-text text-muted">Nama ayah kandung peserta didik sesuai dokumen resmi yang berlaku. Hindari penggunaan gelar akademik atau sosial (seperti Almh. Dr., Dra., S.Pd, dan Hj.).</small>
+                                                    <small id="nama-siswa" class="form-text text-muted">Nama ayah kandung peserta didik sesuai dokumen resmi yang berlaku. <mark>Hindari penggunaan gelar akademik atau sosial</mark> (seperti Almh. Dr., Dra., S.Pd, dan Hj.).</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -750,7 +759,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Pendidikan</label>
                                                 <div class="col-sm-9">
-                                                    <select name="pend-ayah" id="pend-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pendidikan terakhir ayah" }' required>
+                                                    <select name="pend-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pendidikan terakhir ayah" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -773,7 +782,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Pekerjaan</label>
                                                 <div class="col-sm-9">
-                                                    <select name="kerja-ayah" id="kerja-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pekerjaan ayah" }' required>
+                                                    <select name="kerja-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pekerjaan ayah" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -796,7 +805,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Penghasilan Bulanan</label>
                                                 <div class="col-sm-9">
-                                                    <select name="gaji-ayah" id="gaji-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih penghasilan bulanan ayah" }' required>
+                                                    <select name="gaji-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih penghasilan bulanan ayah" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -819,7 +828,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Berkebutuhan Khusus</label>
                                                 <div class="col-sm-9">
-                                                    <select multiple name="kebutuhan-khusus-ayah[]" id="kebutuhan-khusus-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih jika memiliki kebutuhan khusus" }'>
+                                                    <select multiple name="kebutuhan-khusus-ayah[]" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih jika memiliki kebutuhan khusus" }'>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -847,7 +856,7 @@
                                                 <label class="col-sm-3 control-label" for="nama-ibu">Nama Ibu Kandung</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="nama-ibu" id="nama-ibu" required>
-                                                    <small id="nama-siswa" class="form-text text-muted">Nama ibu kandung peserta didik sesuai dokumen resmi yang berlaku. Hindari penggunaan gelar akademik atau sosial (seperti Almh. Dr., Dra., S.Pd, dan Hj.).</small>
+                                                    <small id="nama-siswa" class="form-text text-muted">Nama ibu kandung peserta didik sesuai dokumen resmi yang berlaku. <mark>Hindari penggunaan gelar akademik atau sosial</mark> (seperti Almh. Dr., Dra., S.Pd, dan Hj.).</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -866,7 +875,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Pendidikan</label>
                                                 <div class="col-sm-9">
-                                                    <select name="pend-ibu" id="pend-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pendidikan terakhir ibu" }' required>
+                                                    <select name="pend-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pendidikan terakhir ibu" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -889,7 +898,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Pekerjaan</label>
                                                 <div class="col-sm-9">
-                                                    <select name="kerja-ibu" id="kerja-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pekerjaan ibu" }' required>
+                                                    <select name="kerja-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pekerjaan ibu" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -912,7 +921,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Penghasilan Bulanan</label>
                                                 <div class="col-sm-9">
-                                                    <select name="gaji-ibu" id="gaji-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih penghasilan bulanan ibu" }' required>
+                                                    <select name="gaji-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih penghasilan bulanan ibu" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -935,7 +944,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Berkebutuhan Khusus</label>
                                                 <div class="col-sm-9">
-                                                    <select multiple name="kebutuhan-khusus-ibu[]" id="kebutuhan-khusus-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih jika memiliki kebutuhan khusus" }'>
+                                                    <select multiple name="kebutuhan-khusus-ibu[]" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih jika memiliki kebutuhan khusus" }'>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -963,7 +972,7 @@
                                                 <label class="col-sm-3 control-label" for="nama-wali">Nama Wali</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="nama-wali" id="nama-wali" required>
-                                                    <small id="nama-siswa" class="form-text text-muted">Nama wali peserta didik sesuai dokumen resmi yang berlaku. Hindari penggunaan gelar akademik atau sosial (seperti Almh. Dr., Dra., S.Pd, dan Hj.).</small>
+                                                    <small id="nama-siswa" class="form-text text-muted">Nama wali peserta didik sesuai dokumen resmi yang berlaku. <mark>Hindari penggunaan gelar akademik atau sosial</mark> (seperti Almh. Dr., Dra., S.Pd, dan Hj.).</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -982,7 +991,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Pendidikan</label>
                                                 <div class="col-sm-9">
-                                                    <select name="pend-wali" id="pend-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pendidikan terakhir wali" }' required>
+                                                    <select name="pend-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pendidikan terakhir wali" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -1005,7 +1014,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Pekerjaan</label>
                                                 <div class="col-sm-9">
-                                                    <select name="kerja-wali" id="kerja-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pekerjaan wali" }' required>
+                                                    <select name="kerja-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pekerjaan wali" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -1028,7 +1037,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Penghasilan Bulanan</label>
                                                 <div class="col-sm-9">
-                                                    <select name="gaji-wali" id="gaji-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih penghasilan bulanan wali" }' required>
+                                                    <select name="gaji-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih penghasilan bulanan wali" }' required>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
@@ -1051,7 +1060,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Berkebutuhan Khusus</label>
                                                 <div class="col-sm-9">
-                                                    <select multiple name="kebutuhan-khusus-wali[]" id="kebutuhan-khusus-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih jika memiliki kebutuhan khusus" }'>
+                                                    <select multiple name="kebutuhan-khusus-wali[]" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih jika memiliki kebutuhan khusus" }'>
                                                         <option></option>
                                                         <option value="AL">Alabama</option>
                                                         <option value="AR">Arkansas</option>
