@@ -13,27 +13,21 @@ class Filter_model extends CI_Model
     public function filter($where)
     {
         $query1 = "SELECT 
-        `siswa`.*,
-        `tahun_ajaran`.*,
-        `gender`.*,
-        `moda_transportasi`.*,
-        `tempat_tinggal`.*,
-        `pendaftaran_masuk`.*, `jenis_pendaftaran_masuk`.* , tahun_ajaran_pendaftaran_masuk.*, `kompetensi_keahlian`.*,
-        `alamat`.*, `desa`.*, `kecamatan`.*, `kabupaten`.*, `provinsi`.*,
-        `ayah`.*, pendidikan_ayah.*, pekerjaan_ayah.*, penghasilan_ayah.*,
-        `ibu`.*, pendidikan_ibu.*, pekerjaan_ibu.*, penghasilan_ibu.*,
-        `wali`.*, pendidikan_wali.*, pekerjaan_wali.*, penghasilan_wali.*,
-        `prestasi`.*, `bidang_prestasi`.*, `tingkat_prestasi`.*,
-        `beasiswa`.*, `jenis_beasiswa`.*,
-        `kks`.*,
-        `kip`.*,
-        `pkh`.*,
-        `kps`.*,
-        `pip`.*, `alasan_layak_pip`.*, `bank`.*,
-        `siswa_has_berkebutuhan_khusus`.*, berkebutuhan_khusus_siswa.*,
-        `ayah_has_berkebutuhan_khusus`.*, berkebutuhan_khusus_ayah.*,
-        `ibu_has_berkebutuhan_khusus`.*, berkebutuhan_khusus_ibu.*,
-        `wali_has_berkebutuhan_khusus`.*, berkebutuhan_khusus_wali.*
+        `siswa`.`nama` nama_siswa, `siswa`.`nipd`, `siswa`.`nisn`, `siswa`.`tempat_lahir`, `siswa`.`tanggal_lahir`, `siswa`.`nik` nik_siswa, `siswa`.`agama`, `siswa`.`nomor_telepon_rumah`, `siswa`.`nomor_telepon_seluler`, `siswa`.`email`, `siswa`.`rombel`, `siswa`.`nomor_registrasi_akta_lahir`, `siswa`.`anak_ke`, `siswa`.`nomor_kk`, `siswa`.`berat_badan_kg`, `siswa`.`tinggi_badan_cm`, `siswa`.`lingkar_kepala_cm`, `siswa`.`jumlah_saudara_kandung`, `siswa`.`jarak_tempat_tinggal_ke_sekolah_km`,
+        `gender`.`gender`,
+        `moda_transportasi`.`moda_transportasi`,
+        `tempat_tinggal`.`tempat_tinggal`,
+        `pendaftaran_masuk`.`nomor_skhun`, `pendaftaran_masuk`.`nomor_peserta_ujian`, `pendaftaran_masuk`.`no_seri_ijazah`, `pendaftaran_masuk`.`asal_sekolah`,  `kompetensi_keahlian`.`kompetensi_keahlian`,
+        `alamat`.`detail_alamat`, `alamat`.`rt`, `alamat`.`rw`, `alamat`.`dusun`, `alamat`.`kode_pos`, `alamat`.`lintang`, `alamat`.`bujur`, `desa`.`desa`, `kecamatan`.`kecamatan`, `kabupaten`.`kabupaten`, `provinsi`.`provinsi`,
+        `ayah`.`nama` nama_ayah, `ayah`.`tahun_lahir` tahun_lahir_ayah, `ayah`.`nik` nik_ayah, pendidikan_ayah.pendidikan pendidikan_ayah, pekerjaan_ayah.pekerjaan pekerjaan_ayah, penghasilan_ayah.penghasilan penghasilan_ayah,
+        `ibu`.`nama` nama_ibu, `ibu`.`tahun_lahir` tahun_lahir_ibu, `ibu`.`nik` nik_ibu, pendidikan_ibu.pendidikan pendidikan_ibu, pekerjaan_ibu.pekerjaan pekerjaan_ibu, penghasilan_ibu.penghasilan penghasilan_ibu,
+        `wali`.`nama` nama_wali, `wali`.`tahun_lahir` tahun_lahir_ibu, `wali`.`nik` nik_wali, pendidikan_wali.pendidikan pendidikan_wali, pekerjaan_wali.pekerjaan pekerjaan_wali, penghasilan_wali.penghasilan penghasilan_wali,
+        `kks`.`nomor_kks`,
+        `kip`.`id_kip`, `kip`.`nomor_kip`, `kip`.`nama_tertera_kip`,
+        `pkh`.`id_pkh`, `pkh`.`nomor_pkh`,
+        `kps`.`id_kps`, `kps`.`nomor_kps`,
+        `pip`.`id_pip`, `pip`.`nomor_rekening`, `pip`.`rekening_atas_nama`,  `alasan_layak_pip`.`alasan_layak_pip`, `bank`.`bank`,
+        GROUP_CONCAT(berkebutuhan_khusus_siswa.berkebutuhan_khusus SEPARATOR ',') berkebutuhan_khusus_siswa
         FROM `siswa`
         JOIN `tahun_ajaran` ON `tahun_ajaran`.`id_tahun_ajaran` = `siswa`.`tahun_ajaran_id_tahun_ajaran`
         JOIN `gender` ON `gender`.`id_gender` = `siswa`.`gender_id_gender`
@@ -65,27 +59,21 @@ class Filter_model extends CI_Model
     public function filter_test($where)
     {
         $query1 = "SELECT 
-        `siswa`.*,
-        `tahun_ajaran`.*,
-        `gender`.*,
-        `moda_transportasi`.*,
-        `tempat_tinggal`.*,
-        `pendaftaran_masuk`.*, `jenis_pendaftaran_masuk`.* , tahun_ajaran_pendaftaran_masuk.*, `kompetensi_keahlian`.*,
-        `alamat`.*, `desa`.*, `kecamatan`.*, `kabupaten`.*, `provinsi`.*,
-        `ayah`.*, pendidikan_ayah.*, pekerjaan_ayah.*, penghasilan_ayah.*,
-        `ibu`.*, pendidikan_ibu.*, pekerjaan_ibu.*, penghasilan_ibu.*,
-        `wali`.*, pendidikan_wali.*, pekerjaan_wali.*, penghasilan_wali.*,
-        `prestasi`.*, `bidang_prestasi`.*, `tingkat_prestasi`.*,
-        `beasiswa`.*, `jenis_beasiswa`.*,
-        `kks`.*,
-        `kip`.*,
-        `pkh`.*,
-        `kps`.*,
-        `pip`.*, `alasan_layak_pip`.*, `bank`.*,
-        `siswa_has_berkebutuhan_khusus`.*, berkebutuhan_khusus_siswa.*,
-        `ayah_has_berkebutuhan_khusus`.*, berkebutuhan_khusus_ayah.*,
-        `ibu_has_berkebutuhan_khusus`.*, berkebutuhan_khusus_ibu.*,
-        `wali_has_berkebutuhan_khusus`.*, berkebutuhan_khusus_wali.*
+        `siswa`.`nama` nama_siswa, `siswa`.`nipd`, `siswa`.`nisn`, `siswa`.`tempat_lahir`, `siswa`.`tanggal_lahir`, `siswa`.`nik` nik_siswa, `siswa`.`agama`, `siswa`.`nomor_telepon_rumah`, `siswa`.`nomor_telepon_seluler`, `siswa`.`email`, `siswa`.`rombel`, `siswa`.`nomor_registrasi_akta_lahir`, `siswa`.`anak_ke`, `siswa`.`nomor_kk`, `siswa`.`berat_badan_kg`, `siswa`.`tinggi_badan_cm`, `siswa`.`lingkar_kepala_cm`, `siswa`.`jumlah_saudara_kandung`, `siswa`.`jarak_tempat_tinggal_ke_sekolah_km`,
+        `gender`.`gender`,
+        `moda_transportasi`.`moda_transportasi`,
+        `tempat_tinggal`.`tempat_tinggal`,
+        `pendaftaran_masuk`.`nomor_skhun`, `pendaftaran_masuk`.`nomor_peserta_ujian`, `pendaftaran_masuk`.`no_seri_ijazah`, `pendaftaran_masuk`.`asal_sekolah`,  `kompetensi_keahlian`.`kompetensi_keahlian`,
+        `alamat`.`detail_alamat`, `alamat`.`rt`, `alamat`.`rw`, `alamat`.`dusun`, `alamat`.`kode_pos`, `alamat`.`lintang`, `alamat`.`bujur`, `desa`.`desa`, `kecamatan`.`kecamatan`, `kabupaten`.`kabupaten`, `provinsi`.`provinsi`,
+        `ayah`.`nama` nama_ayah, `ayah`.`tahun_lahir` tahun_lahir_ayah, `ayah`.`nik` nik_ayah, pendidikan_ayah.pendidikan pendidikan_ayah, pekerjaan_ayah.pekerjaan pekerjaan_ayah, penghasilan_ayah.penghasilan penghasilan_ayah,
+        `ibu`.`nama` nama_ibu, `ibu`.`tahun_lahir` tahun_lahir_ibu, `ibu`.`nik` nik_ibu, pendidikan_ibu.pendidikan pendidikan_ibu, pekerjaan_ibu.pekerjaan pekerjaan_ibu, penghasilan_ibu.penghasilan penghasilan_ibu,
+        `wali`.`nama` nama_wali, `wali`.`tahun_lahir` tahun_lahir_ibu, `wali`.`nik` nik_wali, pendidikan_wali.pendidikan pendidikan_wali, pekerjaan_wali.pekerjaan pekerjaan_wali, penghasilan_wali.penghasilan penghasilan_wali,
+        `kks`.`nomor_kks`,
+        `kip`.`id_kip`, `kip`.`nomor_kip`, `kip`.`nama_tertera_kip`,
+        `pkh`.`id_pkh`, `pkh`.`nomor_pkh`,
+        `kps`.`id_kps`, `kps`.`nomor_kps`,
+        `pip`.`id_pip`, `pip`.`nomor_rekening`, `pip`.`rekening_atas_nama`,  `alasan_layak_pip`.`alasan_layak_pip`, `bank`.`bank`,
+        GROUP_CONCAT(berkebutuhan_khusus_siswa.berkebutuhan_khusus SEPARATOR ',') berkebutuhan_khusus_siswa
         FROM `siswa`
         JOIN `tahun_ajaran` ON `tahun_ajaran`.`id_tahun_ajaran` = `siswa`.`tahun_ajaran_id_tahun_ajaran`
         JOIN `gender` ON `gender`.`id_gender` = `siswa`.`gender_id_gender`
