@@ -40,52 +40,79 @@ class Filter extends CI_Controller
     {
 
         $filter_siswa = array(
-            'gender_id_gender' => $this->input->post('gender'),
-            'tempat_tinggal_id_tempat_tinggal' => $this->input->post('tempat_tinggal'),
-            'moda_transportasi_id_moda_transportasi' => $this->input->post('moda_transportasi'),
-            'anak_ke' => $this->input->post('anak_ke'),
-            'jumlah_saudara_kandung' => $this->input->post('jumlah_saudara_kandung'),
-            'jarak_tempat_tinggal_ke_sekolah_km' => $this->input->post('jarak_rumah_ke_sekolah'),
+            'agama' => trim($this->input->post('agama')),
+            'gender_id_gender' => trim($this->input->post('gender')),
+            'tempat_tinggal_id_tempat_tinggal' => trim($this->input->post('tempat_tinggal')),
+            'moda_transportasi_id_moda_transportasi' => trim($this->input->post('moda_transportasi')),
+            'anak_ke' => trim($this->input->post('anak_ke')),
+            'jumlah_saudara_kandung' => trim($this->input->post('jumlah_saudara_kandung')),
+            'jarak_tempat_tinggal_ke_sekolah_km' => trim($this->input->post('jarak_rumah_ke_sekolah')),
+            'waktu_tempuh_ke_sekolah_jam' => trim($this->input->post('waktu_tempuh_ke_sekolah')),
         );
-        $operator_jarak_rumah_ke_sekolah = $this->input->post('operator_jarak_rumah_ke_sekolah');
+        $operator_jarak_rumah_ke_sekolah = trim($this->input->post('operator_jarak_rumah_ke_sekolah'));
+        $operator_waktu_tempuh_ke_sekolah = trim($this->input->post('operator_waktu_tempuh_ke_sekolah'));
 
         $filter_berkebutuhan_khusus = array(
-            'berkebutuhan_khusus_id_berkebutuhan_khusus' => $this->input->post('berkebutuhan_khusus'),
+            'berkebutuhan_khusus_id_berkebutuhan_khusus' => trim($this->input->post('berkebutuhan_khusus')),
+        );
+
+        $filter_kecamatan = array(
+            'id_kecamatan' => trim($this->input->post('kecamatan')),
+        );
+
+        $filter_desa = array(
+            'id_desa' => trim($this->input->post('desa')),
+        );
+
+        $filter_beasiswa = array(
+            'id_beasiswa' => trim($this->input->post('penerima_beasiswa')),
+        );
+        
+        $filter_prestasi = array(
+            'id_prestasi' => trim($this->input->post('penerima_prestasi')),
+        );
+
+        $filter_pkh = array(
+            'id_pkh' => trim($this->input->post('penerima_pkh')),
         );
 
         $filter_kps = array(
-            'id_kps' => $this->input->post('penerima_kps'),
+            'id_kps' => trim($this->input->post('penerima_kps')),
         );
 
         $filter_kip = array(
-            'id_kip' => $this->input->post('penerima_kip'),
+            'id_kip' => trim($this->input->post('penerima_kip')),
         );
 
         $filter_kks = array(
-            'id_kks' => $this->input->post('penerima_kks'),
+            'id_kks' => trim($this->input->post('penerima_kks')),
         );
 
         $filter_pip = array(
-            'alasan_layak_pip_id_alasan_layak_pip' => $this->input->post('penerima_pip'),
-            'bank_id_bank' => $this->input->post('pip_bank'),
+            'alasan_layak_pip_id_alasan_layak_pip' => trim($this->input->post('penerima_pip')),
+            'bank_id_bank' => trim($this->input->post('pip_bank')),
         );
 
         $filter_ayah = array(
-            'pendidikan_id_pendidikan' => $this->input->post('pendidikan_ayah'),
-            'pekerjaan_id_pekerjaan' => $this->input->post('pekerjaan_ayah'),
-            'penghasilan_id_penghasilan' => $this->input->post('penghasilan_ayah'),
+            'pendidikan_id_pendidikan' => trim($this->input->post('pendidikan_ayah')),
+            'pekerjaan_id_pekerjaan' => trim($this->input->post('pekerjaan_ayah')),
+            'penghasilan_id_penghasilan' => trim($this->input->post('penghasilan_ayah')),
         );
 
         $filter_ibu = array(
-            'pendidikan_id_pendidikan' => $this->input->post('pendidikan_ibu'),
-            'pekerjaan_id_pekerjaan' => $this->input->post('pekerjaan_ibu'),
-            'penghasilan_id_penghasilan' => $this->input->post('penghasilan_ibu'),
+            'pendidikan_id_pendidikan' => trim($this->input->post('pendidikan_ibu')),
+            'pekerjaan_id_pekerjaan' => trim($this->input->post('pekerjaan_ibu')),
+            'penghasilan_id_penghasilan' => trim($this->input->post('penghasilan_ibu')),
         );
 
         $filter_wali = array(
-            'pendidikan_id_pendidikan' => $this->input->post('pendidikan_wali'),
-            'pekerjaan_id_pekerjaan' => $this->input->post('pekerjaan_wali'),
-            'penghasilan_id_penghasilan' => $this->input->post('penghasilan_wali'),
+            'pendidikan_id_pendidikan' => trim($this->input->post('pendidikan_wali')),
+            'pekerjaan_id_pekerjaan' => trim($this->input->post('pekerjaan_wali')),
+            'penghasilan_id_penghasilan' => trim($this->input->post('penghasilan_wali')),
+        );
+
+        $filter_pendaftaran_keluar = array(
+            'id_pendaftaran_keluar' => trim($this->input->post('status_siswa')),
         );
 
         $where = '';
@@ -103,8 +130,13 @@ class Filter extends CI_Controller
                 $i++;
                 continue;
             }
+            if ($key == 'waktu_tempuh_ke_sekolah_jam') {
+                $where = $where . 'siswa.' . $key . $operator_waktu_tempuh_ke_sekolah . $value;
+                $i++;
+                continue;
+            }
 
-            $where = $where . 'siswa.' . $key . '=' . $value;
+            $where = $where . 'siswa.' . $key . '=\'' . $value.'\'';
 
             $i++;
         }
@@ -118,6 +150,81 @@ class Filter extends CI_Controller
             }
             $where = $where . 'siswa_has_berkebutuhan_khusus.' . $key . '=' . $value;
 
+            $i++;
+        }
+
+        foreach ($filter_kecamatan as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+            if ($i != 0) {
+                $where = $where . $and;
+            }
+            $where = $where . 'kecamatan.' . $key . '=' . $value;
+
+            $i++;
+        }
+
+        foreach ($filter_desa as $key => $value) {
+            if (empty($value)) {
+                continue;
+            }
+            if ($i != 0) {
+                $where = $where . $and;
+            }
+            $where = $where . 'desa.' . $key . '=' . $value;
+
+            $i++;
+        }
+
+        foreach ($filter_beasiswa as $key => $value) {
+            if (empty($value)) {
+                continue;
+            } else if ($value == 'true') {
+                if ($i != 0) {
+                    $where = $where . $and;
+                }
+                $where = $where . 'beasiswa.' . $key . ' IS NOT NULL';
+            } else if ($value == 'false') {
+                if ($i != 0) {
+                    $where = $where . $and;
+                }
+                $where = $where . 'beasiswa.' . $key . ' IS NULL';
+            }
+            $i++;
+        }
+
+        foreach ($filter_prestasi as $key => $value) {
+            if (empty($value)) {
+                continue;
+            } else if ($value == 'true') {
+                if ($i != 0) {
+                    $where = $where . $and;
+                }
+                $where = $where . 'prestasi.' . $key . ' IS NOT NULL';
+            } else if ($value == 'false') {
+                if ($i != 0) {
+                    $where = $where . $and;
+                }
+                $where = $where . 'prestasi.' . $key . ' IS NULL';
+            }
+            $i++;
+        }
+
+        foreach ($filter_pkh as $key => $value) {
+            if (empty($value)) {
+                continue;
+            } else if ($value == 'true') {
+                if ($i != 0) {
+                    $where = $where . $and;
+                }
+                $where = $where . 'pkh.' . $key . ' IS NOT NULL';
+            } else if ($value == 'false') {
+                if ($i != 0) {
+                    $where = $where . $and;
+                }
+                $where = $where . 'pkh.' . $key . ' IS NULL';
+            }
             $i++;
         }
 
@@ -171,7 +278,7 @@ class Filter extends CI_Controller
             }
             $i++;
         }
-
+        
         foreach ($filter_pip as $key => $value) {
             if (empty($value)) {
                 continue;
@@ -224,6 +331,26 @@ class Filter extends CI_Controller
             $where = $where . 'wali.' . $key . '=' . $value;
             $i++;
         }
+
+
+        foreach ($filter_pendaftaran_keluar as $key => $value) {
+            if (empty($value)) {
+                continue;
+            } else if ($value == 'aktif') {
+                if ($i != 0) {
+                    $where = $where . $and;
+                }
+                $where = $where . 'pendaftaran_keluar.' . $key . ' IS NULL';
+            } else if ($value == 'keluar') {
+                if ($i != 0) {
+                    $where = $where . $and;
+                }
+                $where = $where . 'pendaftaran_keluar.' . $key . ' IS NOT NULL';
+            }
+            $i++;
+        }
+
+    
         $context = array();
         if ($i == 0 && strlen($where) == 0) {
             $context['status'] = "tidak ada filter";

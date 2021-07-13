@@ -38,7 +38,7 @@
 
         </div>
     </div>
-    <?php } else {echo '</h1>DATA KOSONG</h1>';} ?>
+    <?php } ?>
 
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery/jquery.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/bootstrap/js/bootstrap.js"></script>

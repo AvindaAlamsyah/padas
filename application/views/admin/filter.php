@@ -15,6 +15,14 @@
             <form action="<?= site_url('admin/filter/result'); ?>" method="post">
                 <div class="col-md-6">
                     <h1>Data Siswa</h1>
+                    <div class="form-group">
+                        <label>Status Siswa</label>
+                        <select class="form-control" name="status_siswa" id="status_siswa">
+                            <option selected value>Semua</option>
+                            <option value="aktif">Siswa Aktif</option>
+                            <option value="keluar">Siswa Keluar</option>
+                        </select>
+                    </div>
                     <!-- <div class="form-group">
                         <label>Nama</label>
                         <input class="form-control" type="text" name="nama_siswa">
@@ -49,10 +57,10 @@
                         <label>NIK</label>
                         <input class="form-control" type="text" name="nik">
                     </div> -->
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label>Agama</label>
                         <input class="form-control" type="text" name="agama">
-                    </div> -->
+                    </div>
                     <!-- <div class="form-group">
                         <label>Alamat</label>
                         <input class="form-control" type="text" name="alamat">
@@ -69,14 +77,14 @@
                         <label>Dusun</label>
                         <input class="form-control" type="text" name="dusun">
                     </div> -->
-                    <!-- <div class="form-group">
-                        <label>Desa</label>
-                        <input class="form-control" type="text" name="desa">
-                    </div> -->
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label>Kecamatan</label>
                         <input class="form-control" type="text" name="kecamatan">
-                    </div> -->
+                    </div>
+                    <div class="form-group">
+                        <label>Desa</label>
+                        <input class="form-control" type="text" name="desa">
+                    </div>
                     <!-- <div class="form-group">
                         <label>Kode Pos</label>
                         <input class="form-control" type="text" name="kode_pos">
@@ -117,6 +125,30 @@
                         <label>SKHUN</label>
                         <input class="form-control" type="text" name="skhun">
                     </div> -->
+                    <div class="form-group">
+                        <label>Memiliki Prestasi</label>
+                        <select class="form-control" name="penerima_prestasi" id="penerima_prestasi">
+                            <option selected value>Semua</option>
+                            <option value="true">Ya</option>
+                            <option value="false">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Memiliki Beasiswa</label>
+                        <select class="form-control" name="penerima_beasiswa" id="penerima_beasiswa">
+                            <option selected value>Semua</option>
+                            <option value="true">Ya</option>
+                            <option value="false">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Penerima PKH</label>
+                        <select class="form-control" name="penerima_pkh" id="penerima_pkh">
+                            <option selected value>Semua</option>
+                            <option value="true">Ya</option>
+                            <option value="false">Tidak</option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label>Penerima KPS</label>
                         <select class="form-control" name="penerima_kps" id="penerima_kps">
@@ -254,7 +286,7 @@
                         <input class="form-control" type="text" name="jumlah_saudara_kandung">
                     </div>
                     <div class="form-group">
-                        <label>Jarak Rumah ke Sekolah</label>
+                        <label>Jarak Rumah ke Sekolah (KM)</label>
                         <select class="form-control" name="operator_jarak_rumah_ke_sekolah" id="operator_jarak_rumah_ke_sekolah">
                             <option selected value>-</option>
                             <option value="<">Kurang dari</option>
@@ -264,6 +296,19 @@
                             <option value=">">Lebih dari</option>
                         </select>
                         <input disabled class="form-control" type="text" name="jarak_rumah_ke_sekolah" id="jarak_rumah_ke_sekolah">
+
+                    </div>
+                    <div class="form-group">
+                        <label>Waktu Tempuh ke Sekolah (Jam)</label>
+                        <select class="form-control" name="operator_waktu_tempuh_ke_sekolah" id="operator_waktu_tempuh_ke_sekolah">
+                            <option selected value>-</option>
+                            <option value="<">Kurang dari</option>
+                            <option value="<=">Kurang dari sama dengan</option>
+                            <option value="=">Sama dengan</option>
+                            <option value=">=">Lebih dari sama dengan</option>
+                            <option value=">">Lebih dari</option>
+                        </select>
+                        <input disabled class="form-control" type="text" name="waktu_tempuh_ke_sekolah" id="waktu_tempuh_ke_sekolah">
 
                     </div>
                 </div>
@@ -416,6 +461,17 @@
                 jarak_rumah_ke_sekolah.value = ''
             } else {
                 jarak_rumah_ke_sekolah.disabled = false
+            }
+        })
+        const operator_waktu_tempuh_ke_sekolah = document.getElementById('operator_waktu_tempuh_ke_sekolah')
+        const waktu_tempuh_ke_sekolah = document.getElementById("waktu_tempuh_ke_sekolah")
+        operator_waktu_tempuh_ke_sekolah.addEventListener("change", (e) => {
+            e.preventDefault();
+            if (operator_waktu_tempuh_ke_sekolah.value === '') {
+                waktu_tempuh_ke_sekolah.disabled = true
+                waktu_tempuh_ke_sekolah.value = ''
+            } else {
+                waktu_tempuh_ke_sekolah.disabled = false
             }
         })
     </script>
