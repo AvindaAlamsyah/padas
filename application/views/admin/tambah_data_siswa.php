@@ -25,7 +25,8 @@
     <!-- Specific Page Vendor CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.css" />
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
-    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/select2/select2.css" />
+    <!-- <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/select2/select2.css" /> -->
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/select2/css/select2.css" />
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/stylesheets/theme.css" />
@@ -38,6 +39,11 @@
 
     <!-- Head Libs -->
     <script src="<?php echo base_url('/'); ?>assets/vendor/modernizr/modernizr.js"></script>
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+    </style>
 
 </head>
 
@@ -73,33 +79,33 @@
                 <!-- start: page -->
                 <div class="row">
                     <div class="col-xs-12">
-                        <section class="panel form-wizard" id="w4">
-                            <div class="panel-body">
-                                <div class="wizard-progress wizard-progress-lg">
-                                    <div class="steps-progress">
-                                        <div class="progress-indicator"></div>
+                        <form class="form-horizontal" action="<?php echo base_url('admin/data_siswa/simpan_data_siswa') ?>" method="POST" id="form-data-siswa" novalidate="novalidate">
+                            <section class="panel form-wizard" id="wizard-siswa">
+                                <div class="panel-body">
+                                    <div class="wizard-progress wizard-progress-lg">
+                                        <div class="steps-progress">
+                                            <div class="progress-indicator"></div>
+                                        </div>
+                                        <ul class="wizard-steps">
+                                            <li class="active">
+                                                <a href="#w-pribadi" data-toggle="tab"><span>1</span>Pribadi</a>
+                                            </li>
+                                            <li>
+                                                <a href="#w-rincian" data-toggle="tab"><span>2</span>Rincian Peserta</a>
+                                            </li>
+                                            <li>
+                                                <a href="#w-ayah-ibu-wali" data-toggle="tab"><span>3</span>Orang Tua / Wali</a>
+                                            </li>
+                                            <li>
+                                                <a href="#w-registrasi" data-toggle="tab"><span>4</span>Registrasi</a>
+                                            </li>
+                                            <!-- <li>
+                                                <a href="#w-akun" data-toggle="tab"><span>5</span>Akun</a>
+                                            </li> -->
+
+                                        </ul>
                                     </div>
-                                    <ul class="wizard-steps">
-                                        <li class="active">
-                                            <a href="#w-pribadi" data-toggle="tab"><span>1</span>Pribadi</a>
-                                        </li>
-                                        <li>
-                                            <a href="#w-rincian" data-toggle="tab"><span>2</span>Rincian Peserta</a>
-                                        </li>
-                                        <li>
-                                            <a href="#w-registrasi" data-toggle="tab"><span>4</span>Registrasi</a>
-                                        </li>
-                                        <li>
-                                            <a href="#w-ayah-ibu-wali" data-toggle="tab"><span>3</span>Orang Tua / Wali</a>
-                                        </li>
-                                        <li>
-                                            <a href="#w-akun" data-toggle="tab"><span>5</span>Akun</a>
-                                        </li>
 
-                                    </ul>
-                                </div>
-
-                                <form class="form-horizontal" novalidate="novalidate">
                                     <div class="tab-content">
                                         <div id="w-pribadi" class="tab-pane active">
                                             <div class="well well-sm dark text-center">
@@ -117,9 +123,7 @@
                                                 <label class="col-sm-3 control-label" for="jenis-kelamin">Jenis Kelamin <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="jenis-kelamin" id="jenis-kelamin" required>
-                                                        <option value>Pilih jenis kelamin</option>
-                                                        <option value="l">Laki - laki</option>
-                                                        <option value="p">Perempuan</option>
+                                                        <option></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -145,69 +149,7 @@
                                             <div class="form-group">
                                                 <label class="col-md-3 control-label">Tempat Lahir <span class="required">*</span></label>
                                                 <div class="col-md-9">
-                                                    <select name="tempat-lahir" data-plugin-selectTwo class="form-control populate" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih tempat lahir" }' required>
-                                                        <option value=""></option>
-                                                        <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                            <option value="AK">Alaska</option>
-                                                            <option value="HI">Hawaii</option>
-                                                        </optgroup>
-                                                        <optgroup label="Pacific Time Zone">
-                                                            <option value="CA">California</option>
-                                                            <option value="NV">Nevada</option>
-                                                            <option value="OR">Oregon</option>
-                                                            <option value="WA">Washington</option>
-                                                        </optgroup>
-                                                        <optgroup label="Mountain Time Zone">
-                                                            <option value="AZ">Arizona</option>
-                                                            <option value="CO">Colorado</option>
-                                                            <option value="ID">Idaho</option>
-                                                            <option value="MT">Montana</option>
-                                                            <option value="NE">Nebraska</option>
-                                                            <option value="NM">New Mexico</option>
-                                                            <option value="ND">North Dakota</option>
-                                                            <option value="UT">Utah</option>
-                                                            <option value="WY">Wyoming</option>
-                                                        </optgroup>
-                                                        <optgroup label="Central Time Zone">
-                                                            <option value="AL">Alabama</option>
-                                                            <option value="AR">Arkansas</option>
-                                                            <option value="IL">Illinois</option>
-                                                            <option value="IA">Iowa</option>
-                                                            <option value="KS">Kansas</option>
-                                                            <option value="KY">Kentucky</option>
-                                                            <option value="LA">Louisiana</option>
-                                                            <option value="MN">Minnesota</option>
-                                                            <option value="MS">Mississippi</option>
-                                                            <option value="MO">Missouri</option>
-                                                            <option value="OK">Oklahoma</option>
-                                                            <option value="SD">South Dakota</option>
-                                                            <option value="TX">Texas</option>
-                                                            <option value="TN">Tennessee</option>
-                                                            <option value="WI">Wisconsin</option>
-                                                        </optgroup>
-                                                        <optgroup label="Eastern Time Zone">
-                                                            <option value="CT">Connecticut</option>
-                                                            <option value="DE">Delaware</option>
-                                                            <option value="FL">Florida</option>
-                                                            <option value="GA">Georgia</option>
-                                                            <option value="IN">Indiana</option>
-                                                            <option value="ME">Maine</option>
-                                                            <option value="MD">Maryland</option>
-                                                            <option value="MA">Massachusetts</option>
-                                                            <option value="MI">Michigan</option>
-                                                            <option value="NH">New Hampshire</option>
-                                                            <option value="NJ">New Jersey</option>
-                                                            <option value="NY">New York</option>
-                                                            <option value="NC">North Carolina</option>
-                                                            <option value="OH">Ohio</option>
-                                                            <option value="PA">Pennsylvania</option>
-                                                            <option value="RI">Rhode Island</option>
-                                                            <option value="SC">South Carolina</option>
-                                                            <option value="VT">Vermont</option>
-                                                            <option value="VA">Virginia</option>
-                                                            <option value="WV">West Virginia</option>
-                                                        </optgroup>
-                                                    </select>
+                                                    <input name="tempat-lahir" class="form-control populate" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -226,56 +168,35 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="agama">Agama <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select class="form-control" name="agama" id="agama" required>
-                                                        <option value>Pilih agama</option>
-                                                        <option value="l">Islam</option>
-                                                        <option value="p">Hindu</option>
-                                                    </select>
+                                                    <input class="form-control" name="agama" id="agama" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Kewarganegaraan <span class="required">*</span></label>
+                                                <label class="col-sm-3 control-label" for="kewarganegaraan">Kewarganegaraan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="kewarganegaraan" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kewarganegaraan" }' required>
-                                                        <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
-                                                    </select>
+                                                    <div class="radio-custom radio-primary">
+                                                        <input name="kewarganegaraan" id="kewarganegaraan1" value="1" type="radio" required />
+                                                        <label for="kewarganegaraan1">Asing (WNA)</label>
+                                                    </div>
+                                                    <div class="radio-custom radio-primary">
+                                                        <input name="kewarganegaraan" id="kewarganegaraan2" value="0" type="radio" />
+                                                        <label for="kewarganegaraan2">Indonesia (WNI)</label>
+                                                    </div>
+                                                    <small id="kebutuhan-khusus" class="form-text text-muted">Kewarganegaraan peserta didik. Tulis kewarganegaraan jika bukan WNI.</small>
+                                                    <label class="error" for="kewarganegaraan"></label>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Berkebutuhan Khusus <span class="required">*</span></label>
+                                                <label class="col-sm-3 control-label">Asal WNA</label>
                                                 <div class="col-sm-9">
-                                                    <select multiple name="kebutuhan-khusus[]" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih kebutuhan khusus" }' required>
+                                                    <input name="wna" id="wna" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label">Berkebutuhan Khusus </label>
+                                                <div class="col-sm-9">
+                                                    <select multiple name="kebutuhan-khusus[]" class="form-control">
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                     <small id="kebutuhan-khusus" class="form-text text-muted">Dapat dipilih <mark>lebih</mark> dari satu.</small>
                                                 </div>
@@ -289,46 +210,16 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Kecamatan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="kecamatan" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kecamatan" }' required>
+                                                    <select name="kecamatan" id="kecamatan" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Kelurahan/Desa <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="kel-desa" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kelurahan/desa" }' required disabled>
+                                                    <select name="kel-desa" id="kel-desa" class="form-control" required disabled>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -360,60 +251,30 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="lintang">Lintang <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="lintang" id="lintang" required>
+                                                    <input type="text" class="form-control" name="lintang" id="lintang" number="true" required>
                                                     <small id="lintang" class="form-text text-muted">Titik koordinat tempat tinggal siswa</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="bujur">Bujur <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="bujur" id="bujur" required>
+                                                    <input type="text" class="form-control" name="bujur" id="bujur" number="true" required>
                                                     <small id="lintang" class="form-text text-muted">Titik koordinat tempat tinggal siswa</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Tempat Tinggal <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="tempat-tinggal" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih kepemilikan tempat tinggal peserta didik saat ini" }' required>
+                                                    <select name="tempat-tinggal" id="tempat-tinggal" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Moda Transportasi <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="transportasi" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih transportasi" }' required>
+                                                    <select name="transportasi" id="transportasi" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                     <small id="transportasi" class="form-text text-muted">Jenis <mark>transportasi utama</mark> atau yang <mark>paling sering</mark> digunakan peserta didik untuk berangkat ke sekolah.</small>
                                                 </div>
@@ -421,7 +282,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="no-kks">Nomor KKS</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-kks" id="no-kks" minlength="6" maxlength="8" digits="true" placeholder="Kartu Keluarga Sejahtera">
+                                                    <input type="text" class="form-control" name="no-kks" id="no-kks" minlength="6" maxlength="6" placeholder="Kartu Keluarga Sejahtera">
                                                     <small id="no-kks" class="form-text text-muted">Nomor Kartu Keluarga Sejahtera <mark>(jika memiliki)</mark>. Nomor yang dimaksud adalah 6 digit kode yang tertera pada sisi belakang kiri atas kartu (di bawah lambang Garuda Pancasila).</small>
                                                 </div>
                                             </div>
@@ -433,24 +294,45 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="kps-pkh">Penerima KPS/PKH <span class="required">*</span></label>
+                                                <label class="col-sm-3 control-label" for="kps">Penerima KPS <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <div class="radio-custom radio-primary">
-                                                        <input name="kps-pkh" id="kps-pkh1" value="1" type="radio" required />
-                                                        <label for="kps-pkh1">Ya</label>
+                                                        <input name="kps" id="kps1" value="1" type="radio" required />
+                                                        <label for="kps1">Ya</label>
                                                     </div>
                                                     <div class="radio-custom radio-primary">
-                                                        <input name="kps-pkh" id="kps-pkh2" value="0" type="radio" />
-                                                        <label for="kps-pkh2">Tidak</label>
+                                                        <input name="kps" id="kps2" value="0" type="radio" />
+                                                        <label for="kps2">Tidak</label>
                                                     </div>
-                                                    <small id="kps-pkh" class="form-text text-muted">Status peserta didik sebagai penerima manfaat KPS (Kartu Perlindungan Sosial) / PKH (Program Keluarga Harapan).</small>
-                                                    <label class="error" for="kps-pkh"></label>
+                                                    <small id="kps" class="form-text text-muted">Status peserta didik sebagai penerima manfaat KPS (Kartu Perlindungan Sosial).</small>
+                                                    <label class="error" for="kps"></label>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="no-kps-pkh">No. KPS/PKH</label>
+                                                <label class="col-sm-3 control-label" for="no-kps">No. KPS</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-kps-pkh" id="no-kps-pkh" minlength="14" maxlength="15" placeholder="Isikan nomor apabila menerima" disabled>
+                                                    <input type="text" class="form-control" name="no-kps" id="no-kps" minlength="14" maxlength="15" placeholder="Isikan nomor apabila menerima" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" for="pkh">Penerima PKH <span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <div class="radio-custom radio-primary">
+                                                        <input name="pkh" id="pkh1" value="1" type="radio" required />
+                                                        <label for="pkh1">Ya</label>
+                                                    </div>
+                                                    <div class="radio-custom radio-primary">
+                                                        <input name="pkh" id="pkh2" value="0" type="radio" />
+                                                        <label for="pkh2">Tidak</label>
+                                                    </div>
+                                                    <small id="pkh" class="form-text text-muted">Status peserta didik sebagai penerima manfaat PKH (Program Keluarga Harapan).</small>
+                                                    <label class="error" for="pkh"></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" for="no-pkh">No. PKH</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="no-pkh" id="no-pkh" placeholder="Isikan nomor apabila menerima" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -471,7 +353,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="no-kip">No. KIP</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-kip" id="no-kip" minlength="5" maxlength="6" disabled>
+                                                    <input type="text" class="form-control" name="no-kip" id="no-kip" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -498,23 +380,8 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Alasan Layak PIP</label>
                                                 <div class="col-sm-9">
-                                                    <select name="alasan-pip" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih alasan dari sekolah" }' disabled>
+                                                    <select name="alasan-pip" id="alasan-pip" class="form-control" disabled>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -522,9 +389,11 @@
                                                 <strong>Bank</strong>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="nama-bank">Nama Bank</label>
+                                                <label class="col-sm-3 control-label">Nama Bank</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="nama-bank" id="nama-bank">
+                                                    <select class="form-control" name="nama-bank" id="nama-bank">
+                                                        <option></option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -555,13 +424,13 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="no-hp">Nomor Handphone</label>
+                                                <label class="col-sm-3 control-label" for="no-hp">Nomor Handphone <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="no-hp" id="no-hp" minlength="11" maxlength="13" digits="true" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="email">Email</label>
+                                                <label class="col-sm-3 control-label" for="email">Email <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="email" class="form-control" name="email" id="email" required>
                                                     <small id="nama-siswa" class="form-text text-muted">Pastikan untuk memasukkan email yang <mark>aktif</mark>.</small>
@@ -610,7 +479,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="sebutkan-jarak">Sebutkan</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="sebutkan-jarak" id="sebutkan-jarak" maxlength="2" digits="true" disabled>
+                                                    <input type="text" class="form-control" name="sebutkan-jarak" id="sebutkan-jarak" maxlength="3" digits="true" disabled>
                                                     <small id="sebutkan-jarak" class="form-text text-muted">Apabila jarak rumah peserta didik ke sekolah <mark>lebih dari 1 km</mark>, isikan dengan angka jarak yang sebenarnya pada kolom ini dalam satuan <mark>kilometer</mark>.</small>
                                                 </div>
                                             </div>
@@ -643,92 +512,84 @@
                                         </div>
                                         <div id="w-registrasi" class="tab-pane">
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Kompetensi Keahlian</label>
+                                                <label class="col-sm-3 control-label">Kompetensi Keahlian <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="komp-keahlian" id="komp-keahlian" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih kompetensi keahlian" }' required>
+                                                    <select name="komp-keahlian" id="komp-keahlian" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="jenis-daftar">Jenis Pendaftaran</label>
+                                                <label class="col-sm-3 control-label" for="jenis-daftar">Jenis Pendaftaran <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <select class="form-control" name="jenis-daftar" id="jenis-daftar" required>
-                                                        <option value>Pilih jenis kelamin</option>
-                                                        <option value="01">Siswa Baru</option>
-                                                        <option value="02">Pindahan</option>
-                                                        <option value="03">Kembali Bersekolah</option>
+                                                        <option></option>
                                                     </select>
                                                     <small id="jumlah-saudara" class="form-text text-muted">Status peserta didik saat <mark>pertama kali diterima</mark> di sekolah ini.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="nis">NIS</label>
+                                                <label class="col-sm-3 control-label" for="nis">NIS <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="nis" id="nis" required digits="true" placeholder="Nomor Induk Siswa">
+                                                    <input type="text" class="form-control" name="nis" id="nis" required placeholder="Nomor Induk Siswa">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="tanggal-masuk">Tanggal Masuk Sekolah</label>
+                                                <label class="col-sm-3 control-label" for="nipd">NIPD <span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="nipd" id="nipd" required placeholder="Nomor Induk Peserta Didik">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" for="rombel">ROMBEL <span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="rombel" id="rombel" required placeholder="Rombongan Belajar">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label" for="tanggal-masuk">Tanggal Masuk Sekolah <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="date" class="form-control" name="tanggal-masuk" id="tanggal-masuk" required>
                                                     <small id="jumlah-saudara" class="form-text text-muted">Tanggal pertama kali peserta didik diterima di sekolah ini. Jika <mark>siswa baru</mark>, maka isikan tanggal awal tahun pelajaran saat peserta didik masuk. Jika <mark>siswa mutasi/pindahan</mark>, maka isikan tanggal sesuai tanggal diterimanya peserta didik di sekolah ini atau tanggal yang tercantum pada lembar mutasi masuk yang umumnya terdapat di bagian akhir buku rapor</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="asal-sekolah">Asal Sekolah</label>
+                                                <label class="col-sm-3 control-label" for="asal-sekolah">Asal Sekolah <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="asal-sekolah" id="asal-sekolah" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="no-ujian">Nomor Peserta Ujian</label>
+                                                <label class="col-sm-3 control-label" for="no-ujian">Nomor Peserta Ujian <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-ujian" id="no-ujian" required digits="true">
+                                                    <input type="text" class="form-control" name="no-ujian" id="no-ujian" required>
                                                     <small id="jumlah-saudara" class="form-text text-muted">Nomor peserta Ujian adalah 20 Digit yang tertera dalam SKHU (Format Baku 2-12-02-01-001-002-7), diisi bagi peserta didik jenjang SMP.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="no-ijazah">Nomor Seri Ijazah</label>
+                                                <label class="col-sm-3 control-label" for="no-ijazah">Nomor Seri Ijazah <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-ijazah" id="no-ijazah" digits="true">
+                                                    <input type="text" class="form-control" name="no-ijazah" id="no-ijazah" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="no-khusus">Nomor Seri Khusus</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-khusus" id="no-khusus" required digits="true">
+                                                    <input type="text" class="form-control" name="no-khusus" id="no-khusus">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="no-skhun">Nomor Seri SKHUN</label>
+                                                <label class="col-sm-3 control-label" for="no-skhun">Nomor Seri SKHUN <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" class="form-control" name="no-skhun" id="no-skhun" required digits="true">
+                                                    <input type="text" class="form-control" name="no-skhun" id="no-skhun" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Tahun Pelajaran</label>
-                                                <div class="col-sm-4">
-                                                    <div class="input-daterange input-group">
-                                                        <input type="text" class="form-control" name="start-tahun" digits="true" minlength="4" maxlength="4" required>
-                                                        <span class="input-group-addon">/</span>
-                                                        <input type="text" class="form-control" name="end-tahun" digits="true" minlength="4" maxlength="4" required>
-                                                    </div>
+                                                <label class="col-sm-3 control-label">Tahun Pelajaran <span class="required">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <select name="tahun-ajaran" id="tahun-ajaran" class="form-control" required>
+                                                        <option></option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -737,114 +598,54 @@
                                                 <strong>Data Ayah Kandung</strong>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="nama-ayah">Nama Ayah Kandung</label>
+                                                <label class="col-sm-3 control-label" for="nama-ayah">Nama Ayah Kandung <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="nama-ayah" id="nama-ayah" required>
                                                     <small id="nama-siswa" class="form-text text-muted">Nama ayah kandung peserta didik sesuai dokumen resmi yang berlaku. <mark>Hindari penggunaan gelar akademik atau sosial</mark> (seperti Almh. Dr., Dra., S.Pd, dan Hj.).</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="nik-ayah">NIK Ayah</label>
+                                                <label class="col-sm-3 control-label" for="nik-ayah">NIK Ayah <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="nik-ayah" id="nik-ayah" required minlength="16" maxlength="16" digits="true" placeholder="Nomor Induk Kependudukan">
                                                     <small id="nama-siswa" class="form-text text-muted">Nomor Induk Kependudukan tercantum pada <mark>Kartu Keluarga</mark> bagi WNI.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="tahun-ayah">Tahun Lahir</label>
+                                                <label class="col-sm-3 control-label" for="tahun-ayah">Tahun Lahir <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="tahun-ayah" id="tahun-ayah" required minlength="4" maxlength="4" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Pendidikan</label>
+                                                <label class="col-sm-3 control-label">Pendidikan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="pend-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pendidikan terakhir ayah" }' required>
+                                                    <select name="pend-ayah" id="pend-ayah" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Pekerjaan</label>
+                                                <label class="col-sm-3 control-label">Pekerjaan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="kerja-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pekerjaan ayah" }' required>
+                                                    <select name="kerja-ayah" id="kerja-ayah" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Penghasilan Bulanan</label>
+                                                <label class="col-sm-3 control-label">Penghasilan Bulanan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="gaji-ayah" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih penghasilan bulanan ayah" }' required>
+                                                    <select name="gaji-ayah" id="gaji-ayah" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Berkebutuhan Khusus</label>
                                                 <div class="col-sm-9">
-                                                    <select multiple name="kebutuhan-khusus-ayah[]" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih jika memiliki kebutuhan khusus" }'>
+                                                    <select multiple name="kebutuhan-khusus-ayah[]" id="kebutuhan-khusus-ayah" class="form-control">
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                     <small id="nama-siswa" class="form-text text-muted">Dapat dipilih lebih dari satu.</small>
                                                 </div>
@@ -853,114 +654,54 @@
                                                 <strong>Data Ibu Kandung</strong>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="nama-ibu">Nama Ibu Kandung</label>
+                                                <label class="col-sm-3 control-label" for="nama-ibu">Nama Ibu Kandung <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="nama-ibu" id="nama-ibu" required>
                                                     <small id="nama-siswa" class="form-text text-muted">Nama ibu kandung peserta didik sesuai dokumen resmi yang berlaku. <mark>Hindari penggunaan gelar akademik atau sosial</mark> (seperti Almh. Dr., Dra., S.Pd, dan Hj.).</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="nik-ibu">NIK Ibu</label>
+                                                <label class="col-sm-3 control-label" for="nik-ibu">NIK Ibu <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="nik-ibu" id="nik-ibu" required minlength="16" maxlength="16" digits="true" placeholder="Nomor Induk Kependudukan">
                                                     <small id="nama-siswa" class="form-text text-muted">Nomor Induk Kependudukan tercantum pada <mark>Kartu Keluarga</mark> bagi WNI.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="tahun-ibu">Tahun Lahir</label>
+                                                <label class="col-sm-3 control-label" for="tahun-ibu">Tahun Lahir <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="tahun-ibu" id="tahun-ibu" required minlength="4" maxlength="4" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Pendidikan</label>
+                                                <label class="col-sm-3 control-label">Pendidikan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="pend-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pendidikan terakhir ibu" }' required>
+                                                    <select name="pend-ibu" id="pend-ibu" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Pekerjaan</label>
+                                                <label class="col-sm-3 control-label">Pekerjaan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="kerja-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pekerjaan ibu" }' required>
+                                                    <select name="kerja-ibu" id="kerja-ibu" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Penghasilan Bulanan</label>
+                                                <label class="col-sm-3 control-label">Penghasilan Bulanan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="gaji-ibu" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih penghasilan bulanan ibu" }' required>
+                                                    <select name="gaji-ibu" id="gaji-ibu" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Berkebutuhan Khusus</label>
                                                 <div class="col-sm-9">
-                                                    <select multiple name="kebutuhan-khusus-ibu[]" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih jika memiliki kebutuhan khusus" }'>
+                                                    <select multiple name="kebutuhan-khusus-ibu[]" id="kebutuhan-khusus-ibu" class="form-control">
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                     <small id="nama-siswa" class="form-text text-muted">Dapat dipilih lebih dari satu.</small>
                                                 </div>
@@ -969,120 +710,60 @@
                                                 <strong>Data Wali</strong>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="nama-wali">Nama Wali</label>
+                                                <label class="col-sm-3 control-label" for="nama-wali">Nama Wali <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="nama-wali" id="nama-wali" required>
                                                     <small id="nama-siswa" class="form-text text-muted">Nama wali peserta didik sesuai dokumen resmi yang berlaku. <mark>Hindari penggunaan gelar akademik atau sosial</mark> (seperti Almh. Dr., Dra., S.Pd, dan Hj.).</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="nik-wali">NIK Wali</label>
+                                                <label class="col-sm-3 control-label" for="nik-wali">NIK Wali <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="nik-wali" id="nik-wali" required minlength="16" maxlength="16" digits="true" placeholder="Nomor Induk Kependudukan">
                                                     <small id="nama-siswa" class="form-text text-muted">Nomor Induk Kependudukan tercantum pada <mark>Kartu Keluarga</mark> bagi WNI.</small>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label" for="tahun-wali">Tahun Lahir</label>
+                                                <label class="col-sm-3 control-label" for="tahun-wali">Tahun Lahir <span class="required">*</span></label>
                                                 <div class="col-sm-9">
                                                     <input type="text" class="form-control" name="tahun-wali" id="tahun-wali" required minlength="4" maxlength="4" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Pendidikan</label>
+                                                <label class="col-sm-3 control-label">Pendidikan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="pend-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pendidikan terakhir wali" }' required>
+                                                    <select name="pend-wali" id="pend-wali" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Pekerjaan</label>
+                                                <label class="col-sm-3 control-label">Pekerjaan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="kerja-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih pekerjaan wali" }' required>
+                                                    <select name="kerja-wali" id="kerja-wali" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-sm-3 control-label">Penghasilan Bulanan</label>
+                                                <label class="col-sm-3 control-label">Penghasilan Bulanan <span class="required">*</span></label>
                                                 <div class="col-sm-9">
-                                                    <select name="gaji-wali" data-plugin-selectTwo class="form-control" data-plugin-options='{ "minimumInputLength": 3, "placeholder": "Pilih penghasilan bulanan wali" }' required>
+                                                    <select name="gaji-wali" id="gaji-wali" class="form-control" required>
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label">Berkebutuhan Khusus</label>
                                                 <div class="col-sm-9">
-                                                    <select multiple name="kebutuhan-khusus-wali[]" data-plugin-selectTwo class="form-control" data-plugin-options='{ "placeholder": "Pilih jika memiliki kebutuhan khusus" }'>
+                                                    <select multiple name="kebutuhan-khusus-wali[]" id="kebutuhan-khusus-wali" class="form-control">
                                                         <option></option>
-                                                        <option value="AL">Alabama</option>
-                                                        <option value="AR">Arkansas</option>
-                                                        <option value="IL">Illinois</option>
-                                                        <option value="IA">Iowa</option>
-                                                        <option value="KS">Kansas</option>
-                                                        <option value="KY">Kentucky</option>
-                                                        <option value="LA">Louisiana</option>
-                                                        <option value="MN">Minnesota</option>
-                                                        <option value="MS">Mississippi</option>
-                                                        <option value="MO">Missouri</option>
-                                                        <option value="OK">Oklahoma</option>
-                                                        <option value="SD">South Dakota</option>
-                                                        <option value="TX">Texas</option>
-                                                        <option value="TN">Tennessee</option>
-                                                        <option value="WI">Wisconsin</option>
                                                     </select>
                                                     <small id="nama-siswa" class="form-text text-muted">Dapat dipilih lebih dari satu.</small>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="w-akun" class="tab-pane">
+                                        <!-- <div id="w-akun" class="tab-pane">
                                             <div class="form-group">
                                                 <label class="col-sm-3 control-label" for="nisn">NISN</label>
                                                 <div class="col-sm-9">
@@ -1101,24 +782,24 @@
                                                     <input type="password" class="form-control" name="konfirmasi-password" id="konfirmasi-password" equalTo='#password' required>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
-                                </form>
-                            </div>
-                            <div class="panel-footer">
-                                <ul class="pager">
-                                    <li class="previous disabled">
-                                        <a><i class="fa fa-angle-left"></i> Previous</a>
-                                    </li>
-                                    <li class="finish hidden pull-right">
-                                        <a>Finish</a>
-                                    </li>
-                                    <li class="next">
-                                        <a>Next <i class="fa fa-angle-right"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
+                                </div>
+                                <div class="panel-footer">
+                                    <ul class="pager">
+                                        <li class="previous">
+                                            <a><i class="fa fa-angle-left"></i> Previous</a>
+                                        </li>
+                                        <li class="finish hidden pull-right">
+                                            <a>Finish</a>
+                                        </li>
+                                        <li class="next">
+                                            <a>Next <i class="fa fa-angle-right"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </form>
                     </div>
                 </div>
                 <!-- end: page -->
@@ -1141,7 +822,8 @@
     <script src="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-    <script src="<?php echo base_url('/'); ?>assets/vendor/select2/select2.js"></script>
+    <!-- <script src="<?php echo base_url('/'); ?>assets/vendor/select2/select2.js"></script> -->
+    <script src="<?php echo base_url('/'); ?>assets/vendor/select2/js/select2.js"></script>
 
     <!-- Theme Base, Components and Settings -->
     <script src="<?php echo base_url('/'); ?>assets/js/theme.js"></script>
@@ -1154,8 +836,335 @@
 
 
     <!-- Examples -->
-    <script src="<?php echo base_url('/'); ?>assets/js/forms/examples.wizard.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/js/forms/tambah.siswa.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var groupBy = function(xs, key) {
+                return xs.reduce(function(rv, x) {
+                    (rv[x[key]] = rv[x[key]] || []).push(x);
+                    return rv;
+                }, {});
+            };
+
+            $('#jenis-kelamin').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/gender') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih jenis kelamin"
+            });
+
+            $('select[name="kebutuhan-khusus[]"], #kebutuhan-khusus-ayah, #kebutuhan-khusus-ibu, #kebutuhan-khusus-wali').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih kebutuhan khusus"
+            });
+
+            $('#kecamatan').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/kecamatan') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    data: function(params) {
+                        return {
+                            kec: params.term
+                        }
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(groupBy(data, 'kab'), function(item, key) {
+                                var children = [];
+                                for (var k in item) {
+                                    var childItem = item[k];
+                                    childItem.text = item[k].kec;
+                                    children.push(childItem);
+                                }
+                                return {
+                                    text: key,
+                                    children: children,
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 2,
+                allowClear: true,
+                placeholder: "Pilih kecamatan"
+            });
+
+            $('#tempat-tinggal').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/tempat_tinggal') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih kepemilikan tempat tinggal peserta didik saat ini"
+            });
+
+            $('#transportasi').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/transportasi') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih transportasi utama"
+            });
+
+            $('#alasan-pip').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/alasan_pip') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih alasan dari sekolah"
+            });
+
+            $('#nama-bank').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/bank') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    data: function(params) {
+                        return {
+                            bank: params.term
+                        }
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 4,
+                allowClear: true,
+                placeholder: "Pilih bank"
+            });
+
+            $('#komp-keahlian').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/komp_keahlian') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih kompetensi keahlian"
+            });
+
+            $('#jenis-daftar').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/jenis_masuk') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih jenis pendaftaran"
+            });
+
+            $('#tahun-ajaran').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/tahun_ajaran') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih tahun ajaran"
+            });
+
+            $('#pend-ayah, #pend-ibu, #pend-wali').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/pendidikan') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih pendidikan terakhir"
+            });
+
+            $('#kerja-ayah, #kerja-ibu, #kerja-wali').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/pekerjaan') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih pekerjaan"
+            });
+
+            $('#gaji-ayah, #gaji-ibu, #gaji-wali').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/penghasilan') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumResultsForSearch: Infinity,
+                allowClear: true,
+                placeholder: "Pilih penghasilan"
+            });
+
+            var $validator = $("#form-data-siswa").validate({});
+
+            var $w_finish = $('#wizard-siswa').find('ul.pager li.finish')
+
+            $('#wizard-siswa').bootstrapWizard({
+                tabClass: 'wizard-steps',
+                nextSelector: 'ul.pager li.next',
+                previousSelector: 'ul.pager li.previous',
+                firstSelector: null,
+                lastSelector: null,
+                onNext: function(tab, navigation, index, newindex) {
+                    var validated = $('#form-data-siswa').valid();
+                    if (!validated) {
+                        $validator.focusInvalid();
+                        return false;
+                    }
+                },
+                onTabClick: function(tab, navigation, index, newindex) {
+                    if (newindex == index + 1) {
+                        return this.onNext(tab, navigation, index, newindex);
+                    } else if (newindex > index + 1) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                },
+                onTabChange: function(tab, navigation, index, newindex) {
+                    var $total = navigation.find('li').size() - 1;
+                    $w_finish[newindex != $total ? 'addClass' : 'removeClass']('hidden');
+                    $('#wizard-siswa').find(this.nextSelector)[newindex == $total ? 'addClass' : 'removeClass']('hidden');
+                },
+                onTabShow: function(tab, navigation, index) {
+                    var $total = navigation.find('li').length - 1;
+                    var $current = index;
+                    var $percent = Math.floor(($current / $total) * 100);
+                    $('#wizard-siswa').find('.progress-indicator').css({
+                        'width': $percent + '%'
+                    });
+                    tab.prevAll().addClass('completed');
+                    tab.nextAll().removeClass('completed');
+                }
+            })
+
+            $w_finish.on('click', function(ev) {
+                ev.preventDefault();
+                $('#form-data-siswa').submit();
+            });
+
+        });
+
+        $('#kecamatan').on("change", function() {
+            var id_kec = $(this).val();
+            $('#kel-desa').select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/kel_desa') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    data: function(params) {
+                        return {
+                            kel: params.term,
+                            id_kec: id_kec
+                        }
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 1,
+                allowClear: true,
+                placeholder: "Pilih kelurahan/desa"
+            });
+        })
+    </script>
 </body>
 
 </html>

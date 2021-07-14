@@ -5,14 +5,15 @@
     Deklarasi Fungsi
     */ 
    var countPrestasi = 0;     
-   var countBeasiswa = 0;     
-
+   var countBeasiswa = 0;  
+    
     function change_select(sumber, tujuan) {
         sumber.on('change', function() {
-            if (sumber.val() != null || sumber.val() != "") {
-                tujuan.prop('disabled', false);
-            } else {
+            if (sumber.val() =="") {
+                tujuan.val('');
                 tujuan.prop('disabled', true);
+            } else {
+                tujuan.prop('disabled', false);
             }
         });
 
@@ -57,6 +58,7 @@
             console.log(this.value);
         }
     });
+
     /*
     Implementasi Fungsi
     */
@@ -64,9 +66,11 @@
     //data pribadi
     change_select($('select[name="kecamatan"]'), $('select[name="kel-desa"]'));
     change_select($('select[name="kel-desa"]'), $('input[name="dusun"]'));    
-    change_radio('input[name=kps-pkh]',$('#no-kps-pkh'));
+    change_radio('input[name=kps]',$('#no-kps'));
+    change_radio('input[name=pkh]',$('#no-pkh'));
     change_radio('input[name=kip]',$('#no-kip'));
     change_radio('input[name=kip]',$('#nama-kip'));
+    change_radio('input[name="kewarganegaraan"]',$('#wna'));
     change_radio('input[name=pip]',$('select[name="alasan-pip"'));
     
 
@@ -81,11 +85,11 @@
                     '<label class="col-sm-3 control-label" for="jenis-prestasi">Jenis</label>'+
                     '<div class="col-sm-9">'+
                         '<select name="jenis-prestasi[]" data-plugin-selectTwo class="form-control populate" required>'+
-                            '<option value=""></option>'+
-                            '<optgroup label="Alaskan/Hawaiian Time Zone">'+
-                                '<option value="AK">Alaska</option>'+
-                                '<option value="HI">Hawaii</option>'+
-                            '</optgroup>'+
+                            '<option value>Pilih Jenis Prestasi</option>'+
+                            '<option value="1">Sains</option>'+
+                            '<option value="2">Seni</option>'+
+                            '<option value="3">Olahraga</option>'+
+                            '<option value="4">Lain-lain</option>'+
                         '</select>'+
                     '</div>'+
                 '</div>'+
@@ -95,11 +99,13 @@
                     '<label class="col-sm-3 control-label" for="tingkat-prestasi">Tingkat</label>'+
                     '<div class="col-sm-9">'+
                         '<select name="tingkat-prestasi[]" data-plugin-selectTwo class="form-control populate" required>'+
-                            '<option value=""></option>'+
-                            '<optgroup label="Alaskan/Hawaiian Time Zone">'+
-                                '<option value="AK">Alaska</option>'+
-                                '<option value="HI">Hawaii</option>'+
-                            '</optgroup>'+
+                            '<option value>Pilih Tinggat Prestasi</option>'+
+                            '<option value="1">Sekolah</option>'+
+                            '<option value="2">Kecamatan</option>'+
+                            '<option value="3">Kabupaten</option>'+
+                            '<option value="4">Provinsi</option>'+
+                            '<option value="5">Nasional</option>'+
+                            '<option value="6">Internasional</option>'+
                         '</select>'+
                     '</div>'+
                 '</div>'+
@@ -118,6 +124,13 @@
             '<div class="col-sm-9">'+
                 '<input type="text" class="form-control" name="nama-prestasi[]" required>'+
                 '<small id="nama-prestasi" class="form-text text-muted">Nama kegiatan/acara dari prestasi yang pernah diraih oleh peserta didik. <mark>Contoh: Lomba Cerdas Cermat Bahasa Indonesia Tingkat SMP</mark>. Sesuaikan menurut piagam yang diperoleh.</small>'+
+            '</div>'+
+        '</div>'+
+        '<div class="form-group">'+
+            '<label class="col-sm-3 control-label" for="peringkat">Peringkat</label>'+
+            '<div class="col-sm-9">'+
+                '<input type="text" class="form-control" name="peringkat[]" digits="true" required>'+
+                '<small id="peringkat" class="form-text text-muted">Diisi angka peringkat prestasi yang pernah diraih oleh peserta didik.</small>'+
             '</div>'+
         '</div>'+
         '<div class="form-group">'+
@@ -140,11 +153,12 @@
                     '<label class="col-sm-3 control-label" for="jenis-beasiswa">Jenis</label>'+
                     '<div class="col-sm-9">'+
                         '<select name="jenis-beasiswa[]" data-plugin-selectTwo class="form-control populate" required>'+
-                            '<option value=""></option>'+
-                            '<optgroup label="Alaskan/Hawaiian Time Zone">'+
-                                '<option value="AK">Alaska</option>'+
-                                '<option value="HI">Hawaii</option>'+
-                            '</optgroup>'+
+                            '<option value>Pilih Jenis Beasiswa</option>'+
+                            '<option value="1">Anak berprestasi</option>'+
+                            '<option value="2">Anak Miskin</option>'+
+                            '<option value="3">Pendidikan</option>'+
+                            '<option value="4">Unggulan</option>'+
+                            '<option value="5">Lain-lain</option>'+
                         '</select>'+
                     '</div>'+
                 '</div>'+
@@ -177,5 +191,4 @@
         '<hr class="mt-md mb-md">'+
     '</div>';
     new_input($(".panel-new-beasiswa"),$("#new-beasiswa"), html_beasiswa, countBeasiswa);
-
 }).apply( this, [ jQuery ]);
