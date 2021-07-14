@@ -86,10 +86,18 @@
                                         <label>Status Siswa</label>
                                         <select class="form-control" name="status_siswa" id="status_siswa">
                                             <option selected value>Semua</option>
-                                            <option value="false">Siswa Aktif</option>
-                                            <option value="true">Siswa Keluar</option>
+                                            <option value="aktif">Siswa Aktif</option>
+                                            <option value="keluar">Siswa Keluar</option>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Nama</label>
+                                    <input class="form-control" type="text" name="nama_siswa">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>NIPD</label>
+                                    <input class="form-control" type="text" name="nipd">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Jenis Kelamin</label>
                                         <!-- <input class="form-control" type="text" name="gender"> -->
@@ -100,10 +108,42 @@
                                             <?php } ?>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>NISN</label>
+                                    <input class="form-control" type="text" name="nisn">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Tempat Lahir</label>
+                                    <input class="form-control" type="text" name="tempat_lahir">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Tanggal Lahir</label>
+                                    <input class="form-control" type="text" name="tanggal_lahir">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>NIK</label>
+                                    <input class="form-control" type="text" name="nik">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Agama</label>
                                         <input class="form-control" type="text" name="agama">
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Alamat</label>
+                                    <input class="form-control" type="text" name="alamat">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>RT</label>
+                                    <input class="form-control" type="text" name="rt">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>RW</label>
+                                    <input class="form-control" type="text" name="rw">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Dusun</label>
+                                    <input class="form-control" type="text" name="dusun">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Kecamatan</label>
                                         <select name="kecamatan" id="kecamatan" class="form-control">
@@ -116,6 +156,10 @@
                                             <option></option>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Kode Pos</label>
+                                    <input class="form-control" type="text" name="kode_pos">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Tempat Tinggal</label>
                                         <!-- <input class="form-control" type="text" name="tempat_tinggal"> -->
@@ -136,6 +180,22 @@
                                             <?php } ?>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Nomor Telepon Rumah</label>
+                                    <input class="form-control" type="text" name="nomor_telepon_rumah">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Nomor Telepon Seluler</label>
+                                    <input class="form-control" type="text" name="nomor_telepon_seluler">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" type="text" name="email">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>SKHUN</label>
+                                    <input class="form-control" type="text" name="skhun">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Memiliki Prestasi</label>
                                         <select class="form-control" name="penerima_prestasi" id="penerima_prestasi">
@@ -168,6 +228,22 @@
                                             <option value="false">Tidak</option>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Nomor KPS</label>
+                                    <input class="form-control" type="text" name="nomor_kps">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Rombel</label>
+                                    <input class="form-control" type="text" name="rombel">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Nomor Peserta Ujian Nasional</label>
+                                    <input class="form-control" type="text" name="nomor_peserta_ujian_nasional">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Nomor Seri Ijazah</label>
+                                    <input class="form-control" type="text" name="nomor_seri_ijazah">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Penerima KIP</label>
                                         <select class="form-control" name="penerima_kip" id="penerima_kip">
@@ -176,6 +252,14 @@
                                             <option value="false">Tidak</option>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Nomor KIP</label>
+                                    <input class="form-control" type="text" name="nomor_kip">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Nama Tertera di KIP</label>
+                                    <input class="form-control" type="text" name="nama_tertera_di_kip">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Penerima KKS</label>
                                         <select class="form-control" name="penerima_kks" id="penerima_kks">
@@ -184,6 +268,14 @@
                                             <option value="false">Tidak</option>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Nomor KKS</label>
+                                    <input class="form-control" type="text" name="nomor_kks">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Nomor Registrasi Akta Lahir</label>
+                                    <input class="form-control" type="text" name="nomor_registrasi_akta_lahir">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Penerima PIP</label>
                                         <select class="form-control" name="penerima_pip" id="penerima_pip">
@@ -192,6 +284,14 @@
                                             <option value="false">Tidak</option>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Layak PIP</label>
+                                    <input class="form-control" type="text" name="layak_pip">
+                                </div>
+                                <div class="form-group">
+                                    <label>Alasan Layak PIP</label>
+                                    <input class="form-control" type="text" name="alasan_layak_pip">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Nama BANK</label>
                                         <!-- <input class="form-control" type="text" name="pip_bank"> -->
@@ -202,22 +302,59 @@
                                             <?php } ?>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Nomor Rekening</label>
+                                    <input class="form-control" type="text" name="nomor_rekening_bank">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Rekening Atas Nama</label>
+                                    <input class="form-control" type="text" name="rekening_atas_nama">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Berkebutuhan Khusus</label>
                                         <!-- <input class="form-control" type="text" name="berkebutuhan_khusus"> -->
                                         <select class="form-control" name="berkebutuhan_khusus" id="berkebutuhan_khusus">
                                             <option selected value>Semua</option>
-                                            <option value="true">Ya</option>
-                                            <option value="false">Tidak</option>
+                                            <?php foreach ($berkebutuhan_khusus as $key => $value) { ?>
+                                                <option value="<?= $value['id_berkebutuhan_khusus'] ?>"><?= $value['berkebutuhan_khusus'] ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Sekolah Asal</label>
+                                    <input class="form-control" type="text" name="sekolah_asal">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Anak ke</label>
-                                        <input class="form-control" type="number" name="anak_ke">
+                                        <input class="form-control" type="text" name="anak_ke">
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>Lintang</label>
+                                    <input class="form-control" type="text" name="lintang">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Bujur</label>
+                                    <input class="form-control" type="text" name="bujur">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Nomor KK</label>
+                                    <input class="form-control" type="text" name="no_kk">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Berat Badan</label>
+                                    <input class="form-control" type="text" name="berat_badan">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Tinggi Badan</label>
+                                    <input class="form-control" type="text" name="tinggi_badan">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Lingkar Kepala</label>
+                                    <input class="form-control" type="text" name="lingkar_kepala">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Jumlah Saudara Kandung</label>
-                                        <input class="form-control" type="number" name="jumlah_saudara_kandung">
+                                        <input class="form-control" type="text" name="jumlah_saudara_kandung">
                                     </div>
                                     <div class="form-group">
                                         <label>Jarak Rumah ke Sekolah (KM)</label>
@@ -229,11 +366,11 @@
                                             <option value=">=">Lebih dari sama dengan</option>
                                             <option value=">">Lebih dari</option>
                                         </select>
-                                        <input disabled class="form-control" type="number" name="jarak_rumah_ke_sekolah" id="jarak_rumah_ke_sekolah" placeholder="jarak dalam kilometer">
+                                        <input disabled class="form-control" type="text" name="jarak_rumah_ke_sekolah" id="jarak_rumah_ke_sekolah">
 
                                     </div>
                                     <div class="form-group">
-                                        <label>Waktu Tempuh ke Sekolah (Menit)</label>
+                                        <label>Waktu Tempuh ke Sekolah (Jam)</label>
                                         <select class="form-control" name="operator_waktu_tempuh_ke_sekolah" id="operator_waktu_tempuh_ke_sekolah">
                                             <option selected value>-</option>
                                             <option value="<">Kurang dari</option>
@@ -242,13 +379,21 @@
                                             <option value=">=">Lebih dari sama dengan</option>
                                             <option value=">">Lebih dari</option>
                                         </select>
-                                        <input disabled class="form-control" type="number" name="waktu_tempuh_ke_sekolah" id="waktu_tempuh_ke_sekolah" placeholder="waktu dalam menit">
+                                        <input disabled class="form-control" type="text" name="waktu_tempuh_ke_sekolah" id="waktu_tempuh_ke_sekolah">
 
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <h1>Data Orang tua</h1>
                                     <h3>Data Ayah</h3>
+                                    <!-- <div class="form-group">
+                                    <label>Nama Ayah</label>
+                                    <input class="form-control" type="text" name="nama_ayah">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Tahun Lahir Ayah</label>
+                                    <input class="form-control" type="text" name="tahun_lahir_ayah">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Pendidikan Ayah</label>
                                         <!-- <input class="form-control" type="text" name="pendidikan_ayah"> -->
@@ -279,7 +424,19 @@
                                             <?php } ?>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>NIK Ayah</label>
+                                    <input class="form-control" type="text" name="nik_ayah">
+                                </div> -->
                                     <h3>Data Ibu</h3>
+                                    <!-- <div class="form-group">
+                                    <label>Nama Ibu</label>
+                                    <input class="form-control" type="text" name="nama_ibu">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Tahun Lahir Ibu</label>
+                                    <input class="form-control" type="text" name="tahun_lahir_ibu">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Pendidikan Ibu</label>
                                         <!-- <input class="form-control" type="text" name="pendidikan_ibu"> -->
@@ -310,6 +467,19 @@
                                             <?php } ?>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>NIK Ibu</label>
+                                    <input class="form-control" type="text" name="nik_ibu">
+                                </div> -->
+                                    <h3>Data Wali</h3>
+                                    <!-- <div class="form-group">
+                                    <label>Nama Wali</label>
+                                    <input class="form-control" type="text" name="nama_wali">
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>Tahun Lahir Wali</label>
+                                    <input class="form-control" type="text" name="tahun_lahir_wali">
+                                </div> -->
                                     <div class="form-group">
                                         <label>Pendidikan Wali</label>
                                         <!-- <input class="form-control" type="text" name="pendidikan_wali"> -->
@@ -340,12 +510,16 @@
                                             <?php } ?>
                                         </select>
                                     </div>
+                                    <!-- <div class="form-group">
+                                    <label>NIK Wali</label>
+                                    <input class="form-control" type="text" name="nik_wali">
+                                </div> -->
                                 </div>
                         </div>
-                        <div class="panel-footer">
-                            <button class="btn btn-primary btn-block" type="submit">Kirim</button>
-                            </form>
-                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary btn-block" type="submit">Kirim</button>
+                        </form>
                     </div>
                 </div>
             </section>
