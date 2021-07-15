@@ -76,278 +76,280 @@
                     </div>
                 </header>
 
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="panel-body">
-                            <form action="<?= base_url('admin/filter/result') ?>" method="get" name="form_filter" id="form_filter">
-                                <div class="col-md-6">
-                                    <h1>Data Siswa</h1>
-                                    <div class="form-group">
-                                        <label>Status Siswa</label>
-                                        <select class="form-control" name="status_siswa" id="status_siswa">
-                                            <option selected value>Semua</option>
-                                            <option value="false">Siswa Aktif</option>
-                                            <option value="true">Siswa Keluar</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Jenis Kelamin</label>
-                                        <!-- <input class="form-control" type="text" name="gender"> -->
-                                        <select class="form-control" name="gender" id="gender">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($gender as $key => $value) { ?>
-                                                <option value="<?= $value['id_gender'] ?>"><?= $value['gender'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Agama</label>
-                                        <input class="form-control" type="text" name="agama">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Kecamatan</label>
-                                        <select name="kecamatan" id="kecamatan" class="form-control">
-                                            <option></option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Desa</label>
-                                        <select name="desa" id="desa" class="form-control" disabled>
-                                            <option></option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tempat Tinggal</label>
-                                        <!-- <input class="form-control" type="text" name="tempat_tinggal"> -->
-                                        <select class="form-control" name="tempat_tinggal" id="tempat_tinggal">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($tempat_tinggal as $key => $value) { ?>
-                                                <option value="<?= $value['id_tempat_tinggal'] ?>"><?= $value['tempat_tinggal'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Moda Transportasi</label>
-                                        <!-- <input class="form-control" type="text" name="moda_transportasi"> -->
-                                        <select class="form-control" name="moda_transportasi" id="moda_trasnportasi">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($moda_transportasi as $key => $value) { ?>
-                                                <option value="<?= $value['id_moda_transportasi'] ?>"><?= $value['moda_transportasi'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Memiliki Prestasi</label>
-                                        <select class="form-control" name="penerima_prestasi" id="penerima_prestasi">
-                                            <option selected value>Semua</option>
-                                            <option value="true">Ya</option>
-                                            <option value="false">Tidak</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Memiliki Beasiswa</label>
-                                        <select class="form-control" name="penerima_beasiswa" id="penerima_beasiswa">
-                                            <option selected value>Semua</option>
-                                            <option value="true">Ya</option>
-                                            <option value="false">Tidak</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Penerima PKH</label>
-                                        <select class="form-control" name="penerima_pkh" id="penerima_pkh">
-                                            <option selected value>Semua</option>
-                                            <option value="true">Ya</option>
-                                            <option value="false">Tidak</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Penerima KPS</label>
-                                        <select class="form-control" name="penerima_kps" id="penerima_kps">
-                                            <option selected value>Semua</option>
-                                            <option value="true">Ya</option>
-                                            <option value="false">Tidak</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Penerima KIP</label>
-                                        <select class="form-control" name="penerima_kip" id="penerima_kip">
-                                            <option selected value>Semua</option>
-                                            <option value="true">Ya</option>
-                                            <option value="false">Tidak</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Penerima KKS</label>
-                                        <select class="form-control" name="penerima_kks" id="penerima_kks">
-                                            <option selected value>Semua</option>
-                                            <option value="true">Ya</option>
-                                            <option value="false">Tidak</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Penerima PIP</label>
-                                        <select class="form-control" name="penerima_pip" id="penerima_pip">
-                                            <option selected value>Semua</option>
-                                            <option value="true">Ya</option>
-                                            <option value="false">Tidak</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Nama BANK</label>
-                                        <!-- <input class="form-control" type="text" name="pip_bank"> -->
-                                        <select class="form-control" name="pip_bank" id="pip_bank">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($bank as $key => $value) { ?>
-                                                <option value="<?= $value['id_bank'] ?>"><?= $value['bank'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Berkebutuhan Khusus</label>
-                                        <!-- <input class="form-control" type="text" name="berkebutuhan_khusus"> -->
-                                        <select class="form-control" name="berkebutuhan_khusus" id="berkebutuhan_khusus">
-                                            <option selected value>Semua</option>
-                                            <option value="true">Ya</option>
-                                            <option value="false">Tidak</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Anak ke</label>
-                                        <input class="form-control" type="number" name="anak_ke">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Jumlah Saudara Kandung</label>
-                                        <input class="form-control" type="number" name="jumlah_saudara_kandung">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Jarak Rumah ke Sekolah (KM)</label>
-                                        <select class="form-control" name="operator_jarak_rumah_ke_sekolah" id="operator_jarak_rumah_ke_sekolah">
-                                            <option selected value>-</option>
-                                            <option value="<">Kurang dari</option>
-                                            <option value="<=">Kurang dari sama dengan</option>
-                                            <option value="=">Sama dengan</option>
-                                            <option value=">=">Lebih dari sama dengan</option>
-                                            <option value=">">Lebih dari</option>
-                                        </select>
-                                        <input disabled class="form-control" type="number" name="jarak_rumah_ke_sekolah" id="jarak_rumah_ke_sekolah" placeholder="jarak dalam kilometer">
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Waktu Tempuh ke Sekolah (Menit)</label>
-                                        <select class="form-control" name="operator_waktu_tempuh_ke_sekolah" id="operator_waktu_tempuh_ke_sekolah">
-                                            <option selected value>-</option>
-                                            <option value="<">Kurang dari</option>
-                                            <option value="<=">Kurang dari sama dengan</option>
-                                            <option value="=">Sama dengan</option>
-                                            <option value=">=">Lebih dari sama dengan</option>
-                                            <option value=">">Lebih dari</option>
-                                        </select>
-                                        <input disabled class="form-control" type="number" name="waktu_tempuh_ke_sekolah" id="waktu_tempuh_ke_sekolah" placeholder="waktu dalam menit">
-
-                                    </div>
+                <section class="panel">
+                    <header class="panel-heading">
+                        <h2 class="panel-title">Filter</h2>
+                    </header>
+                    <div class="panel-body">
+                        <form action="<?= base_url('admin/filter/result') ?>" method="get" name="form_filter" id="form_filter">
+                            <div class="col-md-6">
+                                <h2 class="panel-title" >Data Siswa</h1>
+                                <div class="form-group">
+                                    <label>Status Siswa</label>
+                                    <select class="form-control" name="status_siswa" id="status_siswa">
+                                        <option selected value>Semua</option>
+                                        <option value="false">Siswa Aktif</option>
+                                        <option value="true">Siswa Keluar</option>
+                                    </select>
                                 </div>
-                                <div class="col-md-6">
-                                    <h1>Data Orang tua</h1>
-                                    <h3>Data Ayah</h3>
-                                    <div class="form-group">
-                                        <label>Pendidikan Ayah</label>
-                                        <!-- <input class="form-control" type="text" name="pendidikan_ayah"> -->
-                                        <select class="form-control" name="pendidikan_ayah" id="pendidikan_ayah">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($pendidikan as $key => $value) { ?>
-                                                <option value="<?= $value['id_pendidikan'] ?>"><?= $value['pendidikan'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Pekerjaan Ayah</label>
-                                        <!-- <input class="form-control" type="text" name="pekerjaan_ayah"> -->
-                                        <select class="form-control" name="pekerjaan_ayah" id="pekerjaan_ayah">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($pekerjaan as $key => $value) { ?>
-                                                <option value="<?= $value['id_pekerjaan'] ?>"><?= $value['pekerjaan'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Penghasilan Ayah</label>
-                                        <!-- <input class="form-control" type="text" name="penghasilan_ayah"> -->
-                                        <select class="form-control" name="penghasilan_ayah" id="penghasilan_ayah">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($penghasilan as $key => $value) { ?>
-                                                <option value="<?= $value['id_penghasilan'] ?>"><?= $value['penghasilan'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <h3>Data Ibu</h3>
-                                    <div class="form-group">
-                                        <label>Pendidikan Ibu</label>
-                                        <!-- <input class="form-control" type="text" name="pendidikan_ibu"> -->
-                                        <select class="form-control" name="pendidikan_ibu" id="pendidikan_ibu">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($pendidikan as $key => $value) { ?>
-                                                <option value="<?= $value['id_pendidikan'] ?>"><?= $value['pendidikan'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Pekerjaan Ibu</label>
-                                        <!-- <input class="form-control" type="text" name="pekerjaan_ibu"> -->
-                                        <select class="form-control" name="pekerjaan_ibu" id="pekerjaan_ibu">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($pekerjaan as $key => $value) { ?>
-                                                <option value="<?= $value['id_pekerjaan'] ?>"><?= $value['pekerjaan'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Penghasilan Ibu</label>
-                                        <!-- <input class="form-control" type="text" name="penghasilan_ibu"> -->
-                                        <select class="form-control" name="penghasilan_ibu" id="penghasilan_ibu">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($penghasilan as $key => $value) { ?>
-                                                <option value="<?= $value['id_penghasilan'] ?>"><?= $value['penghasilan'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Pendidikan Wali</label>
-                                        <!-- <input class="form-control" type="text" name="pendidikan_wali"> -->
-                                        <select class="form-control" name="pendidikan_wali" id="pendidikan_wali">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($pendidikan as $key => $value) { ?>
-                                                <option value="<?= $value['id_pendidikan'] ?>"><?= $value['pendidikan'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Pekerjaan Wali</label>
-                                        <!-- <input class="form-control" type="text" name="pekerjaan_wali"> -->
-                                        <select class="form-control" name="pekerjaan_wali" id="pekerjaan_wali">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($pekerjaan as $key => $value) { ?>
-                                                <option value="<?= $value['id_pekerjaan'] ?>"><?= $value['pekerjaan'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Penghasilan Wali</label>
-                                        <!-- <input class="form-control" type="text" name="penghasilan_wali"> -->
-                                        <select class="form-control" name="penghasilan_wali" id="penghasilan_wali">
-                                            <option selected value>Semua</option>
-                                            <?php foreach ($penghasilan as $key => $value) { ?>
-                                                <option value="<?= $value['id_penghasilan'] ?>"><?= $value['penghasilan'] ?></option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
+                                <div class="form-group">
+                                    <label>Jenis Kelamin</label>
+                                    <!-- <input class="form-control" type="text" name="gender"> -->
+                                    <select class="form-control" name="gender" id="gender">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($gender as $key => $value) { ?>
+                                            <option value="<?= $value['id_gender'] ?>"><?= $value['gender'] ?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
-                        </div>
-                        <div class="panel-footer">
-                            <button class="btn btn-primary btn-block" type="submit">Kirim</button>
-                            </form>
-                        </div>
+                                <div class="form-group">
+                                    <label>Agama</label>
+                                    <input class="form-control" type="text" name="agama" maxlength="255">
+                                </div>
+                                <div class="form-group">
+                                    <label>Kecamatan</label>
+                                    <select name="kecamatan" id="kecamatan" class="form-control">
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Desa</label>
+                                    <select name="desa" id="desa" class="form-control" disabled>
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tempat Tinggal</label>
+                                    <!-- <input class="form-control" type="text" name="tempat_tinggal"> -->
+                                    <select class="form-control" name="tempat_tinggal" id="tempat_tinggal">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($tempat_tinggal as $key => $value) { ?>
+                                            <option value="<?= $value['id_tempat_tinggal'] ?>"><?= $value['tempat_tinggal'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Moda Transportasi</label>
+                                    <!-- <input class="form-control" type="text" name="moda_transportasi"> -->
+                                    <select class="form-control" name="moda_transportasi" id="moda_trasnportasi">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($moda_transportasi as $key => $value) { ?>
+                                            <option value="<?= $value['id_moda_transportasi'] ?>"><?= $value['moda_transportasi'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Memiliki Prestasi</label>
+                                    <select class="form-control" name="penerima_prestasi" id="penerima_prestasi">
+                                        <option selected value>Semua</option>
+                                        <option value="true">Ya</option>
+                                        <option value="false">Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Memiliki Beasiswa</label>
+                                    <select class="form-control" name="penerima_beasiswa" id="penerima_beasiswa">
+                                        <option selected value>Semua</option>
+                                        <option value="true">Ya</option>
+                                        <option value="false">Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Penerima PKH</label>
+                                    <select class="form-control" name="penerima_pkh" id="penerima_pkh">
+                                        <option selected value>Semua</option>
+                                        <option value="true">Ya</option>
+                                        <option value="false">Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Penerima KPS</label>
+                                    <select class="form-control" name="penerima_kps" id="penerima_kps">
+                                        <option selected value>Semua</option>
+                                        <option value="true">Ya</option>
+                                        <option value="false">Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Penerima KIP</label>
+                                    <select class="form-control" name="penerima_kip" id="penerima_kip">
+                                        <option selected value>Semua</option>
+                                        <option value="true">Ya</option>
+                                        <option value="false">Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Penerima KKS</label>
+                                    <select class="form-control" name="penerima_kks" id="penerima_kks">
+                                        <option selected value>Semua</option>
+                                        <option value="true">Ya</option>
+                                        <option value="false">Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Penerima PIP</label>
+                                    <select class="form-control" name="penerima_pip" id="penerima_pip">
+                                        <option selected value>Semua</option>
+                                        <option value="true">Ya</option>
+                                        <option value="false">Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama BANK</label>
+                                    <!-- <input class="form-control" type="text" name="pip_bank"> -->
+                                    <select class="form-control" name="pip_bank" id="pip_bank">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($bank as $key => $value) { ?>
+                                            <option value="<?= $value['id_bank'] ?>"><?= $value['bank'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Berkebutuhan Khusus</label>
+                                    <!-- <input class="form-control" type="text" name="berkebutuhan_khusus"> -->
+                                    <select class="form-control" name="berkebutuhan_khusus" id="berkebutuhan_khusus">
+                                        <option selected value>Semua</option>
+                                        <option value="true">Ya</option>
+                                        <option value="false">Tidak</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Anak ke</label>
+                                    <input class="form-control" type="number" name="anak_ke">
+                                </div>
+                                <div class="form-group">
+                                    <label>Jumlah Saudara Kandung</label>
+                                    <input class="form-control" type="number" name="jumlah_saudara_kandung">
+                                </div>
+                                <div class="form-group">
+                                    <label>Jarak Rumah ke Sekolah (KM)</label>
+                                    <select class="form-control" name="operator_jarak_rumah_ke_sekolah" id="operator_jarak_rumah_ke_sekolah">
+                                        <option selected value>-</option>
+                                        <option value="<">Kurang dari</option>
+                                        <option value="<=">Kurang dari sama dengan</option>
+                                        <option value="=">Sama dengan</option>
+                                        <option value=">=">Lebih dari sama dengan</option>
+                                        <option value=">">Lebih dari</option>
+                                    </select>
+                                    <input disabled class="form-control" type="number" name="jarak_rumah_ke_sekolah" id="jarak_rumah_ke_sekolah" placeholder="jarak dalam kilometer">
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Waktu Tempuh ke Sekolah (Menit)</label>
+                                    <select class="form-control" name="operator_waktu_tempuh_ke_sekolah" id="operator_waktu_tempuh_ke_sekolah">
+                                        <option selected value>-</option>
+                                        <option value="<">Kurang dari</option>
+                                        <option value="<=">Kurang dari sama dengan</option>
+                                        <option value="=">Sama dengan</option>
+                                        <option value=">=">Lebih dari sama dengan</option>
+                                        <option value=">">Lebih dari</option>
+                                    </select>
+                                    <input disabled class="form-control" type="number" name="waktu_tempuh_ke_sekolah" id="waktu_tempuh_ke_sekolah" placeholder="waktu dalam menit">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h2 class="panel-title">Data Ayah</h2>
+                                <div class="form-group">
+                                    <label>Pendidikan Ayah</label>
+                                    <!-- <input class="form-control" type="text" name="pendidikan_ayah"> -->
+                                    <select class="form-control" name="pendidikan_ayah" id="pendidikan_ayah">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($pendidikan as $key => $value) { ?>
+                                            <option value="<?= $value['id_pendidikan'] ?>"><?= $value['pendidikan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Pekerjaan Ayah</label>
+                                    <!-- <input class="form-control" type="text" name="pekerjaan_ayah"> -->
+                                    <select class="form-control" name="pekerjaan_ayah" id="pekerjaan_ayah">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($pekerjaan as $key => $value) { ?>
+                                            <option value="<?= $value['id_pekerjaan'] ?>"><?= $value['pekerjaan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Penghasilan Ayah</label>
+                                    <!-- <input class="form-control" type="text" name="penghasilan_ayah"> -->
+                                    <select class="form-control" name="penghasilan_ayah" id="penghasilan_ayah">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($penghasilan as $key => $value) { ?>
+                                            <option value="<?= $value['id_penghasilan'] ?>"><?= $value['penghasilan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <h2 class="panel-title">Data Ibu</h2>
+                                <div class="form-group">
+                                    <label>Pendidikan Ibu</label>
+                                    <!-- <input class="form-control" type="text" name="pendidikan_ibu"> -->
+                                    <select class="form-control" name="pendidikan_ibu" id="pendidikan_ibu">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($pendidikan as $key => $value) { ?>
+                                            <option value="<?= $value['id_pendidikan'] ?>"><?= $value['pendidikan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Pekerjaan Ibu</label>
+                                    <!-- <input class="form-control" type="text" name="pekerjaan_ibu"> -->
+                                    <select class="form-control" name="pekerjaan_ibu" id="pekerjaan_ibu">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($pekerjaan as $key => $value) { ?>
+                                            <option value="<?= $value['id_pekerjaan'] ?>"><?= $value['pekerjaan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Penghasilan Ibu</label>
+                                    <!-- <input class="form-control" type="text" name="penghasilan_ibu"> -->
+                                    <select class="form-control" name="penghasilan_ibu" id="penghasilan_ibu">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($penghasilan as $key => $value) { ?>
+                                            <option value="<?= $value['id_penghasilan'] ?>"><?= $value['penghasilan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <h2 class="panel-title"> Data Wali</h2>
+                                <div class="form-group">
+                                    <label>Pendidikan Wali</label>
+                                    <!-- <input class="form-control" type="text" name="pendidikan_wali"> -->
+                                    <select class="form-control" name="pendidikan_wali" id="pendidikan_wali">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($pendidikan as $key => $value) { ?>
+                                            <option value="<?= $value['id_pendidikan'] ?>"><?= $value['pendidikan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Pekerjaan Wali</label>
+                                    <!-- <input class="form-control" type="text" name="pekerjaan_wali"> -->
+                                    <select class="form-control" name="pekerjaan_wali" id="pekerjaan_wali">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($pekerjaan as $key => $value) { ?>
+                                            <option value="<?= $value['id_pekerjaan'] ?>"><?= $value['pekerjaan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Penghasilan Wali</label>
+                                    <!-- <input class="form-control" type="text" name="penghasilan_wali"> -->
+                                    <select class="form-control" name="penghasilan_wali" id="penghasilan_wali">
+                                        <option selected value>Semua</option>
+                                        <?php foreach ($penghasilan as $key => $value) { ?>
+                                            <option value="<?= $value['id_penghasilan'] ?>"><?= $value['penghasilan'] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
                     </div>
-                </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary btn-block" type="submit">Kirim</button>
+                        </form>
+                    </div>
+
+                </section>
             </section>
         </div>
     </section>
@@ -411,7 +413,7 @@
             }, {});
         };
 
-         
+
         $("select").change(function() {
             if (this.value != null || this.value != "") {
                 this.focus();
@@ -457,7 +459,7 @@
 
         $('#kecamatan').on("change", function() {
             var id_kec = $(this).val();
-            if (id_kec =="") {
+            if (id_kec == "") {
                 $('#desa').val('');
                 $('#desa').prop('disabled', true);
             } else {

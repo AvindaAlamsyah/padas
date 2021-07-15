@@ -25,8 +25,9 @@
     <!-- Specific Page Vendor CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.css" />
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.custom.css" />
-    <!-- <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/select2/select2.css" /> -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
+
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/stylesheets/theme.css" />
@@ -72,112 +73,115 @@
                             </li>
                             <li><span>Data Siswa</span></li>
                             <li><span>Filter</span></li>
+                            <li><span>Hasil</span></li>
                         </ol>
                     </div>
                 </header>
 
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="panel-footer">
+                <!-- start: page -->
+                <section class="panel">
+                    <header class="panel-heading">
+                        <div class="panel-actions">
                             <button type="button" class="btn btn-success" id="export">Export</button>
                         </div>
-                        <div class="panel-body">
-
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>nama_siswa</th>
-                                            <th>nipd</th>
-                                            <th>nisn</th>
-                                            <th>tempat_lahir</th>
-                                            <th>tanggal_lahir</th>
-                                            <th>nik_siswa</th>
-                                            <th>agama</th>
-                                            <th>nomor_telepon_rumah</th>
-                                            <th>nomor_telepon_seluler</th>
-                                            <th>email</th>
-                                            <th>rombel</th>
-                                            <th>nomor_registrasi_akta_lahir</th>
-                                            <th>anak_ke</th>
-                                            <th>nomor_kk</th>
-                                            <th>berat_badan_kg</th>
-                                            <th>tinggi_badan_cm</th>
-                                            <th>lingkar_kepala_cm</th>
-                                            <th>jumlah_saudara_kandung</th>
-                                            <th>jarak_tempat_tinggal_ke_sekolah_km</th>
-                                            <th>gender</th>
-                                            <th>moda_transportasi</th>
-                                            <th>tempat_tinggal</th>
-                                            <th>nomor_skhun</th>
-                                            <th>nomor_peserta_ujian</th>
-                                            <th>no_seri_ijazah</th>
-                                            <th>asal_sekolah</th>
-                                            <th>kompetensi_keahlian</th>
-                                            <th>detail_alamat</th>
-                                            <th>rt</th>
-                                            <th>rw</th>
-                                            <th>dusun</th>
-                                            <th>kode_pos</th>
-                                            <th>lintang</th>
-                                            <th>bujur</th>
-                                            <th>desa</th>
-                                            <th>kecamatan</th>
-                                            <th>kabupaten</th>
-                                            <th>provinsi</th>
-                                            <th>nama_ayah</th>
-                                            <th>tahun_lahir_ayah</th>
-                                            <th>nik_ayah</th>
-                                            <th>pendidikan_ayah</th>
-                                            <th>pekerjaan_ayah</th>
-                                            <th>penghasilan_ayah</th>
-                                            <th>nama_ibu</th>
-                                            <th>tahun_lahir_ibu</th>
-                                            <th>nik_ibu</th>
-                                            <th>pendidikan_ibu</th>
-                                            <th>pekerjaan_ibu</th>
-                                            <th>penghasilan_ibu</th>
-                                            <th>nama_wali</th>
-                                            <th>nik_wali</th>
-                                            <th>pendidikan_wali</th>
-                                            <th>pekerjaan_wali</th>
-                                            <th>penghasilan_wali</th>
-                                            <th>nomor_kks</th>
-                                            <th>id_kip</th>
-                                            <th>nomor_kip</th>
-                                            <th>nama_tertera_kip</th>
-                                            <th>id_pkh</th>
-                                            <th>nomor_pkh</th>
-                                            <th>id_kps</th>
-                                            <th>nomor_kps</th>
-                                            <th>id_pip</th>
-                                            <th>nomor_rekening</th>
-                                            <th>rekening_atas_nama</th>
-                                            <th>alasan_layak_pip</th>
-                                            <th>bank</th>
-                                            <th>berkebutuhan_khusus_siswa</th>
-                                        <tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php 
-                                        $i = 1;
-                                        foreach ($data as $key => $value) {
-                                            echo '<tr>'; ?>
-                                            <td><?= $i;
-                                                $i++; ?></td>
-                                            <?php foreach ($value as $key => $value) { ?>
-                                                <td><?= $value ?></td>
-                                        <?php }
-                                            echo '</tr>';
-                                        } ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                        <h2 class="panel-title">Hasil Filter</h2>
+                    </header>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped mb-none" id="datatable-filter-result">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>nama_siswa</th>
+                                        <th>nipd</th>
+                                        <th>nisn</th>
+                                        <th>tempat_lahir</th>
+                                        <th>tanggal_lahir</th>
+                                        <th>nik_siswa</th>
+                                        <th>agama</th>
+                                        <th>nomor_telepon_rumah</th>
+                                        <th>nomor_telepon_seluler</th>
+                                        <th>email</th>
+                                        <th>rombel</th>
+                                        <th>nomor_registrasi_akta_lahir</th>
+                                        <th>anak_ke</th>
+                                        <th>nomor_kk</th>
+                                        <th>berat_badan_kg</th>
+                                        <th>tinggi_badan_cm</th>
+                                        <th>lingkar_kepala_cm</th>
+                                        <th>jumlah_saudara_kandung</th>
+                                        <th>jarak_tempat_tinggal_ke_sekolah_km</th>
+                                        <th>gender</th>
+                                        <th>moda_transportasi</th>
+                                        <th>tempat_tinggal</th>
+                                        <th>nomor_skhun</th>
+                                        <th>nomor_peserta_ujian</th>
+                                        <th>no_seri_ijazah</th>
+                                        <th>asal_sekolah</th>
+                                        <th>kompetensi_keahlian</th>
+                                        <th>detail_alamat</th>
+                                        <th>rt</th>
+                                        <th>rw</th>
+                                        <th>dusun</th>
+                                        <th>kode_pos</th>
+                                        <th>lintang</th>
+                                        <th>bujur</th>
+                                        <th>desa</th>
+                                        <th>kecamatan</th>
+                                        <th>kabupaten</th>
+                                        <th>provinsi</th>
+                                        <th>nama_ayah</th>
+                                        <th>tahun_lahir_ayah</th>
+                                        <th>nik_ayah</th>
+                                        <th>pendidikan_ayah</th>
+                                        <th>pekerjaan_ayah</th>
+                                        <th>penghasilan_ayah</th>
+                                        <th>nama_ibu</th>
+                                        <th>tahun_lahir_ibu</th>
+                                        <th>nik_ibu</th>
+                                        <th>pendidikan_ibu</th>
+                                        <th>pekerjaan_ibu</th>
+                                        <th>penghasilan_ibu</th>
+                                        <th>nama_wali</th>
+                                        <th>nik_wali</th>
+                                        <th>pendidikan_wali</th>
+                                        <th>pekerjaan_wali</th>
+                                        <th>penghasilan_wali</th>
+                                        <th>nomor_kks</th>
+                                        <th>id_kip</th>
+                                        <th>nomor_kip</th>
+                                        <th>nama_tertera_kip</th>
+                                        <th>id_pkh</th>
+                                        <th>nomor_pkh</th>
+                                        <th>id_kps</th>
+                                        <th>nomor_kps</th>
+                                        <th>id_pip</th>
+                                        <th>nomor_rekening</th>
+                                        <th>rekening_atas_nama</th>
+                                        <th>alasan_layak_pip</th>
+                                        <th>bank</th>
+                                        <th>berkebutuhan_khusus_siswa</th>
+                                    <tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $i = 1;
+                                    foreach ($data as $key => $value) {
+                                        echo '<tr>'; ?>
+                                        <td><?= $i;
+                                            $i++; ?></td>
+                                        <?php foreach ($value as $key => $value) { ?>
+                                            <td><?= $value ?></td>
+                                    <?php }
+                                        echo '</tr>';
+                                    } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-                </div>
-            </section>
+
+                    </se>
+                </section>
         </div>
     </section>
 
@@ -192,12 +196,13 @@
 
     <!-- Specific Page Vendor -->
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-validation/jquery.validate.js"></script>
-    <script src="<?php echo base_url('/'); ?>assets/vendor/bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
-    <!-- <script src="<?php echo base_url('/'); ?>assets/vendor/select2/select2.js"></script> -->
     <script src="<?php echo base_url('/'); ?>assets/vendor/select2/js/select2.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
 
     <!-- Theme Base, Components and Settings -->
     <script src="<?php echo base_url('/'); ?>assets/js/theme.js"></script>
@@ -207,6 +212,12 @@
 
     <!-- Theme Initialization Files -->
     <script src="<?php echo base_url('/'); ?>assets/js/theme.init.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#datatable-filter-result').dataTable();
+
+        })
+    </script>
     <script>
         document.getElementById("export").addEventListener("click", (e) => {
             e.preventDefault()
