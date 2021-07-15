@@ -87,101 +87,100 @@
                         <h2 class="panel-title">Hasil Filter</h2>
                     </header>
                     <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped mb-none" id="datatable-filter-result">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>nama_siswa</th>
-                                        <th>nipd</th>
-                                        <th>nisn</th>
-                                        <th>tempat_lahir</th>
-                                        <th>tanggal_lahir</th>
-                                        <th>nik_siswa</th>
-                                        <th>agama</th>
-                                        <th>nomor_telepon_rumah</th>
-                                        <th>nomor_telepon_seluler</th>
-                                        <th>email</th>
-                                        <th>rombel</th>
-                                        <th>nomor_registrasi_akta_lahir</th>
-                                        <th>anak_ke</th>
-                                        <th>nomor_kk</th>
-                                        <th>berat_badan_kg</th>
-                                        <th>tinggi_badan_cm</th>
-                                        <th>lingkar_kepala_cm</th>
-                                        <th>jumlah_saudara_kandung</th>
-                                        <th>jarak_tempat_tinggal_ke_sekolah_km</th>
-                                        <th>gender</th>
-                                        <th>moda_transportasi</th>
-                                        <th>tempat_tinggal</th>
-                                        <th>nomor_skhun</th>
-                                        <th>nomor_peserta_ujian</th>
-                                        <th>no_seri_ijazah</th>
-                                        <th>asal_sekolah</th>
-                                        <th>kompetensi_keahlian</th>
-                                        <th>detail_alamat</th>
-                                        <th>rt</th>
-                                        <th>rw</th>
-                                        <th>dusun</th>
-                                        <th>kode_pos</th>
-                                        <th>lintang</th>
-                                        <th>bujur</th>
-                                        <th>desa</th>
-                                        <th>kecamatan</th>
-                                        <th>kabupaten</th>
-                                        <th>provinsi</th>
-                                        <th>nama_ayah</th>
-                                        <th>tahun_lahir_ayah</th>
-                                        <th>nik_ayah</th>
-                                        <th>pendidikan_ayah</th>
-                                        <th>pekerjaan_ayah</th>
-                                        <th>penghasilan_ayah</th>
-                                        <th>nama_ibu</th>
-                                        <th>tahun_lahir_ibu</th>
-                                        <th>nik_ibu</th>
-                                        <th>pendidikan_ibu</th>
-                                        <th>pekerjaan_ibu</th>
-                                        <th>penghasilan_ibu</th>
-                                        <th>nama_wali</th>
-                                        <th>nik_wali</th>
-                                        <th>pendidikan_wali</th>
-                                        <th>pekerjaan_wali</th>
-                                        <th>penghasilan_wali</th>
-                                        <th>nomor_kks</th>
-                                        <th>id_kip</th>
-                                        <th>nomor_kip</th>
-                                        <th>nama_tertera_kip</th>
-                                        <th>id_pkh</th>
-                                        <th>nomor_pkh</th>
-                                        <th>id_kps</th>
-                                        <th>nomor_kps</th>
-                                        <th>id_pip</th>
-                                        <th>nomor_rekening</th>
-                                        <th>rekening_atas_nama</th>
-                                        <th>alasan_layak_pip</th>
-                                        <th>bank</th>
-                                        <th>berkebutuhan_khusus_siswa</th>
-                                    <tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $i = 1;
-                                    foreach ($data as $key => $value) {
-                                        echo '<tr>'; ?>
-                                        <td><?= $i;
-                                            $i++; ?></td>
-                                        <?php foreach ($value as $key => $value) { ?>
-                                            <td><?= $value ?></td>
-                                    <?php }
-                                        echo '</tr>';
-                                    } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        <table class="table table-bordered table-striped mb-none" id="datatable-filter-result">
+                            <thead>
+                                <tr>
+                                    <td>no</td>
+                                    <td>nama_siswa</td>
+                                    <td>nipd</td>
+                                    <td>nisn</td>
+                                    <td>tempat_lahir</td>
+                                    <td>tanggal_lahir</td>
+                                    <td>nik_siswa</td>
+                                    <td>agama</td>
+                                    <td>nomor_telepon_rumah</td>
+                                    <td>nomor_telepon_seluler</td>
+                                    <td>email</td>
+                                    <td>rombel</td>
+                                    <td>nomor_registrasi_akta_lahir</td>
+                                    <td>anak_ke</td>
+                                    <td>nomor_kk</td>
+                                    <td>berat_badan_kg</td>
+                                    <td>tinggi_badan_cm</td>
+                                    <td>lingkar_kepala_cm</td>
+                                    <td>jumlah_saudara_kandung</td>
+                                    <td>jarak_tempat_tinggal_ke_sekolah_km</td>
+                                    <td>gender</td>
+                                    <td>moda_transportasi</td>
+                                    <td>tempat_tinggal</td>
+                                    <td>nomor_skhun</td>
+                                    <td>nomor_peserta_ujian</td>
+                                    <td>no_seri_ijazah</td>
+                                    <td>asal_sekolah</td>
+                                    <td>kompetensi_keahlian</td>
+                                    <td>detail_alamat</td>
+                                    <td>rt</td>
+                                    <td>rw</td>
+                                    <td>dusun</td>
+                                    <td>kode_pos</td>
+                                    <td>lintang</td>
+                                    <td>bujur</td>
+                                    <td>desa</td>
+                                    <td>kecamatan</td>
+                                    <td>kabupaten</td>
+                                    <td>provinsi</td>
+                                    <td>nama_ayah</td>
+                                    <td>tahun_lahir_ayah</td>
+                                    <td>nik_ayah</td>
+                                    <td>pendidikan_ayah</td>
+                                    <td>pekerjaan_ayah</td>
+                                    <td>penghasilan_ayah</td>
+                                    <td>nama_ibu</td>
+                                    <td>tahun_lahir_ibu</td>
+                                    <td>nik_ibu</td>
+                                    <td>pendidikan_ibu</td>
+                                    <td>pekerjaan_ibu</td>
+                                    <td>penghasilan_ibu</td>
+                                    <td>nama_wali</td>
+                                    <td>tahun_lahir_wali</td>
+                                    <td>nik_wali</td>
+                                    <td>pendidikan_wali</td>
+                                    <td>pekerjaan_wali</td>
+                                    <td>penghasilan_wali</td>
+                                    <td>nomor_kks</td>
+                                    <td>id_kip</td>
+                                    <td>nomor_kip</td>
+                                    <td>nama_tertera_kip</td>
+                                    <td>id_pkh</td>
+                                    <td>nomor_pkh</td>
+                                    <td>id_kps</td>
+                                    <td>nomor_kps</td>
+                                    <td>id_pip</td>
+                                    <td>nomor_rekening</td>
+                                    <td>rekening_atas_nama</td>
+                                    <td>alasan_layak_pip</td>
+                                    <td>bank</td>
+                                    <td>berkebutuhan_khusus_siswa</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 1;
+                                foreach ($data as $key => $value) {
+                                    echo '<tr>'; ?>
+                                    <td><?= $i;
+                                        $i++; ?></td>
+                                    <?php foreach ($value as $key => $value) { ?>
+                                        <td><?= $value ?></td>
+                                <?php }
+                                    echo '</tr>';
+                                } ?>
+                            </tbody>
+                        </table>
 
-                    </se>
+                    </div>
                 </section>
+            </section>
         </div>
     </section>
 
