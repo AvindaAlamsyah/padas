@@ -171,7 +171,7 @@
                                     <td><?= $i;
                                         $i++; ?></td>
                                     <?php foreach ($value as $key => $value) { ?>
-                                        <td><?= $value ?></td>
+                                        <td><?php printx($value); ?></td>
                                 <?php }
                                     echo '</tr>';
                                 } ?>

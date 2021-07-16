@@ -118,7 +118,7 @@ class Filter_model extends CI_Model
         pkh.id_pkh, pkh.nomor_pkh,
         kps.id_kps, kps.nomor_kps,
         pip.id_pip, pip.nomor_rekening, pip.rekening_atas_nama,  alasan_layak_pip.alasan_layak_pip, bank.bank,
-        GROUP_CONCAT(berkebutuhan_khusus_siswa.berkebutuhan_khusus SEPARATOR ',') berkebutuhan_khusus_siswa");
+        GROUP_CONCAT(DISTINCT berkebutuhan_khusus_siswa.berkebutuhan_khusus SEPARATOR ',') berkebutuhan_khusus_siswa");
         $this->db->from('siswa');
         $this->db->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = siswa.tahun_ajaran_id_tahun_ajaran', 'inner');
         $this->db->join('gender', 'gender.id_gender = siswa.gender_id_gender', 'inner');
@@ -173,7 +173,6 @@ class Filter_model extends CI_Model
         $this->db->order_by('siswa.nama', 'asc');
             
         return $this->db->get();
-
     }
 }
 
