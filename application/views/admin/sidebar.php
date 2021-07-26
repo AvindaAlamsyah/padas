@@ -19,6 +19,12 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="<?php echo base_url('admin/filter'); ?>">
+                            <i class="fa fa-filter" aria-hidden="true"></i>
+                            Filter Data Siswa
+                        </a>
+                    </li>
                     <li class="nav-parent nav-expanded nav-active">
                         <a>
                             <i class="fa fa-users" aria-hidden="true"></i>
@@ -31,7 +37,7 @@
                                     Database Siswa
                                 </a>
                             </li>
-                            <li class="nav-active">
+                            <li>
                                 <a href="<?php echo base_url('admin/data_siswa/tambah_data_siswa'); ?>">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                     Tambah Data

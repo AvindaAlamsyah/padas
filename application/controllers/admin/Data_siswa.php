@@ -29,6 +29,26 @@ class Data_siswa extends CI_Controller
 
     public function index()
     {
+        $data = array(
+            'data' => $this->siswa_model->get_siswa_aktif()->result()
+        );
+        $this->load->view('admin/data_siswa', $data);
+    }
+
+    public function detail_siswa($id_siswa = null)
+    {
+        if ($id_siswa != null) {
+            $data = $this->siswa_model->select_where(array('id_siswa' => $id_siswa))->row();
+            // echo json_encode($data);
+            $this->load->view('admin/detail_siswa', $data);
+        } else {
+            echo "kosong ges";
+        }
+    }
+
+    public function test()
+    {
+        echo json_encode($this->siswa_model->get_siswa_aktif()->result());
     }
 
     public function tambah_data_siswa()
