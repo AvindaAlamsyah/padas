@@ -26,7 +26,7 @@ class Filter_model extends CI_Model
         `kip`.`id_kip`, `kip`.`nomor_kip`, `kip`.`nama_tertera_kip`,
         `pkh`.`id_pkh`, `pkh`.`nomor_pkh`,
         `kps`.`id_kps`, `kps`.`nomor_kps`,
-        `pip`.`id_pip`, `pip`.`nomor_rekening`, `pip`.`rekening_atas_nama`,  `alasan_layak_pip`.`alasan_layak_pip`, `bank`.`bank`,
+        `pip`.`id_pip`, `pip`.`nomor_rekening`, `pip`.`rekening_atas_nama`,  `alasan_layak_pip`.`alasan_layak_pip`, 
         GROUP_CONCAT(berkebutuhan_khusus_siswa.berkebutuhan_khusus SEPARATOR ',') berkebutuhan_khusus_siswa
         FROM `siswa`
         JOIN `tahun_ajaran` ON `tahun_ajaran`.`id_tahun_ajaran` = `siswa`.`tahun_ajaran_id_tahun_ajaran`
@@ -104,35 +104,20 @@ class Filter_model extends CI_Model
 
     function safe_filter($where)
     {
-        $this->db->select("siswa.nama nama_siswa, siswa.nipd, siswa.nisn, siswa.tempat_lahir, siswa.tanggal_lahir, siswa.nik nik_siswa, siswa.agama, siswa.nomor_telepon_rumah, siswa.nomor_telepon_seluler, siswa.email, siswa.rombel, siswa.nomor_registrasi_akta_lahir, siswa.anak_ke, siswa.nomor_kk, siswa.berat_badan_kg, siswa.tinggi_badan_cm, siswa.lingkar_kepala_cm, siswa.jumlah_saudara_kandung, siswa.jarak_tempat_tinggal_ke_sekolah_km,
-        gender.gender,
-        moda_transportasi.moda_transportasi,
-        tempat_tinggal.tempat_tinggal,
-        pendaftaran_masuk.nomor_skhun, pendaftaran_masuk.nomor_peserta_ujian, pendaftaran_masuk.no_seri_ijazah, pendaftaran_masuk.asal_sekolah,  kompetensi_keahlian.kompetensi_keahlian,
-        alamat.detail_alamat, alamat.rt, alamat.rw, alamat.dusun, alamat.kode_pos, alamat.lintang, alamat.bujur, desa.desa, kecamatan.kecamatan, kabupaten.kabupaten, provinsi.provinsi,
-        ayah.nama nama_ayah, ayah.tahun_lahir tahun_lahir_ayah, ayah.nik nik_ayah, pendidikan_ayah.pendidikan pendidikan_ayah, pekerjaan_ayah.pekerjaan pekerjaan_ayah, penghasilan_ayah.penghasilan penghasilan_ayah,
-        ibu.nama nama_ibu, ibu.tahun_lahir tahun_lahir_ibu, ibu.nik nik_ibu, pendidikan_ibu.pendidikan pendidikan_ibu, pekerjaan_ibu.pekerjaan pekerjaan_ibu, penghasilan_ibu.penghasilan penghasilan_ibu,
-        wali.nama nama_wali, wali.tahun_lahir tahun_lahir_wali, wali.nik nik_wali, pendidikan_wali.pendidikan pendidikan_wali, pekerjaan_wali.pekerjaan pekerjaan_wali, penghasilan_wali.penghasilan penghasilan_wali,
-        kks.nomor_kks,
-        kip.id_kip, kip.nomor_kip, kip.nama_tertera_kip,
-        pkh.id_pkh, pkh.nomor_pkh,
-        kps.id_kps, kps.nomor_kps,
-        pip.id_pip, pip.nomor_rekening, pip.rekening_atas_nama,  alasan_layak_pip.alasan_layak_pip, bank.bank,
-        GROUP_CONCAT(DISTINCT berkebutuhan_khusus_siswa.berkebutuhan_khusus SEPARATOR ',') berkebutuhan_khusus_siswa");
+        $this->db->select("siswa.id_siswa");
         $this->db->from('siswa');
-        $this->db->join('tahun_ajaran', 'tahun_ajaran.id_tahun_ajaran = siswa.tahun_ajaran_id_tahun_ajaran', 'inner');
-        $this->db->join('gender', 'gender.id_gender = siswa.gender_id_gender', 'inner');
-        $this->db->join('moda_transportasi', 'moda_transportasi.id_moda_transportasi = siswa.moda_transportasi_id_moda_transportasi', 'inner');
-        $this->db->join('tempat_tinggal', 'tempat_tinggal.id_tempat_tinggal = siswa.tempat_tinggal_id_tempat_tinggal', 'inner');
-        $this->db->join('pendaftaran_masuk', 'siswa.id_siswa = pendaftaran_masuk.siswa_id_siswa', 'inner');
-        $this->db->join('jenis_pendaftaran_masuk', 'jenis_pendaftaran_masuk.id_jenis_pendaftaran_masuk = pendaftaran_masuk.jenis_pendaftaran_masuk_id_jenis_pendaftaran_masuk', 'inner');
-        $this->db->join('tahun_ajaran tahun_ajaran_pendaftaran_masuk', 'tahun_ajaran_pendaftaran_masuk.id_tahun_ajaran = pendaftaran_masuk.tahun_ajaran_id_tahun_ajaran', 'inner');
-        $this->db->join('kompetensi_keahlian', 'kompetensi_keahlian.id_kompetensi_keahlian = pendaftaran_masuk.kompetensi_keahlian_id_kompetensi_keahlian', 'inner');
-        $this->db->join('alamat', 'siswa.id_siswa = alamat.siswa_id_siswa', 'inner');
-        $this->db->join('desa', 'desa.id_desa = alamat.desa_id_desa', 'inner');
-        $this->db->join('kecamatan', 'kecamatan.id_kecamatan = desa.kecamatan_id_kecamatan', 'inner');
-        $this->db->join('kabupaten', 'kabupaten.id_kabupaten = kecamatan.kabupaten_id_kabupaten', 'inner');
-        $this->db->join('provinsi', 'provinsi.id_provinsi = kabupaten.provinsi_id_provinsi', 'inner');
+        $this->db->join('gender', 'gender.id_gender = siswa.gender_id_gender', 'left');
+        $this->db->join('agama', 'agama.id_agama = siswa.agama_id_agama', 'left');
+        $this->db->join('moda_transportasi', 'moda_transportasi.id_moda_transportasi = siswa.moda_transportasi_id_moda_transportasi', 'left');
+        $this->db->join('pendaftaran_masuk', 'siswa.id_siswa = pendaftaran_masuk.siswa_id_siswa', 'left');
+        $this->db->join('jenis_pendaftaran_masuk', 'jenis_pendaftaran_masuk.id_jenis_pendaftaran_masuk = pendaftaran_masuk.jenis_pendaftaran_diterima', 'left');
+        $this->db->join('tahun_ajaran tahun_ajaran_pendaftaran_masuk', 'tahun_ajaran_pendaftaran_masuk.id_tahun_ajaran = pendaftaran_masuk.tahun_ajaran_id_tahun_ajaran', 'left');
+        $this->db->join('kompetensi_keahlian', 'kompetensi_keahlian.id_kompetensi_keahlian = pendaftaran_masuk.kompetensi_keahlian_diterima', 'left');
+        $this->db->join('alamat', 'siswa.id_siswa = alamat.siswa_id_siswa', 'left');
+        $this->db->join('desa', 'desa.id_desa = alamat.desa_id_desa', 'left');
+        $this->db->join('kecamatan', 'kecamatan.id_kecamatan = desa.kecamatan_id_kecamatan', 'left');
+        $this->db->join('kabupaten', 'kabupaten.id_kabupaten = kecamatan.kabupaten_id_kabupaten', 'left');
+        $this->db->join('provinsi', 'provinsi.id_provinsi = kabupaten.provinsi_id_provinsi', 'left');
         $this->db->join('ayah', 'siswa.id_siswa = ayah.siswa_id_siswa', 'left');
         $this->db->join('pendidikan pendidikan_ayah', 'pendidikan_ayah.id_pendidikan = ayah.pendidikan_id_pendidikan', 'left');
         $this->db->join('pekerjaan pekerjaan_ayah', 'pekerjaan_ayah.id_pekerjaan = ayah.pekerjaan_id_pekerjaan', 'left');
@@ -152,11 +137,9 @@ class Filter_model extends CI_Model
         $this->db->join('jenis_beasiswa', 'jenis_beasiswa.id_jenis_beasiswa = beasiswa.id_beasiswa', 'left');
         $this->db->join('kks', 'siswa.id_siswa = kks.siswa_id_siswa', 'left');
         $this->db->join('kip', 'siswa.id_siswa = kip.siswa_id_siswa', 'left');
-        $this->db->join('pkh', 'siswa.id_siswa = pkh.siswa_id_siswa', 'left');
-        $this->db->join('kps', 'siswa.id_siswa = kps.siswa_id_siswa', 'left');
+        $this->db->join('kps_pkh', 'siswa.id_siswa = kps_pkh.siswa_id_siswa', 'left');
         $this->db->join('pip', 'siswa.id_siswa = pip.siswa_id_siswa', 'left');
         $this->db->join('alasan_layak_pip', 'alasan_layak_pip.id_alasan_layak_pip = pip.alasan_layak_pip_id_alasan_layak_pip', 'left');
-        $this->db->join('bank', 'bank.id_bank = pip.bank_id_bank', 'left');
         $this->db->join('pendaftaran_keluar', 'siswa.id_siswa = pendaftaran_keluar.siswa_id_siswa', 'left');
         $this->db->join('jenis_pendaftaran_keluar', 'jenis_pendaftaran_keluar.id_jenis_pendaftaran_keluar = pendaftaran_keluar.jenis_pendaftaran_keluar_id_jenis_pendaftaran_keluar', 'left');
         $this->db->join('siswa_has_berkebutuhan_khusus', 'siswa.id_siswa = siswa_has_berkebutuhan_khusus.siswa_id_siswa', 'left');
@@ -171,8 +154,8 @@ class Filter_model extends CI_Model
         $this->db->where($where);
         $this->db->group_by('siswa.id_siswa');
         $this->db->order_by('siswa.nama', 'asc');
-            
         return $this->db->get();
+
     }
 }
 

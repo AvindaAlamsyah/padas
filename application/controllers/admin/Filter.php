@@ -12,6 +12,7 @@ class Filter extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('agama_model');
         $this->load->model('bank_model');
         $this->load->model('filter_model');
         $this->load->model('gender_model');
@@ -27,8 +28,8 @@ class Filter extends CI_Controller
     public function index()
     {
         $context = array(
-            'bank' => $this->bank_model->select_all()->result_array(),
             'gender' => $this->gender_model->select_all()->result_array(),
+            'agama' => $this->agama_model->select_all()->result_array(),
             'moda_transportasi' => $this->moda_transportasi_model->select_all()->result_array(),
             'tempat_tinggal' => $this->tempat_tinggal_model->select_all()->result_array(),
             'pendidikan' => $this->pendidikan_model->select_all()->result_array(),
@@ -40,14 +41,27 @@ class Filter extends CI_Controller
 
     public function result()
     {
+        $this->load->view('admin/filter_result');
+    }
+
+    public function filter_result()
+    {
         $where = $this->generate_where();
-        $data = $this->filter_model->safe_filter($where)->result_array();
+        $filter = $this->filter_model->safe_filter($where)->result_array();
+        $all_data = $this->get_all_data();
 
-        $context = array(
-            "data" => $data,
-        );
+        $data = array();
 
-        $this->load->view('admin/filter_result', $context);
+        foreach ($all_data as $key => $value) {
+            foreach ($filter as $key2 => $value2) {
+                if ($value['id_siswa'] == $value2['id_siswa']) {
+                    array_push($data, $value);
+                    unset($filter[$key2]);
+                }
+            }
+        }
+        header('application/json');
+        echo json_encode(["data" => $data]);
     }
 
     public function export()
@@ -278,15 +292,14 @@ class Filter extends CI_Controller
         $operator_jarak_rumah_ke_sekolah = trim($this->input->get('operator_jarak_rumah_ke_sekolah'));
         $operator_waktu_tempuh_ke_sekolah = trim($this->input->get('operator_waktu_tempuh_ke_sekolah'));
         $filter_siswa = array(
-            'siswa.agama' => trim($this->input->get('agama')),
+            'siswa.agama_id_agama' => trim($this->input->get('agama')),
             'siswa.gender_id_gender' => trim($this->input->get('gender')),
-            'siswa.tempat_tinggal_id_tempat_tinggal' => trim($this->input->get('tempat_tinggal')),
+            'alamat.tempat_tinggal_id_tempat_tinggal' => trim($this->input->get('tempat_tinggal')),
             'siswa.moda_transportasi_id_moda_transportasi' => trim($this->input->get('moda_transportasi')),
             'siswa.anak_ke' => trim($this->input->get('anak_ke')),
             'siswa.jumlah_saudara_kandung' => trim($this->input->get('jumlah_saudara_kandung')),
             'kecamatan.id_kecamatan' => trim($this->input->get('kecamatan')),
             'desa.id_desa' => trim($this->input->get('desa')),
-            'pip.bank_id_bank' => trim($this->input->get('pip_bank')),
             'ayah.pendidikan_id_pendidikan' => trim($this->input->get('pendidikan_ayah')),
             'ayah.pekerjaan_id_pekerjaan' => trim($this->input->get('pekerjaan_ayah')),
             'ayah.penghasilan_id_penghasilan' => trim($this->input->get('penghasilan_ayah')),
@@ -301,16 +314,16 @@ class Filter extends CI_Controller
             'siswa_has_berkebutuhan_khusus.berkebutuhan_khusus_id_berkebutuhan_khusus' => trim($this->input->get('berkebutuhan_khusus')),
             'beasiswa.id_beasiswa' => trim($this->input->get('penerima_beasiswa')),
             'prestasi.id_prestasi' => trim($this->input->get('penerima_prestasi')),
-            'pkh.id_pkh' => trim($this->input->get('penerima_pkh')),
-            'kps.id_kps' => trim($this->input->get('penerima_kps')),
+            'pkh_kps.id_pkh_kps' => trim($this->input->get('penerima_pkh_kps')),
             'kip.id_kip' => trim($this->input->get('penerima_kip')),
             'kks.id_kks' => trim($this->input->get('penerima_kks')),
             'pip.alasan_layak_pip_id_alasan_layak_pip' => trim($this->input->get('penerima_pip')),
             'pendaftaran_keluar.id_pendaftaran_keluar' => trim($this->input->get('status_siswa')),
+            'pip.bank' => trim($this->input->get('pip_bank')),
         );
 
         if (!empty($operator_jarak_rumah_ke_sekolah)) {
-            $filter_siswa["siswa.jarak_tempat_tinggal_ke_sekolah_km $operator_jarak_rumah_ke_sekolah"] = trim($this->input->get('jarak_rumah_ke_sekolah'));
+            $filter_siswa["siswa.jarak_tempat_tinggal_ke_sekolah_m $operator_jarak_rumah_ke_sekolah"] = trim($this->input->get('jarak_rumah_ke_sekolah'));
         }
         if (!empty($operator_waktu_tempuh_ke_sekolah)) {
             $filter_siswa["siswa.waktu_tempuh_ke_sekolah_menit $operator_waktu_tempuh_ke_sekolah"] = trim($this->input->get('waktu_tempuh_ke_sekolah'));
@@ -337,13 +350,13 @@ class Filter extends CI_Controller
             }
         }
 
+        $where['siswa.deleted_at ='] = null;
+
         return $where;
     }
 
-    public function new()
+    private function get_all_data()
     {
-        $start = microtime(true);
-
         $data_pribadi = $this->view_model->select_view_data_pribadi()->result_array();
         $compact_data_pribadi = $this->compact_data_pribadi($data_pribadi);
 
@@ -407,6 +420,18 @@ class Filter extends CI_Controller
         $combine_pendaftaran_masuk = $this->combine($combine_pendaftaran_masuk, $compact_mean_mapel);
 
 
+        $combine = $this->combine($compact_data_pribadi, $alamat_dan_domisili, 'alamat');
+        $combine = $this->combine($combine, $compact_bantuan_tidak_mampu, 'bantuan_tidak_mampu');
+        $combine = $this->combine($combine, $compact_ayah, 'ayah');
+        $combine = $this->combine($combine, $compact_ibu, 'ibu');
+        $combine = $this->combine($combine, $compact_wali, 'wali');
+        $combine = $this->combine($combine, $combine_kontak_siswa, 'kontak_siswa');
+        $combine = $this->combine($combine, $combine_data_periodik, 'data_periodik');
+        $combine = $this->combine($combine, $compact_prestasi);
+        $combine = $this->combine($combine, $compact_beasiswa);
+        $combine = $this->combine($combine, $combine_pendaftaran_masuk, 'registrasi');
+        $combine = $this->combine($combine, $compact_data_proses_pembelajaran);
+
         // $data_combine = array(
         //     [$alamat_dan_domisili, 'alamat'],
         //     [$compact_bantuan_tidak_mampu, 'bantuan_tidak_mampu'],
@@ -423,32 +448,8 @@ class Filter extends CI_Controller
 
         // $combine = $this->combine2($compact_data_pribadi, $data_combine);
 
-        $combine = $this->combine($compact_data_pribadi, $alamat_dan_domisili, 'alamat');
-        $combine = $this->combine($combine, $compact_bantuan_tidak_mampu, 'bantuan_tidak_mampu');
-        $combine = $this->combine($combine, $compact_ayah, 'ayah');
-        $combine = $this->combine($combine, $compact_ibu, 'ibu');
-        $combine = $this->combine($combine, $compact_wali, 'wali');
-        $combine = $this->combine($combine, $combine_kontak_siswa, 'kontak_siswa');
-        $combine = $this->combine($combine, $combine_data_periodik, 'data_periodik');
-        $combine = $this->combine($combine, $compact_prestasi);
-        $combine = $this->combine($combine, $compact_beasiswa);
-        $combine = $this->combine($combine, $combine_pendaftaran_masuk, 'registrasi');
-        $combine = $this->combine($combine, $compact_data_proses_pembelajaran);
 
-
-        header('Content-Type: application/json');
-        // echo json_encode($mean_mapel);
-        echo json_encode($combine);
-        // echo json_encode(array_slice($combine, 300, 399));
-
-        // foreach ($mean_mapel[0] as $key => $value) {
-        //     echo "\"$key\" => " . '$' . "value[\"$key\"], <br>";
-        // }
-
-
-        // $end = microtime(true);
-        // $time = number_format(($end - $start), 7);
-        // echo 'This page loaded in ', $time, ' seconds';
+        return $combine;
     }
 
     private function combine2($parent, $child)
@@ -458,7 +459,7 @@ class Filter extends CI_Controller
             foreach ($child as $value_child) {
                 $tag = $value_child[1];
                 if (!empty($tag)) {
-                    foreach ($value_child[0] as $data) {
+                    foreach ($value_child[0] as $idx => $data) {
                         if ($value_parent['id_siswa'] == $data["id_siswa"]) {
                             foreach ($data as $key => $value2) {
                                 if ($key == "id_siswa") {
@@ -466,10 +467,11 @@ class Filter extends CI_Controller
                                 }
                                 $parent[$i][$tag][$key] = $value2;
                             }
+                            unset($value_child[0][$idx]);
                         }
                     }
                 } else {
-                    foreach ($value_child[0] as $data) {
+                    foreach ($value_child[0] as $idx => $data) {
                         if ($value_parent['id_siswa'] == $data["id_siswa"]) {
                             foreach ($data as $key => $value2) {
                                 if ($key == "id_siswa") {
@@ -477,6 +479,7 @@ class Filter extends CI_Controller
                                 }
                                 $parent[$i][$key] = $value2;
                             }
+                            unset($value_child[0][$idx]);
                         }
                     }
                 }
@@ -497,8 +500,9 @@ class Filter extends CI_Controller
                             if ($key == "id_siswa") {
                                 continue;
                             }
-                            $parent[$i][$tag][$key] = $value2[$key];
+                            $parent[$i][$tag][$key] = $value3;
                         }
+                        unset($child[$key2]);
                     }
                 }
                 $i++;
@@ -511,8 +515,9 @@ class Filter extends CI_Controller
                             if ($key == "id_siswa") {
                                 continue;
                             }
-                            $parent[$i][$key] = $value2[$key];
+                            $parent[$i][$key] = $value3;
                         }
+                        unset($child[$key2]);
                     }
                 }
                 $i++;
@@ -1214,7 +1219,6 @@ class Filter extends CI_Controller
                 "id_siswa" => $value["id_siswa"],
                 "id_wali" => $value["id_wali"],
                 "nama_wali" => $value["nama_wali"],
-                "kondisi_wali" => $value["kondisi_wali"],
                 "nik_wali" => $value["nik_wali"],
                 "tempat_lahir_wali" => $value["tempat_lahir_wali"],
                 "tanggal_lahir_wali" => $value["tanggal_lahir_wali"],

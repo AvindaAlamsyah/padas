@@ -90,91 +90,17 @@
                         <table class="table table-bordered table-striped mb-none" id="datatable-filter-result">
                             <thead>
                                 <tr>
-                                    <td>no</td>
-                                    <td>nama_siswa</td>
-                                    <td>nipd</td>
-                                    <td>nisn</td>
-                                    <td>tempat_lahir</td>
-                                    <td>tanggal_lahir</td>
-                                    <td>nik_siswa</td>
-                                    <td>agama</td>
-                                    <td>nomor_telepon_rumah</td>
-                                    <td>nomor_telepon_seluler</td>
-                                    <td>email</td>
-                                    <td>rombel</td>
-                                    <td>nomor_registrasi_akta_lahir</td>
-                                    <td>anak_ke</td>
-                                    <td>nomor_kk</td>
-                                    <td>berat_badan_kg</td>
-                                    <td>tinggi_badan_cm</td>
-                                    <td>lingkar_kepala_cm</td>
-                                    <td>jumlah_saudara_kandung</td>
-                                    <td>jarak_tempat_tinggal_ke_sekolah_km</td>
-                                    <td>gender</td>
-                                    <td>moda_transportasi</td>
-                                    <td>tempat_tinggal</td>
-                                    <td>nomor_skhun</td>
-                                    <td>nomor_peserta_ujian</td>
-                                    <td>no_seri_ijazah</td>
-                                    <td>asal_sekolah</td>
-                                    <td>kompetensi_keahlian</td>
-                                    <td>detail_alamat</td>
-                                    <td>rt</td>
-                                    <td>rw</td>
-                                    <td>dusun</td>
-                                    <td>kode_pos</td>
-                                    <td>lintang</td>
-                                    <td>bujur</td>
-                                    <td>desa</td>
-                                    <td>kecamatan</td>
-                                    <td>kabupaten</td>
-                                    <td>provinsi</td>
-                                    <td>nama_ayah</td>
-                                    <td>tahun_lahir_ayah</td>
-                                    <td>nik_ayah</td>
-                                    <td>pendidikan_ayah</td>
-                                    <td>pekerjaan_ayah</td>
-                                    <td>penghasilan_ayah</td>
-                                    <td>nama_ibu</td>
-                                    <td>tahun_lahir_ibu</td>
-                                    <td>nik_ibu</td>
-                                    <td>pendidikan_ibu</td>
-                                    <td>pekerjaan_ibu</td>
-                                    <td>penghasilan_ibu</td>
-                                    <td>nama_wali</td>
-                                    <td>tahun_lahir_wali</td>
-                                    <td>nik_wali</td>
-                                    <td>pendidikan_wali</td>
-                                    <td>pekerjaan_wali</td>
-                                    <td>penghasilan_wali</td>
-                                    <td>nomor_kks</td>
-                                    <td>id_kip</td>
-                                    <td>nomor_kip</td>
-                                    <td>nama_tertera_kip</td>
-                                    <td>id_pkh</td>
-                                    <td>nomor_pkh</td>
-                                    <td>id_kps</td>
-                                    <td>nomor_kps</td>
-                                    <td>id_pip</td>
-                                    <td>nomor_rekening</td>
-                                    <td>rekening_atas_nama</td>
-                                    <td>alasan_layak_pip</td>
-                                    <td>bank</td>
-                                    <td>berkebutuhan_khusus_siswa</td>
+                                    <td>Nama</td>
+                                    <td>NISN</td>
+                                    <td>NIS</td>
+                                    <td>NIK</td>
+                                    <td>Tempat, Tanggal Lahir</td>
+                                    <td>HP</td>
+                                    <td>WA</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php
-                                $i = 1;
-                                foreach ($data as $key => $value) {
-                                    echo '<tr>'; ?>
-                                    <td><?= $i;
-                                        $i++; ?></td>
-                                    <?php foreach ($value as $key => $value) { ?>
-                                        <td><?php printx($value); ?></td>
-                                <?php }
-                                    echo '</tr>';
-                                } ?>
+
                             </tbody>
                         </table>
 
@@ -213,8 +139,58 @@
     <script src="<?php echo base_url('/'); ?>assets/js/theme.init.js"></script>
     <script>
         $(document).ready(function() {
-            $('#datatable-filter-result').dataTable();
-
+            const urlSearchParams = new URLSearchParams(window.location.search)
+            const params = Object.fromEntries(urlSearchParams.entries())
+            const url = new URL('<?= base_url('admin/filter/filter_result'); ?>')
+            url.search = urlSearchParams
+            
+            const t = $('#datatable-filter-result').DataTable({
+                'ajax': {
+                    'url': url,
+                    'method': "GET",
+                },
+                'columns': [
+                    {
+                        'data': "nama"
+                    },
+                    {
+                        'data': "nisn"
+                    },
+                    {
+                        'data': (row) => {
+                            return row.registrasi.nis
+                        }
+                    },
+                    {
+                        'data': "nik"
+                    },
+                    {
+                        'data': (row) => {
+                            return row.tempat_lahir + ", " + row.tanggal_lahir
+                        }
+                    },
+                    {
+                        'data': (row) => {
+                            if (row.kontak_siswa == null) return '';
+                            if (row.kontak_siswa.nomor_hp == null) return '';
+                            let r = ''
+                            for(i = 0; i < row.kontak_siswa.nomor_hp.length; i++) {
+                                r = r + row.kontak_siswa.nomor_hp[i].nomor_telepon_seluler + " (" + row.kontak_siswa.nomor_hp[i].provider +")"
+                                if (row.kontak_siswa.nomor_hp.length-i !== 1) {
+                                    r = r + ", "
+                                }
+                            }
+                            return r;
+                        }
+                    },
+                    {
+                        'data': (row) => {
+                            return row.kontak_siswa.nomor_whatsapp + " (" + row.kontak_siswa.provider_whatsapp +")"
+                        }
+                    }
+                ],
+                responsive: true
+            });
         })
     </script>
     <script>
