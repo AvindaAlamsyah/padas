@@ -25,12 +25,13 @@ class Data_siswa extends CI_Controller
         $this->load->model('ibu_has_berkebutuhan_khusus_model');
         $this->load->model('wali_model');
         $this->load->model('wali_has_berkebutuhan_khusus_model');
+        $this->load->model('view_model');
     }
 
     public function index()
     {
         $data = array(
-            'data' => $this->siswa_model->get_siswa_aktif()->result()
+            'data' => $this->siswa_model->get_siswa_aktif(array('siswa.deleted_at' => NULL, 'pendaftaran_keluar.id_pendaftaran_keluar' => NULL))->result()
         );
         $this->load->view('admin/data_siswa', $data);
     }
@@ -38,9 +39,53 @@ class Data_siswa extends CI_Controller
     public function detail_siswa($id_siswa = null)
     {
         if ($id_siswa != null) {
-            $data = $this->siswa_model->select_where(array('id_siswa' => $id_siswa))->row();
-            // echo json_encode($data);
-            $this->load->view('admin/detail_siswa', $data);
+            if ($this->siswa_model->get_siswa_aktif(array('siswa.deleted_at' => NULL, 'pendaftaran_keluar.id_pendaftaran_keluar' => NULL, 'siswa.id_siswa' => $id_siswa))->num_rows() > 0) {
+                $this->load->helper('view_helper');
+                $final_data = array();
+
+                $where = array(
+                    'id_siswa' => $id_siswa
+                );
+
+                $final_data['data_pribadi'] = compact_data_pribadi($this->view_model->select_view_data_pribadi_where($where)->result_array());
+
+                $final_data['alamat_dan_domisili'] = $this->view_model->select_view_alamat_dan_domisili_where($where)->row();
+
+                $final_data['bantuan_tidak_mampu'] = compact_bantuan_tidak_mampu($this->view_model->select_view_bantuan_tidak_mampu_where($where)->result_array());
+
+                $final_data['ayah'] = compact_ayah($this->view_model->select_view_ayah_where($where)->result_array());
+
+                $final_data['ibu'] = compact_ibu($this->view_model->select_view_ibu_where($where)->result_array());
+
+                $final_data['wali'] = compact_wali($this->view_model->select_view_wali_where($where)->result_array());
+
+                $final_data['kontak_siswa'] = compact_kontak_siswa($this->view_model->select_view_kontak_siswa_where($where)->result_array());
+
+                $final_data['medsos'] = compact_media_sosial($this->view_model->select_view_media_sosial_where($where)->result_array());
+
+                $final_data['kontak_darurat'] = compact_kontak_darurat($this->view_model->select_view_kontak_darurat_where($where)->result_array());
+
+                $final_data['data_periodik'] = compact_data_periodik($this->view_model->select_view_data_periodik_where($where)->result_array());
+
+                $final_data['prestasi'] = compact_prestasi($this->view_model->select_view_prestasi_where($where)->result_array());
+
+                $final_data['beasiswa'] = compact_beasiswa($this->view_model->select_view_beasiswa_where($where)->result_array());
+
+                $final_data['pendaftaran_masuk'] = $this->view_model->select_view_pendaftaran_masuk_where($where)->row();
+
+                $final_data['pilihan_jurusan'] = compact_pilihan_jurusan_saat_ppdb($this->view_model->select_view_pilihan_jurusan_saat_ppdb_where($where)->result_array());
+
+                $final_data['pilihan_jalur'] = compact_pilihan_jalur_ppdb($this->view_model->select_view_pilihan_jalur_ppdb_where($where)->result_array());
+
+                $final_data['mean_mapel'] = compact_mean_mapel($this->view_model->select_view_mean_mapel_where($where)->result_array());
+
+                $final_data['proses_pembelajaran'] = compact_data_proses_pembelajaran($this->view_model->select_view_data_proses_pembelajaran_where($where)->result_array());
+
+                // echo json_encode($final_data);
+                $this->load->view('admin/detail_siswa', $final_data);
+            } else {
+                echo "maah bukan siswa aktif";
+            }
         } else {
             echo "kosong ges";
         }
@@ -48,7 +93,9 @@ class Data_siswa extends CI_Controller
 
     public function test()
     {
-        echo json_encode($this->siswa_model->get_siswa_aktif()->result());
+        $data = $this->siswa_model->get_siswa_aktif(array('siswa.deleted_at' => NULL, 'pendaftaran_keluar.id_pendaftaran_keluar' => NULL, 'siswa.id_siswa' => 200))->num_rows();
+
+        echo json_encode($data);
     }
 
     public function tambah_data_siswa()
