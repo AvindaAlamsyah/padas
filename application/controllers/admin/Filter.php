@@ -839,7 +839,7 @@ class Filter extends CI_Controller
                     "gender_saudara_kandung" => $value["gender_saudara_kandung"],
                 );
             } else {
-                $compact_data_periodik[$i]["beasiswa"] = null;
+                $compact_data_periodik[$i]["saudara_kandung"] = null;
             }
             $i++;
         }
