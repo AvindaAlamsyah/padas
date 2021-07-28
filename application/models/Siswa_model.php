@@ -54,14 +54,14 @@ class Siswa_model extends CI_Model
         return $this->db->delete($this->table, $where);
     }
 
-    public function get_siswa_aktif()
+    public function get_siswa_aktif($where)
     {
         $this->db->select('siswa.id_siswa, siswa.nama, siswa.nisn, kelas.kelas, kompetensi_keahlian.akronim AS jurusan');
         $this->db->join('kelas', 'kelas.id_kelas = siswa.kelas_id_kelas');
         $this->db->join('pendaftaran_masuk', 'siswa.id_siswa = pendaftaran_masuk.siswa_id_siswa');
         $this->db->join('kompetensi_keahlian', 'kompetensi_keahlian.id_kompetensi_keahlian = pendaftaran_masuk.kompetensi_keahlian_diterima');
         $this->db->join('pendaftaran_keluar', 'siswa.id_siswa = pendaftaran_keluar.siswa_id_siswa', 'left');
-        $this->db->where(array('siswa.deleted_at' => NULL, 'pendaftaran_keluar.id_pendaftaran_keluar' => NULL));
+        $this->db->where($where);
 
         return $this->db->get($this->table);
     }
