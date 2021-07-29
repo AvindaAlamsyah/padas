@@ -46,28 +46,47 @@ class Filter extends CI_Controller
 
     public function filter_result()
     {
-        $where = $this->generate_where();
-        $filter = $this->filter_model->safe_filter($where)->result_array();
-        $all_data = $this->get_all_data();
-
-        $data = array();
-
-        foreach ($all_data as $key => $value) {
-            foreach ($filter as $key2 => $value2) {
-                if ($value['id_siswa'] == $value2['id_siswa']) {
-                    array_push($data, $value);
-                    unset($filter[$key2]);
-                }
-            }
-        }
-        header('application/json');
+        $data = $this->filtering_data();
+        header('Content-Type: application/json');
         echo json_encode(["data" => $data]);
     }
 
     public function export()
     {
-        $where = $this->generate_where();
-        $data = $this->filter_model->safe_filter($where)->result();
+        $a = array(
+            'id_siswa',
+            'nama',
+            'nisn',
+            'nik',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'nomor_kk',
+            'nomor_registrasi_akta_lahir',
+            'kewarganegaraan',
+            'nipd',
+            'golongan',
+            'foto',
+            'id_gender',
+            'gender',
+            'id_agama',
+            'agama',
+            'id_kelas',
+            'kelas',
+            // 'berkebutuhan_khusus',
+            // 'alamat',
+            // 'bantuan_tidak_mampu',
+            // 'ayah',
+            // 'ibu',
+            // 'wali',
+            // 'kontak_siswa',
+            // 'data_periodik',
+            // 'prestasi',
+            // 'beasiswa',
+            // 'registrasi',
+            // 'data_proses_pembelajaran',
+        );
+
+        $datas = $this->filtering_data();
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -75,195 +94,23 @@ class Filter extends CI_Controller
         $spreadsheet->getDefaultStyle()->getFont()->setName('Times new Roman');
         $spreadsheet->getDefaultStyle()->getFont()->setSize(12);
 
-        $sheet->mergeCells("A1:A2");
-        $sheet->mergeCells("B1:B2");
-        $sheet->mergeCells("C1:C2");
-        $sheet->mergeCells("D1:D2");
-        $sheet->mergeCells("E1:E2");
-        $sheet->mergeCells("F1:F2");
-        $sheet->mergeCells("G1:G2");
-        $sheet->mergeCells("H1:H2");
-        $sheet->mergeCells("I1:I2");
-        $sheet->mergeCells("J1:J2");
-        $sheet->mergeCells("K1:K2");
-        $sheet->mergeCells("L1:L2");
-        $sheet->mergeCells("M1:M2");
-        $sheet->mergeCells("N1:N2");
-        $sheet->mergeCells("O1:O2");
-        $sheet->mergeCells("P1:P2");
-        $sheet->mergeCells("Q1:Q2");
-        $sheet->mergeCells("R1:R2");
-        $sheet->mergeCells("S1:S2");
-        $sheet->mergeCells("T1:T2");
-        $sheet->mergeCells("U1:U2");
-        $sheet->mergeCells("V1:V2");
-        $sheet->mergeCells("W1:W2");
-        $sheet->mergeCells("X1:X2");
-        $sheet->mergeCells("Y1:AD1");
-        $sheet->mergeCells("AE1:AJ1");
-        $sheet->mergeCells("AK1:AP1");
-        $sheet->mergeCells("AQ1:AQ2");
-        $sheet->mergeCells("AR1:AR2");
-        $sheet->mergeCells("AS1:AS2");
-        $sheet->mergeCells("AT1:AT2");
-        $sheet->mergeCells("AU1:AU2");
-        $sheet->mergeCells("AV1:AV2");
-        $sheet->mergeCells("AW1:AW2");
-        $sheet->mergeCells("AX1:AX2");
-        $sheet->mergeCells("AY1:AY2");
-        $sheet->mergeCells("AZ1:AZ2");
-        $sheet->mergeCells("BA1:BA2");
-        $sheet->mergeCells("BB1:BB2");
-        $sheet->mergeCells("BC1:BC2");
-        $sheet->mergeCells("BD1:BD2");
-        $sheet->mergeCells("BE1:BE2");
-        $sheet->mergeCells("BF1:BF2");
-        $sheet->mergeCells("BG1:BG2");
-        $sheet->mergeCells("BH1:BH2");
-        $sheet->mergeCells("BI1:BI2");
-        $sheet->mergeCells("BJ1:BJ2");
-        $sheet->mergeCells("BK1:BK2");
-        $sheet->mergeCells("BL1:BL2");
-        $sheet->mergeCells("BM1:BM2");
-        $sheet->mergeCells("BN1:BN2");
+        #header
+        $col = "A";
+        foreach ($a as $value) {
+            $sheet->setCellValue($col."1", $value);
+            $col++;
+        }
 
-        $sheet->setCellValue("A1", "No");
-        $sheet->setCellValue("B1", "Nama");
-        $sheet->setCellValue("C1", "NIPD");
-        $sheet->setCellValue("D1", "NISN");
-        $sheet->setCellValue("E1", "Tempat Lahir");
-        $sheet->setCellValue("F1", "Tanggal Lahir");
-        $sheet->setCellValue("G1", "NIK");
-        $sheet->setCellValue("H1", "Agama");
-        $sheet->setCellValue("I1", "Alamat");
-        $sheet->setCellValue("J1", "RT");
-        $sheet->setCellValue("K1", "RW");
-        $sheet->setCellValue("L1", "Dusun");
-        $sheet->setCellValue("M1", "Kelurahan");
-        $sheet->setCellValue("N1", "Kecamatan");
-        $sheet->setCellValue("O1", "Kode Pos");
-        $sheet->setCellValue("P1", "Jenis Tinggal");
-        $sheet->setCellValue("Q1", "Alat Transportasi");
-        $sheet->setCellValue("R1", "Telepon");
-        $sheet->setCellValue("S1", "HP");
-        $sheet->setCellValue("T1", "E-Mail");
-        $sheet->setCellValue("U1", "SKHUN");
-        $sheet->setCellValue("V1", "Penerima KPS");
-        $sheet->setCellValue("W1", "No. KPS");
-        $sheet->setCellValue("Y1", "Data Ayah");
-        $sheet->setCellValue("Y2", "Nama");
-        $sheet->setCellValue("Z2", "Tahun Lahir");
-        $sheet->setCellValue("AA2", "Jenjang Pendidikan");
-        $sheet->setCellValue("AB2", "Pekerjaan");
-        $sheet->setCellValue("AC2", "Penghasilan");
-        $sheet->setCellValue("AD2", "NIK");
-        $sheet->setCellValue("AE1", "Data Ibu");
-        $sheet->setCellValue("AE2", "Nama");
-        $sheet->setCellValue("AF2", "Tahun Lahir");
-        $sheet->setCellValue("AG2", "Jenjang Pendidikan");
-        $sheet->setCellValue("AH2", "Pekerjaan");
-        $sheet->setCellValue("AI2", "Penghasilan");
-        $sheet->setCellValue("AJ2", "NIK");
-        $sheet->setCellValue("AK1", "Data Wali");
-        $sheet->setCellValue("AK2", "Nama");
-        $sheet->setCellValue("AL2", "Tahun Lahir");
-        $sheet->setCellValue("AM2", "Jenjang Pendidikan");
-        $sheet->setCellValue("AN2", "Pekerjaan");
-        $sheet->setCellValue("AO2", "Penghasilan");
-        $sheet->setCellValue("AP2", "NIK");
-        $sheet->setCellValue("AQ1", "Rombel Saat Ini");
-        $sheet->setCellValue("AR1", "No Peserta Ujian Nasional");
-        $sheet->setCellValue("AS1", "No Seri Ijazah");
-        $sheet->setCellValue("AT1", "Penerima KIP");
-        $sheet->setCellValue("AU1", "Nomor KIP");
-        $sheet->setCellValue("AV1", "Nama di KIP");
-        $sheet->setCellValue("AW1", "Nomor KKS");
-        $sheet->setCellValue("AX1", "No Registrasi Akta Lahir");
-        $sheet->setCellValue("AY1", "Bank");
-        $sheet->setCellValue("AZ1", "Nomor Rekening Bank");
-        $sheet->setCellValue("BA1", "Rekening Atas Nama");
-        $sheet->setCellValue("BB1", "Layak PIP (usulan dari sekolah)");
-        $sheet->setCellValue("BC1", "Alasan Layak PIP");
-        $sheet->setCellValue("BD1", "Kebutuhan Khusus");
-        $sheet->setCellValue("BE1", "Sekolah Asal");
-        $sheet->setCellValue("BF1", "Anak ke-berapa");
-        $sheet->setCellValue("BG1", "Lintang");
-        $sheet->setCellValue("BH1", "Bujur");
-        $sheet->setCellValue("BI1", "No KK");
-        $sheet->setCellValue("BJ1", "Berat Badan");
-        $sheet->setCellValue("BK1", "Tinggi Badan");
-        $sheet->setCellValue("BL1", "Lingkar Kepala");
-        $sheet->setCellValue("BM1", "Jml. Saudara Kandung");
-        $sheet->setCellValue("BN1", "Jarak Rumah ke Sekolah (KM)");
-
-        $j = 3;
-        for ($i = 0; $i < count($data); $i++) {
-            $sheet->setCellValue("A$j", $i + 1);
-            $sheet->setCellValue("B$j", $data[$i]->nama_siswa);
-            $sheet->setCellValue("C$j", $data[$i]->nipd);
-            $sheet->setCellValue("D$j", $data[$i]->nisn);
-            $sheet->setCellValue("E$j", $data[$i]->tempat_lahir);
-            $sheet->setCellValue("F$j", $data[$i]->tanggal_lahir);
-            $sheet->setCellValue("G$j", $data[$i]->nik_siswa);
-            $sheet->setCellValue("H$j", $data[$i]->agama);
-            $sheet->setCellValue("I$j", $data[$i]->detail_alamat);
-            $sheet->setCellValue("J$j", $data[$i]->rt);
-            $sheet->setCellValue("K$j", $data[$i]->rw);
-            $sheet->setCellValue("L$j", $data[$i]->dusun);
-            $sheet->setCellValue("M$j", $data[$i]->desa);
-            $sheet->setCellValue("N$j", $data[$i]->kecamatan);
-            $sheet->setCellValue("O$j", $data[$i]->kode_pos);
-            $sheet->setCellValue("P$j", $data[$i]->tempat_tinggal);
-            $sheet->setCellValue("Q$j", $data[$i]->moda_transportasi);
-            $sheet->setCellValue("R$j", $data[$i]->nomor_telepon_rumah);
-            $sheet->setCellValue("S$j", $data[$i]->nomor_telepon_seluler);
-            $sheet->setCellValue("T$j", $data[$i]->email);
-            $sheet->setCellValue("U$j", $data[$i]->nomor_skhun);
-            $sheet->setCellValue("V$j", (empty($data[$i]->id_kps)) ? "Tidak" : "Ya");
-            $sheet->setCellValue("W$j", $data[$i]->nomor_kps);
-            $sheet->setCellValue("Y$j", $data[$i]->nama_ayah);
-            $sheet->setCellValue("Z$j", $data[$i]->tahun_lahir_ayah);
-            $sheet->setCellValue("AA$j", $data[$i]->pendidikan_ayah);
-            $sheet->setCellValue("AB$j", $data[$i]->pekerjaan_ayah);
-            $sheet->setCellValue("AC$j", $data[$i]->penghasilan_ayah);
-            $sheet->setCellValue("AD$j", $data[$i]->nik_ayah);
-            $sheet->setCellValue("AE$j", $data[$i]->nama_ibu);
-            $sheet->setCellValue("AF$j", $data[$i]->tahun_lahir_ibu);
-            $sheet->setCellValue("AG$j", $data[$i]->pendidikan_ibu);
-            $sheet->setCellValue("AH$j", $data[$i]->pekerjaan_ibu);
-            $sheet->setCellValue("AI$j", $data[$i]->penghasilan_ibu);
-            $sheet->setCellValue("AJ$j", $data[$i]->nik_ibu);
-            $sheet->setCellValue("AK$j", $data[$i]->nama_wali);
-            $sheet->setCellValue("AL$j", $data[$i]->tahun_lahir_wali);
-            $sheet->setCellValue("AM$j", $data[$i]->pendidikan_wali);
-            $sheet->setCellValue("AN$j", $data[$i]->pekerjaan_wali);
-            $sheet->setCellValue("AO$j", $data[$i]->penghasilan_wali);
-            $sheet->setCellValue("AP$j", $data[$i]->nik_wali);
-            $sheet->setCellValue("AQ$j", $data[$i]->rombel);
-            $sheet->setCellValue("AR$j", $data[$i]->nomor_peserta_ujian);
-            $sheet->setCellValue("AS$j", $data[$i]->no_seri_ijazah);
-            $sheet->setCellValue("AT$j", (empty($data[$i]->id_kip)) ? "Tidak" : "Ya");
-            $sheet->setCellValue("AU$j", $data[$i]->nomor_kip);
-            $sheet->setCellValue("AV$j", $data[$i]->nama_tertera_kip);
-            $sheet->setCellValue("AW$j", $data[$i]->nomor_kks);
-            $sheet->setCellValue("AX$j", $data[$i]->nomor_registrasi_akta_lahir);
-            $sheet->setCellValue("AY$j", $data[$i]->bank);
-            $sheet->setCellValue("AZ$j", $data[$i]->nomor_rekening);
-            $sheet->setCellValue("BA$j", $data[$i]->rekening_atas_nama);
-            $sheet->setCellValue("BB$j", (empty($data[$i]->id_pip)) ? "Tidak" : "Ya");
-            $sheet->setCellValue("BC$j", $data[$i]->alasan_layak_pip);
-            $sheet->setCellValue("BD$j", $data[$i]->berkebutuhan_khusus_siswa);
-            $sheet->setCellValue("BE$j", $data[$i]->asal_sekolah);
-            $sheet->setCellValue("BF$j", $data[$i]->anak_ke);
-            $sheet->setCellValue("BG$j", $data[$i]->lintang);
-            $sheet->setCellValue("BH$j", $data[$i]->bujur);
-            $sheet->setCellValue("BI$j", $data[$i]->nomor_kk);
-            $sheet->setCellValue("BJ$j", $data[$i]->berat_badan_kg);
-            $sheet->setCellValue("BK$j", $data[$i]->tinggi_badan_cm);
-            $sheet->setCellValue("BL$j", $data[$i]->lingkar_kepala_cm);
-            $sheet->setCellValue("BM$j", $data[$i]->jumlah_saudara_kandung);
-            $sheet->setCellValue("BN$j", $data[$i]->jarak_tempat_tinggal_ke_sekolah_km);
-            $j += 1;
+        $col = "A";
+        $row = 2;
+        $offset = 2;
+        foreach ($datas as $data) {
+            $col = "A";
+            foreach ($a as $key) {
+                $sheet->setCellValue("$col$row", $data[$key]);
+                $col++;
+            }
+            $row = $offset + 1;
         }
         //membuat nama file
         $filename = "data_siswa";
@@ -353,6 +200,11 @@ class Filter extends CI_Controller
         $where['siswa.deleted_at ='] = null;
 
         return $where;
+    }
+
+    private function remove_id(String $text)
+    {
+        return preg_match("/^id_/", $text) > 0 ? true : false;
     }
 
     private function get_all_data()
@@ -450,6 +302,25 @@ class Filter extends CI_Controller
 
 
         return $combine;
+    }
+
+    private function filtering_data()
+    {
+        $where = $this->generate_where();
+        $filter = $this->filter_model->safe_filter($where)->result_array();
+        $all_data = $this->get_all_data();
+
+        $data = array();
+
+        foreach ($all_data as $key => $value) {
+            foreach ($filter as $key2 => $value2) {
+                if ($value['id_siswa'] == $value2['id_siswa']) {
+                    array_push($data, $value);
+                    unset($filter[$key2]);
+                }
+            }
+        }
+        return $data;
     }
 
     private function combine2($parent, $child)
