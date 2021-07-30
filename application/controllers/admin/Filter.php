@@ -179,28 +179,47 @@ class Filter extends CI_Controller
         foreach ($data_pribadi as $value) {
             if ($this->remove_id($value)) continue;
             $sheet->setCellValue($col . "1", $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
         foreach ($berkebutuhan_khusus as $value) {
             if ($this->remove_id($value)) continue;
             $sheet->setCellValue($col . "1", $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
         foreach ($alamat as $value) {
             if ($this->remove_id($value)) continue;
             $sheet->setCellValue($col . "1", $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
         foreach ($bantuan_tidak_mampu as $value) {
             if ($this->remove_id($value)) continue;
             $sheet->setCellValue($col . "1", $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
         foreach ($bantuan_tidak_mampu_lainnya as $value) {
             if ($this->remove_id($value)) continue;
             $sheet->setCellValue($col . "1", $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
+
+        //style header tabel
+        $styleHeaderTabel = [
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                'wrapText' => true,
+            ],
+            'font' => [
+                'bold' => true,
+            ],
+        ];
+        $spreadsheet->getActiveSheet()->getStyle("A1:$col" . "1")->applyFromArray($styleHeaderTabel);
+        $spreadsheet->getActiveSheet()->getRowDimension(1)->setRowHeight(35);
 
         // isi
         $col = "A";
@@ -253,7 +272,7 @@ class Filter extends CI_Controller
                 $col++;
             }
             // bantuan tidak mampu lainnya
-             if (is_array($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'])) {
+            if (is_array($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'])) {
                 $temp_row = $row;
                 $temp_col = $col;
                 foreach ($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'] as $val) {
