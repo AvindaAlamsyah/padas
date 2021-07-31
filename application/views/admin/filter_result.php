@@ -195,17 +195,6 @@
     <script>
         document.getElementById("export").addEventListener("click", (e) => {
             e.preventDefault()
-            let swalAlert = Swal
-            swalAlert.fire({
-                title: 'Tunggu Sebentar',
-                text: "Sedang memeriksa data ...",
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-                timer: 2000,
-                onOpen: () => {
-                    swal.showLoading();
-                }
-            })
             const urlSearchParams = new URLSearchParams(window.location.search)
             const params = Object.fromEntries(urlSearchParams.entries())
             const url = new URL('<?= base_url('admin/filter/export'); ?>')
@@ -213,30 +202,6 @@
             window.open(url, 'export')
         })
 
-        const showLoading = function() {
-            swal({
-                title: 'Now loading',
-                allowEscapeKey: false,
-                allowOutsideClick: false,
-                timer: 2000,
-                onOpen: () => {
-                    swal.showLoading();
-                }
-            }).then(
-                () => {},
-                (dismiss) => {
-                    if (dismiss === 'timer') {
-                        console.log('closed by timer!!!!');
-                        swal({
-                            title: 'Finished!',
-                            type: 'success',
-                            timer: 2000,
-                            showConfirmButton: false
-                        })
-                    }
-                }
-            )
-        };
     </script>
 </body>
 
