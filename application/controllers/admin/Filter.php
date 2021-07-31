@@ -51,7 +51,11 @@ class Filter extends CI_Controller
         echo json_encode(["data" => $data]);
     }
 
-    // export will error if the key is undefined
+    public function pilih_kolom()
+    {
+        $this->load->view('admin/pilih_kolom');
+    }
+
     public function export()
     {
         $data_pribadi = array(
@@ -253,7 +257,7 @@ class Filter extends CI_Controller
                 $col++;
             }
             // bantuan tidak mampu lainnya
-             if (is_array($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'])) {
+            if (is_array($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'])) {
                 $temp_row = $row;
                 $temp_col = $col;
                 foreach ($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'] as $val) {
