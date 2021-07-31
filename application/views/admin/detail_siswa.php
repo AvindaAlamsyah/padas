@@ -107,6 +107,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-4 control-label">Kelas: </label>
+                                        <div class="col-sm-8">
+                                            <input type="text" value="<?php echo $data_pribadi[0]['kelas'] . " " . $pendaftaran_masuk->akronim_diterima . " " . $data_pribadi[0]['golongan']; ?>" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-4 control-label">NIK: </label>
                                         <div class="col-sm-8">
                                             <input type="text" value="<?php echo $data_pribadi[0]['nik']; ?>" class="form-control" readonly>

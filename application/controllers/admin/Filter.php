@@ -51,7 +51,11 @@ class Filter extends CI_Controller
         echo json_encode(["data" => $data]);
     }
 
-    // export will error if the key is undefined
+    public function pilih_kolom()
+    {
+        $this->load->view('admin/pilih_kolom');
+    }
+
     public function export()
     {
         $data_pribadi = array(
