@@ -167,7 +167,6 @@ class Filter extends CI_Controller
         );
 
         $datas = $this->filtering_data();
-
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -220,6 +219,22 @@ class Filter extends CI_Controller
         ];
         $spreadsheet->getActiveSheet()->getStyle("A1:$col" . "1")->applyFromArray($styleHeaderTabel);
         $spreadsheet->getActiveSheet()->getRowDimension(1)->setRowHeight(35);
+
+
+        if (!is_array($datas)) {
+            //membuat nama file
+            $filename = "data_siswa";
+
+            //export ke xlsx
+            $writer = new Xlsx($spreadsheet);
+
+            header('Content-Type: application/vnd.ms-excel');
+            header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer->save('php://output');
+            exit;
+        }
 
         // isi
         $col = "A";

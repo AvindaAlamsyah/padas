@@ -19,13 +19,13 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="<?php echo base_url('admin/filter'); ?>">
+                    <li class="<?php echo ($this->uri->segment(2) == "filter") ? "nav-active" : ""; ?>">
+                        <a href="<?php echo base_url('admin/filter'); ?>" >
                             <i class="fa fa-filter" aria-hidden="true"></i>
                             Filter Data Siswa
                         </a>
                     </li>
-                    <li class="nav-parent nav-expanded nav-active">
+                    <li class="nav-parent">
                         <a>
                             <i class="fa fa-users" aria-hidden="true"></i>
                             <span>Data Siswa</span>

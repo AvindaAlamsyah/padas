@@ -6,7 +6,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Tambah Data Siswa | Admin PADAS | SMK Negeri 1 Geger</title>
+    <title>Filter Data Siswa | Admin PADAS | SMK Negeri 1 Geger</title>
     <meta name="description" content="Tambah Data Siswa - PADAS SMK Negeri 1 Geger">
     <meta name="author" content="Robotindo">
 
@@ -86,8 +86,8 @@
                         </div>
                         <h2 class="panel-title">Hasil Filter</h2>
                     </header>
-                    <div class="panel-body">
-                        <table class="table table-bordered table-striped mb-none" id="datatable-filter-result">
+                    <div class="panel-body ">
+                        <table width="100%" class="table table-bordered table-striped mb-none" id="datatable-filter-result">
                             <thead>
                                 <tr>
                                     <td>Nama</td>
@@ -103,7 +103,6 @@
 
                             </tbody>
                         </table>
-
                     </div>
                 </section>
             </section>
@@ -128,6 +127,7 @@
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
     <!-- Theme Base, Components and Settings -->
     <script src="<?php echo base_url('/'); ?>assets/js/theme.js"></script>
@@ -143,14 +143,13 @@
             const params = Object.fromEntries(urlSearchParams.entries())
             const url = new URL('<?= base_url('admin/filter/filter_result'); ?>')
             url.search = urlSearchParams
-            
+
             const t = $('#datatable-filter-result').DataTable({
                 'ajax': {
                     'url': url,
                     'method': "GET",
                 },
-                'columns': [
-                    {
+                'columns': [{
                         'data': "nama"
                     },
                     {
@@ -174,9 +173,9 @@
                             if (row.kontak_siswa == null) return '';
                             if (row.kontak_siswa.nomor_hp == null) return '';
                             let r = ''
-                            for(i = 0; i < row.kontak_siswa.nomor_hp.length; i++) {
-                                r = r + row.kontak_siswa.nomor_hp[i].nomor_telepon_seluler + " (" + row.kontak_siswa.nomor_hp[i].provider +")"
-                                if (row.kontak_siswa.nomor_hp.length-i !== 1) {
+                            for (i = 0; i < row.kontak_siswa.nomor_hp.length; i++) {
+                                r = r + row.kontak_siswa.nomor_hp[i].nomor_telepon_seluler + " (" + row.kontak_siswa.nomor_hp[i].provider + ")"
+                                if (row.kontak_siswa.nomor_hp.length - i !== 1) {
                                     r = r + ", "
                                 }
                             }
@@ -185,7 +184,7 @@
                     },
                     {
                         'data': (row) => {
-                            return row.kontak_siswa.nomor_whatsapp + " (" + row.kontak_siswa.provider_whatsapp +")"
+                            return row.kontak_siswa.nomor_whatsapp + " (" + row.kontak_siswa.provider_whatsapp + ")"
                         }
                     }
                 ],
@@ -196,22 +195,48 @@
     <script>
         document.getElementById("export").addEventListener("click", (e) => {
             e.preventDefault()
+            let swalAlert = Swal
+            swalAlert.fire({
+                title: 'Tunggu Sebentar',
+                text: "Sedang memeriksa data ...",
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                timer: 2000,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            })
             const urlSearchParams = new URLSearchParams(window.location.search)
             const params = Object.fromEntries(urlSearchParams.entries())
             const url = new URL('<?= base_url('admin/filter/export'); ?>')
             url.search = urlSearchParams
-            fetch(url, {
-                method: 'HEAD'
-            }).then(response => {
-                if (response.ok) {
-                    location.replace(url)
-                } else {
-                    throw new Error("Kesalahan parameter, coba cek kembali.")
-                }
-            }).catch(rejected => {
-                alert(rejected)
-            })
+            window.open(url, 'export')
         })
+
+        const showLoading = function() {
+            swal({
+                title: 'Now loading',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                timer: 2000,
+                onOpen: () => {
+                    swal.showLoading();
+                }
+            }).then(
+                () => {},
+                (dismiss) => {
+                    if (dismiss === 'timer') {
+                        console.log('closed by timer!!!!');
+                        swal({
+                            title: 'Finished!',
+                            type: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
+                    }
+                }
+            )
+        };
     </script>
 </body>
 

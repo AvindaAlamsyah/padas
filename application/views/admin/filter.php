@@ -6,7 +6,7 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Tambah Data Siswa | Admin PADAS | SMK Negeri 1 Geger</title>
+    <title>Filter Data Siswa | Admin PADAS | SMK Negeri 1 Geger</title>
     <meta name="description" content="Tambah Data Siswa - PADAS SMK Negeri 1 Geger">
     <meta name="author" content="Robotindo">
 
