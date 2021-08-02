@@ -20,7 +20,7 @@
                         </a>
                     </li>
                     <li class="<?php echo ($this->uri->segment(2) == "filter") ? "nav-active" : ""; ?>">
-                        <a href="<?php echo base_url('admin/filter'); ?>" >
+                        <a href="<?php echo base_url('admin/filter'); ?>">
                             <i class="fa fa-filter" aria-hidden="true"></i>
                             Filter Data Siswa
                         </a>
@@ -32,13 +32,13 @@
                         </a>
                         <ul class="nav nav-children">
                             <li>
-                                <a href="#">
+                                <a href="<?php echo base_url('admin/data_siswa') ?>">
                                     <i class="fa fa-database" aria-hidden="true"></i>
                                     Database Siswa
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url('admin/data_siswa/tambah_data_siswa'); ?>">
+                                <a href="#">
                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                     Tambah Data
                                 </a>
