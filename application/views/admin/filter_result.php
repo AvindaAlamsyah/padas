@@ -203,7 +203,7 @@
         document.getElementById("export").addEventListener("click", (e) => {
             e.preventDefault()
             const dataset = document.getElementById("export").dataset
-            if (dataset.a) {
+            if (dataset.export) {
                 const url = new URL('<?= base_url('admin/filter/export/'); ?>' + dataset.export)
                 window.open(url, 'export')
             } else {
