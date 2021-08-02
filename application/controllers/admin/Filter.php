@@ -22,6 +22,7 @@ class Filter extends CI_Controller
         $this->load->model('penghasilan_model');
         $this->load->model('pekerjaan_model');
         $this->load->model('view_model');
+        $this->load->helper('file');
     }
 
 
@@ -47,8 +48,18 @@ class Filter extends CI_Controller
     public function filter_result()
     {
         $data = $this->filtering_data();
-        header('Content-Type: application/json');
-        echo json_encode(["data" => $data]);
+        $json_data = json_encode($data);
+        $result = array(
+            "export" => null,
+            "data" => $data,
+        );
+        $export = $this->save_temp_file($json_data);
+        if (!empty($export)) {
+            $result['export'] = $export;
+        }
+        $this->output
+            ->set_content_type('application/json')
+            ->set_output(json_encode($result));
     }
 
     public function pilih_kolom()
@@ -56,7 +67,7 @@ class Filter extends CI_Controller
         $this->load->view('admin/pilih_kolom');
     }
 
-    public function export()
+    public function export($id)
     {
         $data_pribadi = array(
             'id_siswa',
@@ -169,8 +180,18 @@ class Filter extends CI_Controller
             'nama_program',
             'bukti',
         );
-
-        $datas = $this->filtering_data();
+        $datas = null;
+        try {
+            $datas = @file_get_contents('./application/tmp/' . $id . '.json');
+            if ($datas === FALSE) {
+                throw new Exception("File Not Found or Session Expired");
+            }
+        } catch (Exception $e) {
+            header('Content-Type: application/json');
+            echo json_encode(["message"=>$e->getMessage()]);
+            exit;
+        }
+        $datas = json_decode($datas, true);
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -327,6 +348,25 @@ class Filter extends CI_Controller
 
         $writer->save('php://output');
         exit;
+    }
+
+    public function save_temp_file($json)
+    {
+        $charid = strtoupper(md5(uniqid(rand(), true)));
+        $hyphen = chr(45); // "-"
+        $uuid = substr($charid, 0, 8) . $hyphen
+            . substr($charid, 8, 4) . $hyphen
+            . substr($charid, 12, 4) . $hyphen
+            . substr($charid, 16, 4) . $hyphen
+            . substr($charid, 20, 12);
+        $filename = $uuid;
+        $path = './application/tmp/';
+
+        if (!write_file("$path$filename.json", $json)) {
+            return null;
+        } else {
+            return $filename;
+        }
     }
 
     private function konversi_ke_null($input)
