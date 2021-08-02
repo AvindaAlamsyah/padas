@@ -52,3 +52,4 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'admin/data_siswa';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['admin/filter/export/(:any)'] = 'admin/filter/export/$1';

@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Web Fonts  -->
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
 
     <!-- Vendor CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/bootstrap/css/bootstrap.css" />
@@ -82,7 +82,7 @@
                 <section class="panel">
                     <header class="panel-heading">
                         <div class="panel-actions">
-                            <button type="button" class="btn btn-success" id="export">Export</button>
+                            <button type="button" class="btn btn-success" id="export" data-export="" disabled>Export</button>
                         </div>
                         <h2 class="panel-title">Hasil Filter</h2>
                     </header>
@@ -148,6 +148,13 @@
                 'ajax': {
                     'url': url,
                     'method': "GET",
+                    "dataSrc": function(json) {
+                        if (json.export !== null) {
+                            $('#export').prop('disabled', false);
+                            $('#export').attr('data-export', json.export);
+                        }
+                        return json.data;
+                    }
                 },
                 'columns': [{
                         'data': "nama"
@@ -195,13 +202,17 @@
     <script>
         document.getElementById("export").addEventListener("click", (e) => {
             e.preventDefault()
-            const urlSearchParams = new URLSearchParams(window.location.search)
-            const params = Object.fromEntries(urlSearchParams.entries())
-            const url = new URL('<?= base_url('admin/filter/export'); ?>')
-            url.search = urlSearchParams
-            window.open(url, 'export')
+            const dataset = document.getElementById("export").dataset
+            if (dataset.export) {
+                const url = new URL('<?= base_url('admin/filter/export/'); ?>' + dataset.export)
+                window.open(url, 'export')
+            } else {
+                Swal.fire({
+                    title: 'Terjadi Kesalahan',
+                    text: "Coba Muat Kembali Halaman Ini",
+                })
+            }
         })
-
     </script>
 </body>
 
