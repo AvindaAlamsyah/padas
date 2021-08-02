@@ -19,5 +19,6 @@ application/logs/*
 .env
 application/.env
 application/vendor
-application/tmp
+application/tmp/*
+!application/tmp/.gitkeep
 application/controllers/Test.php
