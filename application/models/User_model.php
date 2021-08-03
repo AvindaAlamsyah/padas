@@ -58,11 +58,6 @@ class User_model extends CI_Model
         if ($tipe !== 0) {
             if ($this->session->userdata('id_user')) {
                 switch ($tipe) {
-                    case 0:
-                        if ($this->session->userdata('akses') == 1) {
-                            redirect('admin/data_siswa');
-                        }
-                        break;
                     case 1:
                         if ($this->session->userdata('akses') != 1) {
                             redirect('referensi');
@@ -75,6 +70,10 @@ class User_model extends CI_Model
                 }
             } else {
                 redirect('login');
+            }
+        } else {
+            if ($this->session->userdata('akses') == 1) {
+                redirect('admin/data_siswa');
             }
         }
     }
