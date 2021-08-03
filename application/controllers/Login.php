@@ -6,6 +6,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Login extends CI_Controller
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('user_model');
+
+        $this->user_model->session_check(0);
+    }
+
+
     public function index()
     {
         $this->load->view('login');
@@ -16,7 +25,40 @@ class Login extends CI_Controller
         //cek NISN ada atau tidak
         //cek password benar atau salah
         //redirect beranda siswa
-        $this->session->set_flashdata('error', 'maafkeun yaaaa');
+        $data_login = array(
+            'username' => $this->input->post('username'),
+            'password' => $this->input->post('password')
+
+        );
+        //cek ada username atau tidak
+        $query_user = $this->user_model->select_where(array('username' => $data_login['username']));
+        if ($query_user->num_rows() > 0) {
+            $user = $query_user->row();
+            if (password_verify($data_login['password'], $user->password)) {
+                $session_data = array(
+                    'id_user' => $user->id_user,
+                    'username' => $user->username,
+                    'nama' => $user->name,
+                    'akses' => $user->role
+                );
+                $this->session->set_userdata($session_data);
+
+                switch ($user->role) {
+                    case 1:
+                        redirect('admin/data_siswa');
+                        break;
+
+                    default:
+                        $this->session->set_flashdata('error_login', 'Ndak tau siapa dia');
+                        break;
+                }
+            } else {
+                $this->session->set_flashdata('error_login', 'Username atau Password salah');
+            }
+        } else {
+            $this->session->set_flashdata('error_login', 'Username tidak terdaftar');
+        }
+
         $this->load->view('login');
     }
 
@@ -24,7 +66,7 @@ class Login extends CI_Controller
     {
         if ($this->input->post('email')) {
             //cek email
-            $this->session->set_flashdata('error', 'maafkeun yaaaa');
+            $this->session->set_flashdata('error_lupa', 'maafkeun yaaaa');
         }
         $this->load->view('lupa_pass');
     }
@@ -32,7 +74,7 @@ class Login extends CI_Controller
     public function reset_password($idReset)
     {
         if ($this->input->post('password')) {
-            $this->session->set_flashdata('error', 'maafkeun yaaaa');
+            $this->session->set_flashdata('error_reset', 'maafkeun yaaaa');
         }
         $this->load->view('reset_pass');
     }

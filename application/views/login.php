@@ -24,24 +24,24 @@
 					<div class="card fat">
 						<div class="card-body">
 							<div class="text-center">
-								<h4 class="card-title">Login</h4>
+								<h4 class="card-title">Login PADAS</h4>
 							</div>
 							<?php
-							if ($this->session->flashdata('error')) {
+							if ($this->session->flashdata('error_login')) {
 								echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-								' . $this->session->flashdata('error') . '
+								' . $this->session->flashdata('error_login') . '
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								  <span aria-hidden="true">&times;</span>
 								</button>
 							  	</div>';
 							}
 							?>
-							<form method="POST" action="<?php echo base_url('login/verifikasi'); ?>" class="my-login-validation" novalidate="">
+							<form method="POST" action="<?php echo base_url('login/verifikasi'); ?>" class="my-login-validation" novalidate="" autocomplete="off">
 								<div class="form-group">
-									<label for="nisn">NISN</label>
-									<input id="nisn" type="text" class="form-control" name="nisn" minlength="10" maxlength="10" value="" required autofocus>
+									<label for="Username">Username</label>
+									<input id="username" type="text" class="form-control" name="username" required autofocus>
 									<div class="invalid-feedback">
-										Harap isi NISN yang benar
+										Harap isi Username
 									</div>
 								</div>
 

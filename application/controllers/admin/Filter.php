@@ -22,7 +22,10 @@ class Filter extends CI_Controller
         $this->load->model('penghasilan_model');
         $this->load->model('pekerjaan_model');
         $this->load->model('view_model');
+        $this->load->model('user_model');
         $this->load->helper('file');
+
+        $this->user_model->session_check(1);
     }
 
 
@@ -188,7 +191,7 @@ class Filter extends CI_Controller
             }
         } catch (Exception $e) {
             header('Content-Type: application/json');
-            echo json_encode(["message"=>$e->getMessage()]);
+            echo json_encode(["message" => $e->getMessage()]);
             exit;
         }
         $datas = json_decode($datas, true);

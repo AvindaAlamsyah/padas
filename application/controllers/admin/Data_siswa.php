@@ -26,6 +26,9 @@ class Data_siswa extends CI_Controller
         $this->load->model('wali_model');
         $this->load->model('wali_has_berkebutuhan_khusus_model');
         $this->load->model('view_model');
+        $this->load->model('user_model');
+
+        $this->user_model->session_check(1);
     }
 
     public function index()

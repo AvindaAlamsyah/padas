@@ -16,11 +16,11 @@
         <div id="userbox" class="userbox">
             <a href="#" data-toggle="dropdown">
                 <figure class="profile-picture">
-                    <img src="<?php echo base_url('/'); ?>assets/img/user-shape.png" alt="Joseph Doe" class="img-circle" data-lock-picture="assets/img/!logged-user.jpg">
+                    <img src="<?php echo base_url('/'); ?>assets/img/user-shape.png" alt="<?php echo $this->session->userdata('nama'); ?>" class="img-circle" data-lock-picture="assets/img/!logged-user.jpg">
                 </figure>
                 <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@okler.com">
-                    <span class="name">John Doe Junior</span>
-                    <span class="role">administrator</span>
+                    <span class="name"><?php echo $this->session->userdata('nama'); ?></span>
+                    <span class="role">Admin</span>
                 </div>
 
                 <i class="fa custom-caret"></i>
@@ -33,7 +33,7 @@
                         <a role="menuitem" tabindex="-1" href="#"><i class="fa fa-user"></i> Akun</a>
                     </li>
                     <li>
-                        <a role="menuitem" tabindex="-1" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                        <a role="menuitem" tabindex="-1" href="<?php echo base_url('logout'); ?>"><i class="fa fa-power-off"></i> Logout</a>
                     </li>
                 </ul>
             </div>
