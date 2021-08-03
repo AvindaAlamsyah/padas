@@ -24,9 +24,9 @@
                         <div class="card-body">
                             <h4 class="card-title">Reset Password</h4>
                             <?php
-                            if ($this->session->flashdata('error')) {
+                            if ($this->session->flashdata('error_reset')) {
                                 echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-								' . $this->session->flashdata('error') . '
+								' . $this->session->flashdata('error_reset') . '
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								  <span aria-hidden="true">&times;</span>
 								</button>

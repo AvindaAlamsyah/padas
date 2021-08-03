@@ -22,16 +22,14 @@ class Login extends CI_Controller
 
     public function verifikasi()
     {
-        //cek NISN ada atau tidak
-        //cek password benar atau salah
-        //redirect beranda siswa
         $data_login = array(
             'username' => $this->input->post('username'),
             'password' => $this->input->post('password')
 
         );
-        //cek ada username atau tidak
+
         $query_user = $this->user_model->select_where(array('username' => $data_login['username']));
+
         if ($query_user->num_rows() > 0) {
             $user = $query_user->row();
             if (password_verify($data_login['password'], $user->password)) {
@@ -65,18 +63,21 @@ class Login extends CI_Controller
     public function lupa_password()
     {
         if ($this->input->post('email')) {
-            //cek email
-            $this->session->set_flashdata('error_lupa', 'maafkeun yaaaa');
+            $this->session->set_flashdata('error_lupa', 'Maaf, masih dalam mode pengembangan');
         }
         $this->load->view('lupa_pass');
     }
 
-    public function reset_password($idReset)
+    public function reset_password($idReset = null)
     {
-        if ($this->input->post('password')) {
-            $this->session->set_flashdata('error_reset', 'maafkeun yaaaa');
+        if ($idReset == null) {
+            redirect('login');
+        } else {
+            if ($this->input->post('password')) {
+                $this->session->set_flashdata('error_reset', 'Maaf yaa, masih dalam mode pengembangan');
+            }
+            $this->load->view('reset_pass');
         }
-        $this->load->view('reset_pass');
     }
 }
 
