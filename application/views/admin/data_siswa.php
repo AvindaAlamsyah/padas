@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
 
     <!-- Specific Page Vendor CSS -->
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/sweetalert2/dist/sweetalert2.min.css" />
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/stylesheets/theme.css" />
@@ -82,7 +83,7 @@
                                     <th>NISN</th>
                                     <th>Kelas</th>
                                     <th>Jurusan</th>
-                                    <th>#</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -96,7 +97,11 @@
                                     <td><?php echo $value->nisn; ?></td>
                                     <td><?php echo $value->kelas; ?></td>
                                     <td><?php echo $value->jurusan; ?></td>
-                                    <td><a href="<?php echo base_url('admin/data_siswa/detail_siswa/') . $value->id_siswa; ?>" class="btn btn-info">Detail</a></td>
+                                    <td class="actions">
+                                        <a data-toggle="tooltip" title="Detail Data Siswa" href="<?php echo base_url('admin/data_siswa/detail_siswa/') . $value->id_siswa; ?>"><i class="fa fa-info"></i></a>
+                                        <a data-toggle="tooltip" title="Edit Data Siswa" href=""><i class="fa fa-edit"></i></a>
+                                        <a data-toggle="tooltip" title="Hapus Data Siswa" onclick="hapus_siswa(<?php echo $value->id_siswa; ?>)"><i class="fa fa-trash-o"></i></a>
+                                    </td>
                                 <?php
                                     echo '</tr>';
                                 } ?>
@@ -122,6 +127,7 @@
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
     <!-- JS -->
     <script type="text/javascript" src="<?php echo base_url('/'); ?>assets/js/table/database.siswa.js"></script>
@@ -134,6 +140,60 @@
 
     <!-- Theme Initialization Files -->
     <script src="<?php echo base_url('/'); ?>assets/js/theme.init.js"></script>
+
+    <script>
+        function hapus_siswa(params) {
+            let formData = new FormData();
+            formData.append('id_siswa', params);
+
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: 'Anda tidak akan dapat mengembalikan data siswa yang telah dihapus!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus data!',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return fetch('<?php echo base_url('admin/data_siswa/hapus_siswa'); ?>', {
+                            method: 'POST',
+                            body: formData
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(response.statusText);
+                            }
+                            return response.json()
+                        })
+                        .then(pesan => {
+                            if (pesan.status === true) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Yey...',
+                                    text: pesan.isi,
+                                    allowOutsideClick: false
+                                }).then(() => {
+                                    location.reload()
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'O0ps...',
+                                    text: pesan.isi,
+                                })
+                            }
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(
+                                `Request failed: ${error}`
+                            )
+                        })
+                },
+                allowOutsideClick: () => !Swal.isLoading()
+            })
+        }
+    </script>
 
 </body>
 
