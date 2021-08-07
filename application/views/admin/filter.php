@@ -87,8 +87,7 @@
                                     <div class="form-group">
                                         <label>Status Siswa</label>
                                         <select class="form-control" name="status_siswa" id="status_siswa">
-                                            <option selected value>Semua</option>
-                                            <option value="false">Siswa Aktif</option>
+                                            <option selected value="false">Siswa Aktif</option>
                                             <option value="true">Siswa Keluar</option>
                                         </select>
                                     </div>
