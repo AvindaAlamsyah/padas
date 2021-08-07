@@ -96,7 +96,10 @@ class Data_siswa extends CI_Controller
 
     public function test()
     {
-        $data = $this->siswa_model->get_siswa_aktif(array('siswa.deleted_at' => NULL, 'pendaftaran_keluar.id_pendaftaran_keluar' => NULL, 'siswa.id_siswa' => 200))->num_rows();
+        $data = array(
+            'id_siswa' => 212,
+            'namanya' => $this->input->post('id_siswa')
+        );
 
         echo json_encode($data);
     }
@@ -106,8 +109,60 @@ class Data_siswa extends CI_Controller
         $this->load->view('admin/tambah_data_siswa');
     }
 
+    public function hapus_siswa()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $id_siswa = $this->input->post('id_siswa');
+        $pesan = array(
+            'status' => false,
+            'isi' => ''
+        );
+
+        if ($this->siswa_model->update(array('id_siswa' => $id_siswa), array('deleted_at' => date("Y-m-d H:i:s")))) {
+            if ($this->db->affected_rows() > 0) {
+                $pesan['status'] = true;
+                $pesan['isi'] = "Berhasil menghapus data siswa";
+            } else {
+                $pesan['isi'] = "Tidak ada data siswa yang dihapus";
+            }
+        } else {
+            $pesan['isi'] = "Kesalahan pada sistem, silahkan hubungi developer";
+        }
+
+        echo json_encode($pesan);
+    }
+
     public function simpan_data_siswa()
     {
+        //hapus di tabel alamat(siswa_id_siswa)
+        //hapus di tabel ayah(siswa_id_siswa)
+        //hapus di tabel ayah_has_berkebutuhan_khusus(ayah_id_ayah)
+        //hapus di tabel bantuan_tidak_mampu(siswa_id_siswa)
+        //hapus di tabel beasiswa(siswa_id_siswa)
+        //hapus di tabel domisili(siswa_id_siswa)
+        //hapus di tabel ibu(siswa_id_siswa)
+        //hapus di tabel ibu_has_berkebutuhan_khusus(ibu_id_ibu)
+        //hapus di tabel kip(siswa_id_siswa)
+        //hapus di tabel kks(siswa_id_siswa)
+        //hapus di tabel kontak_darurat(siswa_id_siswa)
+        //hapus di tabel kps_pkh(siswa_id_siswa)
+        //hapus di tabel mean_mapel(pendaftaran_masuk_id_pendaftaran_masuk)
+        //hapus di tabel nomor_telepon_seluler(siswa_id_siswa)
+        //hapus di tabel pendaftaran_keluar(siswa_id_siswa)
+        //hapus di tabel pendaftaran_masuk(siswa_id_siswa)
+        //hapus di tabel pilihan_jalur_ppdb(pendaftaran_masuk_id_pendaftaran_masuk)
+        //hapus di tabel pilihan_jurusan_ppdb(pendaftaran_masuk_id_pendaftaran_masuk)
+        //hapus di tabel pip(siswa_id_siswa)
+        //hapus di tabel prestasi(siswa_id_siswa)
+        //hapus di tabel proses_pembelajaran(siswa_id_siswa)
+        //hapus di tabel riwayat_kesehatan(siswa_id_siswa)
+        //hapus di tabel saudara_kandung(siswa_id_siswa)
+        //hapus di tabel siswa(id_siswa)
+        //hapus di tabel siswa_has_berkebutuhan_khusus(siswa_id_siswa)
+        //hapus di tabel siswa_has_media_sosial(siswa_id_siswa)
+        //hapus di tabel wali(siswa_id_siswa)
+        //hapus di tabel wali_has_berkebutuhan_khusus(wali_id_id)
+        //hapus di tabel whatsapp(siswa_id_siswa)
 
         /*
         yang belum dari table siswa
