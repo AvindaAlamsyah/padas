@@ -218,172 +218,187 @@
                                             </div>
                                         </div>
                                         <footer class="panel-footer">
-                                            <button class="btn btn-primary" type="submit">Submit </button>
-                                            <button type="reset" class="btn btn-default">Reset</button>
+                                            <button class="btn btn-primary" type="submit">Update </button>
                                         </footer>
                                     </div>
                                 </section>
                             </form>
-                            <section class="toggle">
-                                <label> <i class="fa fa-home"></i> Alamat Sesuai Tempat Tinggal Saat Ini</label>
-                                <div class="toggle-content panel-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Alamat Jalan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->detail_alamat; ?>" class="form-control" readonly>
+                            <form id="form-alamat-tinggal" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                                <section class="toggle">
+                                    <label> <i class="fa fa-home"></i> Alamat Sesuai Tempat Tinggal Saat Ini</label>
+                                    <div class="toggle-content">
+                                        <div class="panel-body">
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Alamat Jalan: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="jalan" value="<?php echo $alamat_dan_domisili->detail_alamat; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor Rumah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-rumah" value="<?php echo $alamat_dan_domisili->nomor_rumah; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">No. Asuransi: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-asuransi" value="<?php echo $alamat_dan_domisili->nomor_asuransi; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">RT: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="rt" value="<?php echo $alamat_dan_domisili->rt; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">RW: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="rw" value="<?php echo $alamat_dan_domisili->rw; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Dusun: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="dusun" value="<?php echo $alamat_dan_domisili->dusun; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kelurahan/Desa: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="desa" id="desa" class="form-control" required>
+                                                        <option value="<?php echo $alamat_dan_domisili->id_desa; ?>"><?php echo $alamat_dan_domisili->desa; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kecamatan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="kecamatan" id="kecamatan" class="form-control">
+                                                        <option value="<?php echo $alamat_dan_domisili->id_kecamatan; ?>"><?php echo $alamat_dan_domisili->kecamatan; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kode Pos: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="kode-pos" value="<?php echo $alamat_dan_domisili->kode_pos; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Lintang: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="lintang" value="<?php echo $alamat_dan_domisili->lintang; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Bujur: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="bujur" value="<?php echo $alamat_dan_domisili->bujur; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tempat Tinggal: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="tempat-tinggal" id="tempat-tinggal" class="form-control">
+                                                        <option value="<?php echo $alamat_dan_domisili->id_tempat_tinggal; ?>"><?php echo $alamat_dan_domisili->tempat_tinggal; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <footer class="panel-footer">
+                                            <button class="btn btn-primary" type="submit">Update </button>
+                                        </footer>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Rumah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->nomor_rumah; ?>" class="form-control" readonly>
+                                </section>
+                            </form>
+                            <form id="form-domisili" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                                <section class="toggle">
+                                    <label> <i class="fa fa-map-marker"></i> Domisili</label>
+                                    <div class="toggle-content">
+                                        <div class="panel-body">
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Alamat Jalan: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="jalan" value="<?php echo $alamat_dan_domisili->domisili_detail_domisili; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor Rumah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-rumah" value="<?php echo $alamat_dan_domisili->domisili_nomor_rumah; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">RT: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="rt" value="<?php echo $alamat_dan_domisili->domisili_rt; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">RW: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="rw" value="<?php echo $alamat_dan_domisili->domisili_rw; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Dusun: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="dusun" value="<?php echo $alamat_dan_domisili->domisili_dusun; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kelurahan/Desa: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="desa" id="domisili-desa" class="form-control" required>
+                                                        <option value="<?php echo $alamat_dan_domisili->domisili_id_desa; ?>"><?php echo $alamat_dan_domisili->domisili_desa; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kecamatan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="kecamatan" id="domisili-kecamatan" class="form-control">
+                                                        <option value="<?php echo $alamat_dan_domisili->domisili_id_kecamatan; ?>"><?php echo $alamat_dan_domisili->domisili_kecamatan; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kode Pos: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="kode-pos" value="<?php echo $alamat_dan_domisili->domisili_kode_pos; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Lintang: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="lintang" value="<?php echo $alamat_dan_domisili->domisili_lintang; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Bujur: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="bujur" value="<?php echo $alamat_dan_domisili->domisili_bujur; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tempat Tinggal: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="tempat-tinggal" id="domisili-tempat-tinggal" class="form-control">
+                                                        <option value="<?php echo $alamat_dan_domisili->domisili_id_tempat_tinggal; ?>"><?php echo $alamat_dan_domisili->domisili_tempat_tinggal; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <footer class="panel-footer">
+                                            <button class="btn btn-primary" type="submit">Update </button>
+                                        </footer>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">No. Asuransi: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->nomor_asuransi; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">RT: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->rt; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">RW: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->rw; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Dusun: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->dusun; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kelurahan/Desa: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->desa; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kecamatan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->kecamatan; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kabupaten/Kota: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->kabupaten; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kode Pos: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->kode_pos; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Lintang: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->lintang; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Bujur: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->bujur; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tempat Tinggal: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->tempat_tinggal; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="toggle">
-                                <label> <i class="fa fa-map-marker"></i> Domisili</label>
-                                <div class="toggle-content panel-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Alamat Jalan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_detail_domisili; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Rumah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_nomor_rumah; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">RT: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_rt; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">RW: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_rw; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Dusun: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_dusun; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kelurahan/Desa: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_desa; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kecamatan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_kecamatan; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kabupaten/Kota: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_kabupaten; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kode Pos: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_kode_pos; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Lintang: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_lintang; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Bujur: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_bujur; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tempat Tinggal: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $alamat_dan_domisili->domisili_tempat_tinggal; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
+                            </form>
                             <section class="toggle">
                                 <label> <i class="fa fa-credit-card"></i> Bantuan Keluarga Tidak Mampu</label>
                                 <div class="toggle-content panel-body">
@@ -1441,6 +1456,71 @@
     <script src="<?php echo base_url('/'); ?>assets/js/theme.init.js"></script>
 
     <script>
+        var groupBy = function(xs, key) {
+            return xs.reduce(function(rv, x) {
+                (rv[x[key]] = rv[x[key]] || []).push(x);
+                return rv;
+            }, {});
+        };
+
+        function get_desa(id_kec, selector) {
+            selector.select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/kel_desa') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    data: function(params) {
+                        return {
+                            kel: params.term,
+                            id_kec: id_kec
+                        }
+                    },
+                    processResults: function(response) {
+                        return {
+                            results: response
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 1,
+                placeholder: "Pilih kelurahan/desa"
+            });
+        }
+
+        function get_kec(selector) {
+            selector.select2({
+                ajax: {
+                    url: '<?php echo base_url('referensi_data/kecamatan') ?>',
+                    dataType: 'json',
+                    delay: 500,
+                    data: function(params) {
+                        return {
+                            kec: params.term
+                        }
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(groupBy(data, 'kab'), function(item, key) {
+                                var children = [];
+                                for (var k in item) {
+                                    var childItem = item[k];
+                                    childItem.text = item[k].kec;
+                                    children.push(childItem);
+                                }
+                                return {
+                                    text: key,
+                                    children: children,
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 2,
+                placeholder: "Pilih Kecamatan"
+            });
+        }
+
         $('#siswa-gender').select2({
             ajax: {
                 url: '<?php echo base_url('referensi_data/gender') ?>',
@@ -1505,6 +1585,40 @@
             placeholder: "Pilih Agama"
         });
 
+        $('#tempat-tinggal, #domisili-tempat-tinggal').select2({
+            ajax: {
+                url: '<?php echo base_url('referensi_data/tempat_tinggal') ?>',
+                dataType: 'json',
+                delay: 500,
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: Infinity,
+            placeholder: "Pilih Tempat Tinggal"
+        });
+
+        get_desa(<?php echo $alamat_dan_domisili->id_kecamatan; ?>, $('#desa'));
+        get_kec($('#kecamatan'));
+
+        $('#kecamatan').on("change", function() {
+            var id_kec = $(this).val();
+            $('#desa').val('');
+            get_desa(id_kec, $('#desa'));
+        })
+
+        get_desa(<?php echo (is_null($alamat_dan_domisili->domisili_id_kecamatan) ? 3665 : $alamat_dan_domisili->domisili_id_kecamatan); ?>, $('#domisili-desa'));
+        get_kec($('#domisili-kecamatan'));
+
+        $('#domisili-kecamatan').on("change", function() {
+            var id_kec = $(this).val();
+            $('#domisili-desa').val('');
+            get_desa(id_kec, $('#domisili-desa'));
+        })
+
         $('#siswa-kebutuhan-khusus, #kebutuhan-khusus-ayah, #kebutuhan-khusus-ibu, #kebutuhan-khusus-wali').select2({
             ajax: {
                 url: '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>',
@@ -1549,6 +1663,90 @@
                                 } else {
                                     new PNotify({
                                         title: 'Data Pribadi',
+                                        text: element.isi,
+                                        type: 'error'
+                                    });
+                                }
+                            }, index * 1000);
+                        });
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: error,
+                        })
+                    })
+            });
+
+            $("#form-alamat-tinggal").submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                fetch('<?php echo base_url("admin/data_siswa/edit_alamat_tinggal") ?>', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json()
+                        } else {
+                            throw new Error(response.statusText)
+                        }
+                    })
+                    .then(pesan => {
+                        pesan.forEach((element, index) => {
+                            setTimeout(() => {
+                                if (element.status === true) {
+                                    new PNotify({
+                                        title: 'Tempat Tinggal Siswa',
+                                        text: element.isi,
+                                        type: 'success'
+                                    });
+                                } else {
+                                    new PNotify({
+                                        title: 'Tempat Tinggal Siswa',
+                                        text: element.isi,
+                                        type: 'error'
+                                    });
+                                }
+                            }, index * 1000);
+                        });
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: error,
+                        })
+                    })
+            });
+
+            $("#form-domisili").submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                fetch('<?php echo base_url("admin/data_siswa/edit_domisili") ?>', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json()
+                        } else {
+                            throw new Error(response.statusText)
+                        }
+                    })
+                    .then(pesan => {
+                        pesan.forEach((element, index) => {
+                            setTimeout(() => {
+                                if (element.status === true) {
+                                    new PNotify({
+                                        title: 'Domisili Siswa',
+                                        text: element.isi,
+                                        type: 'success'
+                                    });
+                                } else {
+                                    new PNotify({
+                                        title: 'Domisili Siswa',
                                         text: element.isi,
                                         type: 'error'
                                     });

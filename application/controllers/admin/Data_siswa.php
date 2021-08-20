@@ -28,6 +28,7 @@ class Data_siswa extends CI_Controller
         $this->load->model('wali_has_berkebutuhan_khusus_model');
         $this->load->model('view_model');
         $this->load->model('user_model');
+        $this->load->model('domisili_model');
 
         $this->user_model->session_check(1);
     }
@@ -192,11 +193,7 @@ class Data_siswa extends CI_Controller
             'kewarganegaraan' => $this->input->post('kewarganegaraan')
         );
 
-        function drop_empty($var)
-        {
-            return ($var === '') ? NULL : $var;
-        }
-        $siswa = array_map('drop_empty', $siswa);
+        $siswa = array_map(array($this, 'drop_empty'), $siswa);
 
         if (isset($_FILES['siswa-foto']['name']) && !empty($_FILES['siswa-foto']['name'])) {
             $this->load->library('upload');
@@ -232,6 +229,76 @@ class Data_siswa extends CI_Controller
         }
 
         echo json_encode($this->response);
+    }
+
+    public function edit_alamat_tinggal()
+    {
+        $id_siswa = $this->input->post('id');
+
+        $alamat = array(
+            'desa_id_desa' => $this->input->post('desa'),
+            'tempat_tinggal_id_tempat_tinggal' => $this->input->post('tempat-tinggal'),
+            'detail_alamat' => $this->input->post('jalan'),
+            'nomor_rumah' => $this->input->post('no-rumah'),
+            'nomor_asuransi' => $this->input->post('no-asuransi'),
+            'rt' => $this->input->post('rt'),
+            'rw' => $this->input->post('rw'),
+            'dusun' => $this->input->post('dusun'),
+            'kode_pos' => $this->input->post('kode-pos'),
+            'lintang' => $this->input->post('lintang'),
+            'bujur' => $this->input->post('bujur')
+        );
+
+        $alamat = array_map(array($this, 'drop_empty'), $alamat);
+
+        if ($this->alamat_model->update(array('siswa_id_siswa' => $id_siswa), $alamat)) {
+            $this->response[] = array('isi' => "Berhasil update alamat tempat tinggal.", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal update alamat tempat tinggal.", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function edit_domisili()
+    {
+        $id_siswa = $this->input->post('id');
+
+        $domisili = array(
+            'desa_id_desa' => $this->input->post('desa'),
+            'tempat_tinggal_id_tempat_tinggal' => $this->input->post('tempat-tinggal'),
+            'detail_domisili' => $this->input->post('jalan'),
+            'nomor_rumah' => $this->input->post('no-rumah'),
+            'rt' => $this->input->post('rt'),
+            'rw' => $this->input->post('rw'),
+            'dusun' => $this->input->post('dusun'),
+            'kode_pos' => $this->input->post('kode-pos'),
+            'lintang' => $this->input->post('lintang'),
+            'bujur' => $this->input->post('bujur')
+        );
+
+        $domisili = array_map(array($this, 'drop_empty'), $domisili);
+
+        if ($this->domisili_model->select_where(array('siswa_id_siswa' => $id_siswa))->num_rows() == 0) {
+            $domisili['siswa_id_siswa'] = $id_siswa;
+            if ($this->domisili_model->insert($domisili)) {
+                $this->response[] = array('isi' => "Berhasil tambah data domisili siswa", 'status' => true);
+            } else {
+                $this->response[] = array('isi' => "Gagal tambah data domisili siswa", 'status' => false);
+            }
+        } else {
+            if ($this->domisili_model->update(array('siswa_id_siswa' => $id_siswa), $domisili)) {
+                $this->response[] = array('isi' => "Berhasil update domisili siswa.", 'status' => true);
+            } else {
+                $this->response[] = array('isi' => "Gagal update domisili siswa.", 'status' => false);
+            }
+        }
+        echo json_encode($this->response);
+    }
+
+    public function drop_empty($var)
+    {
+        return ($var === '') ? NULL : $var;
     }
 
     private function upload($name, $type)
@@ -559,6 +626,12 @@ class Data_siswa extends CI_Controller
         } else {
             echo "Gagal Insert Siswa.";
         }
+    }
+
+    public function test()
+    {
+        $id = 224;
+        echo json_encode($this->domisili_model->select_where(array('siswa_id_siswa' => $id))->num_rows());
     }
 }
 
