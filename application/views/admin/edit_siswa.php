@@ -6,8 +6,8 @@
     <!-- Basic -->
     <meta charset="UTF-8">
 
-    <title>Detail Siswa | Admin PADAS | SMK Negeri 1 Geger</title>
-    <meta name="description" content="Detail Siswa - PADAS SMK Negeri 1 Geger">
+    <title>Edit Siswa | Admin PADAS | SMK Negeri 1 Geger</title>
+    <meta name="description" content="Edit Siswa - PADAS SMK Negeri 1 Geger">
     <meta name="author" content="Robotindo">
 
     <!-- Mobile Metas -->
@@ -23,6 +23,10 @@
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/bootstrap-datepicker/css/datepicker3.css" />
 
     <!-- Specific Page Vendor CSS -->
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/sweetalert2/dist/sweetalert2.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.css" />
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/stylesheets/theme.css" />
@@ -35,6 +39,11 @@
 
     <!-- Head Libs -->
     <script src="<?php echo base_url('/'); ?>assets/vendor/modernizr/modernizr.js"></script>
+    <style>
+        .select2-container {
+            width: 100% !important;
+        }
+    </style>
 
 </head>
 
@@ -52,7 +61,7 @@
 
             <section role="main" class="content-body">
                 <header class="page-header">
-                    <h2>Detail Siswa</h2>
+                    <h2>Edit Siswa</h2>
 
                     <div class="right-wrapper pull-right">
                         <ol class="breadcrumbs">
@@ -63,7 +72,7 @@
                             </li>
                             <li><span>Data Siswa</span></li>
                             <li><span>Database Siswa</span></li>
-                            <li><span>Detail Siswa</span></li>
+                            <li><span>Edit Siswa</span></li>
                         </ol>
                     </div>
                 </header>
@@ -74,100 +83,147 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="toggle form-horizontal" data-plugin-toggle data-plugin-options='{ "isAccordion": true }'>
-                            <section class="toggle active">
-                                <label><i class="fa fa-user"> </i> Data Pribadi</label>
-                                <div class="toggle-content panel-body">
-                                    <div class="col-sm-12" style="margin-bottom: 25px;">
-                                        <div class="col-md-3">
-                                            <img src="<?php echo base_url('/') . 'assets/img/' . $data_pribadi[0]['foto']; ?>" class="rounded img-responsive" alt="<?php echo $data_pribadi[0]['nama']; ?>">
+                            <form id="form-data-pribadi" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                                <section class="toggle active">
+                                    <label><i class="fa fa-user"> </i> Data Pribadi</label>
+                                    <div class="toggle-content">
+                                        <div class="panel-body">
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden>
+                                            <div class="form-group">
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-6">
+                                                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                        <div class="fileupload-new thumbnail" style="width: 200px; height: 150px;"><img src="<?php echo base_url('/') . 'assets/img/foto_profil/' . $data_pribadi[0]['foto']; ?>" class="rounded img-responsive" alt="<?php echo $data_pribadi[0]['nama']; ?>" /></div>
+                                                        <div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 200px; max-height: 150px; line-height: 20px;"></div>
+                                                        <div>
+                                                            <span class="btn btn-file">
+                                                                <span class="fileupload-exists">Ganti</span>
+                                                                <span class="fileupload-new">Pilih Foto Baru</span>
+                                                                <input type="file" name="siswa-foto" accept="image/png, image/jpg, image/jpeg" />
+                                                            </span>
+                                                            <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Reset</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nama Lengkap: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="siswa-nama" value="<?php echo $data_pribadi[0]['nama']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Jenis Kelamin: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="siswa-gender" id="siswa-gender" class="form-control">
+                                                        <option value="<?php echo $data_pribadi[0]['id_gender']; ?>"><?php echo $data_pribadi[0]['gender']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">NISN: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nisn" value="<?php echo $data_pribadi[0]['nisn']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">NIPD: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nipd" value="<?php echo $data_pribadi[0]['nipd']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kelas: </label>
+                                                <div class="col-sm-8">
+                                                    <div class="row form-group">
+                                                        <div class="col-lg-4">
+                                                            <select name="siswa-kelas" id="siswa-kelas" class="form-control">
+                                                                <option value="<?php echo $data_pribadi[0]['id_kelas']; ?>"><?php echo $data_pribadi[0]['kelas']; ?></option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mb-md hidden-lg hidden-xl"></div>
+
+                                                        <div class="col-lg-4">
+                                                            <select name="siswa-jurusan" id="siswa-jurusan" class="form-control">
+                                                                <option value="<?php echo $pendaftaran_masuk->id_kompetensi_keahlian_diterima; ?>"><?php echo $pendaftaran_masuk->akronim_diterima; ?></option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mb-md hidden-lg hidden-xl"></div>
+
+                                                        <div class="col-lg-4">
+                                                            <input type="text" name="siswa-golongan" value="<?php echo $data_pribadi[0]['golongan']; ?>" class="form-control" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">NIK: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="siswa-nik" value="<?php echo $data_pribadi[0]['nik']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tempat Lahir: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="siswa-tempat-lahir" value="<?php echo $data_pribadi[0]['tempat_lahir']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tanggal Lahir: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="date" name="siswa-tanggal" value="<?php echo $data_pribadi[0]['tanggal_lahir']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">No Kartu Keluarga: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nomor-kk" value="<?php echo $data_pribadi[0]['nomor_kk']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">No Registrasi Akta Lahir: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nomor-akta" value="<?php echo $data_pribadi[0]['nomor_registrasi_akta_lahir']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Agama: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="siswa-agama" id="siswa-agama" class="form-control">
+                                                        <option value="<?php echo $data_pribadi[0]['id_agama']; ?>"><?php echo $data_pribadi[0]['agama']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kewarganegaraan: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="kewarganegaraan" value="<?php echo $data_pribadi[0]['kewarganegaraan']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Berkebutuhan Khusus: </label>
+                                                <div class="col-sm-8">
+                                                    <select multiple name="siswa-kebutuhan-khusus[]" id="siswa-kebutuhan-khusus" class="form-control">
+                                                        <?php if ($data_pribadi[0]['berkebutuhan_khusus'] == NULL) {
+                                                            echo "<option></option>";
+                                                        } else {
+                                                            foreach ($data_pribadi[0]['berkebutuhan_khusus'] as $key) {
+                                                                echo "<option selected='selected' value='" . $key['id_berkebutuhan_khusus'] . "'>" . $key['berkebutuhan_khusus'] . "</option>";
+                                                            }
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <footer class="panel-footer">
+                                            <button class="btn btn-primary" type="submit">Submit </button>
+                                            <button type="reset" class="btn btn-default">Reset</button>
+                                        </footer>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nama Lengkap: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['nama']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Jenis Kelamin: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['gender']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">NISN: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['nisn']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">NIPD: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['nipd']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kelas: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['kelas'] . " " . $pendaftaran_masuk->akronim_diterima . " " . $data_pribadi[0]['golongan']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">NIK: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['nik']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tempat Lahir: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['tempat_lahir']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tanggal Lahir: </label>
-                                        <div class="col-sm-8">
-                                            <input type="date" value="<?php echo $data_pribadi[0]['tanggal_lahir']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">No Kartu Keluarga: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['nomor_kk']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">No Registrasi Akta Lahir: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['nomor_registrasi_akta_lahir']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Agama: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['agama']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kewarganegaraan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_pribadi[0]['kewarganegaraan']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Berkebutuhan Khusus: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php if ($data_pribadi[0]['berkebutuhan_khusus'] == NULL) {
-                                                                            echo $data_pribadi[0]['berkebutuhan_khusus'];
-                                                                        } else {
-                                                                            foreach ($data_pribadi[0]['berkebutuhan_khusus'] as $key) {
-                                                                                echo $key['berkebutuhan_khusus'] . ". ";
-                                                                            }
-                                                                        } ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
+                            </form>
                             <section class="toggle">
                                 <label> <i class="fa fa-home"></i> Alamat Sesuai Tempat Tinggal Saat Ini</label>
                                 <div class="toggle-content panel-body">
@@ -1366,6 +1422,11 @@
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables/media/js/jquery.dataTables.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/select2/js/select2.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.js"></script>
 
     <!-- JS -->
     <script type="text/javascript" src="<?php echo base_url('/'); ?>assets/js/table/database.siswa.js"></script>
@@ -1378,6 +1439,133 @@
 
     <!-- Theme Initialization Files -->
     <script src="<?php echo base_url('/'); ?>assets/js/theme.init.js"></script>
+
+    <script>
+        $('#siswa-gender').select2({
+            ajax: {
+                url: '<?php echo base_url('referensi_data/gender') ?>',
+                dataType: 'json',
+                delay: 500,
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: Infinity,
+            placeholder: "Pilih Jenis Kelamin"
+        });
+
+        $('#siswa-kelas').select2({
+            ajax: {
+                url: '<?php echo base_url('referensi_data/kelas') ?>',
+                dataType: 'json',
+                delay: 500,
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: Infinity,
+            placeholder: "Pilih Kelas"
+        });
+
+        $('#siswa-jurusan').select2({
+            ajax: {
+                url: '<?php echo base_url('referensi_data/jurusan') ?>',
+                dataType: 'json',
+                delay: 500,
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: Infinity,
+            placeholder: "Pilih Jurusan"
+        });
+
+        $('#siswa-agama').select2({
+            ajax: {
+                url: '<?php echo base_url('referensi_data/agama') ?>',
+                dataType: 'json',
+                delay: 500,
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: Infinity,
+            placeholder: "Pilih Agama"
+        });
+
+        $('#siswa-kebutuhan-khusus, #kebutuhan-khusus-ayah, #kebutuhan-khusus-ibu, #kebutuhan-khusus-wali').select2({
+            ajax: {
+                url: '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>',
+                dataType: 'json',
+                delay: 500,
+                processResults: function(response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            },
+            minimumResultsForSearch: Infinity,
+            allowClear: true,
+            placeholder: "Pilih Kebutuhan Khusus"
+        });
+
+        $(document).ready(function() {
+            $("#form-data-pribadi").submit(function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                fetch('<?php echo base_url("admin/data_siswa/edit_data_pribadi") ?>', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json()
+                        } else {
+                            throw new Error(response.statusText)
+                        }
+                    })
+                    .then(pesan => {
+                        pesan.forEach((element, index) => {
+                            setTimeout(() => {
+                                if (element.status === true) {
+                                    new PNotify({
+                                        title: 'Data Pribadi',
+                                        text: element.isi,
+                                        type: 'success'
+                                    });
+                                } else {
+                                    new PNotify({
+                                        title: 'Data Pribadi',
+                                        text: element.isi,
+                                        type: 'error'
+                                    });
+                                }
+                            }, index * 1000);
+                        });
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: error,
+                        })
+                    })
+            });
+        });
+    </script>
 
 </body>
 

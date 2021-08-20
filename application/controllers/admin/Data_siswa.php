@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Data_siswa extends CI_Controller
 {
+    private $response = [];
 
     public function __construct()
     {
@@ -94,16 +95,6 @@ class Data_siswa extends CI_Controller
         }
     }
 
-    public function test()
-    {
-        $data = array(
-            'id_siswa' => 212,
-            'namanya' => $this->input->post('id_siswa')
-        );
-
-        echo json_encode($data);
-    }
-
     public function tambah_data_siswa()
     {
         $this->load->view('admin/tambah_data_siswa');
@@ -113,23 +104,159 @@ class Data_siswa extends CI_Controller
     {
         date_default_timezone_set('Asia/Jakarta');
         $id_siswa = $this->input->post('id_siswa');
-        $pesan = array(
-            'status' => false,
-            'isi' => ''
-        );
 
         if ($this->siswa_model->update(array('id_siswa' => $id_siswa), array('deleted_at' => date("Y-m-d H:i:s")))) {
             if ($this->db->affected_rows() > 0) {
-                $pesan['status'] = true;
-                $pesan['isi'] = "Berhasil menghapus data siswa";
+                $this->pesan['status'] = true;
+                $this->pesan['isi'] = "Berhasil menghapus data siswa";
             } else {
-                $pesan['isi'] = "Tidak ada data siswa yang dihapus";
+                $this->pesan['isi'] = "Tidak ada data siswa yang dihapus";
             }
         } else {
-            $pesan['isi'] = "Kesalahan pada sistem, silahkan hubungi developer";
+            $this->pesan['isi'] = "Kesalahan pada sistem, silahkan hubungi developer";
         }
 
-        echo json_encode($pesan);
+        echo json_encode($this->pesan);
+    }
+    public function edit_siswa($id_siswa = null)
+    {
+        if ($id_siswa != null) {
+            if ($this->siswa_model->get_siswa_aktif(array('siswa.deleted_at' => NULL, 'pendaftaran_keluar.id_pendaftaran_keluar' => NULL, 'siswa.id_siswa' => $id_siswa))->num_rows() > 0) {
+                $this->load->helper('view_helper');
+                $final_data = array();
+
+                $where = array(
+                    'id_siswa' => $id_siswa
+                );
+
+                $final_data['data_pribadi'] = compact_data_pribadi($this->view_model->select_view_data_pribadi_where($where)->result_array());
+
+                $final_data['alamat_dan_domisili'] = $this->view_model->select_view_alamat_dan_domisili_where($where)->row();
+
+                $final_data['bantuan_tidak_mampu'] = compact_bantuan_tidak_mampu($this->view_model->select_view_bantuan_tidak_mampu_where($where)->result_array());
+
+                $final_data['ayah'] = compact_ayah($this->view_model->select_view_ayah_where($where)->result_array());
+
+                $final_data['ibu'] = compact_ibu($this->view_model->select_view_ibu_where($where)->result_array());
+
+                $final_data['wali'] = compact_wali($this->view_model->select_view_wali_where($where)->result_array());
+
+                $final_data['kontak_siswa'] = compact_kontak_siswa($this->view_model->select_view_kontak_siswa_where($where)->result_array());
+
+                $final_data['medsos'] = compact_media_sosial($this->view_model->select_view_media_sosial_where($where)->result_array());
+
+                $final_data['kontak_darurat'] = compact_kontak_darurat($this->view_model->select_view_kontak_darurat_where($where)->result_array());
+
+                $final_data['data_periodik'] = compact_data_periodik($this->view_model->select_view_data_periodik_where($where)->result_array());
+
+                $final_data['prestasi'] = compact_prestasi($this->view_model->select_view_prestasi_where($where)->result_array());
+
+                $final_data['beasiswa'] = compact_beasiswa($this->view_model->select_view_beasiswa_where($where)->result_array());
+
+                $final_data['pendaftaran_masuk'] = $this->view_model->select_view_pendaftaran_masuk_where($where)->row();
+
+                $final_data['pilihan_jurusan'] = compact_pilihan_jurusan_saat_ppdb($this->view_model->select_view_pilihan_jurusan_saat_ppdb_where($where)->result_array());
+
+                $final_data['pilihan_jalur'] = compact_pilihan_jalur_ppdb($this->view_model->select_view_pilihan_jalur_ppdb_where($where)->result_array());
+
+                $final_data['mean_mapel'] = compact_mean_mapel($this->view_model->select_view_mean_mapel_where($where)->result_array());
+
+                $final_data['proses_pembelajaran'] = compact_data_proses_pembelajaran($this->view_model->select_view_data_proses_pembelajaran_where($where)->result_array());
+
+                // echo json_encode($final_data);
+                $this->load->view('admin/edit_siswa', $final_data);
+            } else {
+                echo "maah bukan siswa aktif";
+            }
+        } else {
+            echo "kosong ges";
+        }
+    }
+
+    public function edit_data_pribadi()
+    {
+        $id_siswa = $this->input->post('id');
+
+        $siswa = array(
+            'nama' => $this->input->post('siswa-nama'),
+            'gender_id_gender' => $this->input->post('siswa-gender'),
+            'kelas_id_kelas' => $this->input->post('siswa-kelas'),
+            'golongan' => $this->input->post('siswa-golongan'),
+            'nisn' => $this->input->post('nisn'),
+            'nik' => trim($this->input->post('siswa-nik')),
+            'tempat_lahir' => $this->input->post('siswa-tempat-lahir'),
+            'tanggal_lahir' => $this->input->post('siswa-tanggal'),
+            'nomor_kk' => $this->input->post('nomor-kk'),
+            'nomor_registrasi_akta_lahir' => $this->input->post('nomor-akta'),
+            'agama_id_agama' => $this->input->post('siswa-agama'),
+            'kewarganegaraan' => $this->input->post('kewarganegaraan')
+        );
+
+        function drop_empty($var)
+        {
+            return ($var === '') ? NULL : $var;
+        }
+        $siswa = array_map('drop_empty', $siswa);
+
+        if (isset($_FILES['siswa-foto']['name']) && !empty($_FILES['siswa-foto']['name'])) {
+            $this->load->library('upload');
+
+            $result = $this->siswa_model->select_where(array('id_siswa' => $id_siswa))->last_row();
+            $this->delete_file($result->foto);
+            $upload = $this->upload('siswa-foto', 'png|jpg|jpeg');
+            $siswa['foto'] = $upload['file_name'];
+        }
+
+        if ($this->siswa_model->update(array('id_siswa' => $id_siswa), $siswa)) {
+            $this->response[] = array('isi' => "Berhasil update data pribadi.", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal update data pribadi.", 'status' => false);
+        }
+
+        $this->pendaftaran_masuk_model->update(array('siswa_id_siswa' => $id_siswa), array('kompetensi_keahlian_diterima' => $this->input->post('siswa-jurusan')));
+
+        $this->siswa_has_berkebutuhan_khusus_model->delete(array('siswa_id_siswa' => $id_siswa));
+        if ($this->input->post('siswa-kebutuhan-khusus') != false) {
+            $siswa_has_berkebutuhan_khusus = array();
+            foreach ($this->input->post('siswa-kebutuhan-khusus') as $value) {
+                $siswa_has_berkebutuhan_khusus[] = array(
+                    'siswa_id_siswa' => $id_siswa,
+                    'berkebutuhan_khusus_id_berkebutuhan_khusus' => $value
+                );
+            }
+            if ($this->siswa_has_berkebutuhan_khusus_model->insert_batch($siswa_has_berkebutuhan_khusus) == false) {
+                $this->response[] = array('isi' => "Gagal update kebutuhan khusus siswa.", 'status' => false);
+            } else {
+                $this->response[] = array('isi' => "Berhasil update kebutuhan khusus siswa.", 'status' => true);
+            }
+        }
+
+        echo json_encode($this->response);
+    }
+
+    private function upload($name, $type)
+    {
+        $config['upload_path'] = './assets/img/foto_profil/';
+        $config['allowed_types'] = $type;
+        $config['max_size']  = '0';
+        $config['file_name'] = substr(md5(uniqid()), 0, 28);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload($name)) {
+            $this->response[] = array('isi' => "Gagal upload foto profil." . $this->upload->display_errors(), 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil upload foto profil.", 'status' => true);
+        }
+        return $this->upload->data();
+    }
+
+    private function delete_file($file)
+    {
+        $path = "./assets/img/foto_profil/$file";
+        @chmod($path, 0777);
+        if (is_file($path)) {
+            @unlink($path);
+        }
     }
 
     public function simpan_data_siswa()

@@ -22,6 +22,9 @@ class Referensi_data extends CI_Controller
         $this->load->model('pendidikan_model');
         $this->load->model('pekerjaan_model');
         $this->load->model('penghasilan_model');
+        $this->load->model('agama_model');
+        $this->load->model('kelas_model');
+        $this->load->model('kompetensi_keahlian_model');
     }
 
     public function gender()
@@ -35,6 +38,19 @@ class Referensi_data extends CI_Controller
 
         echo json_encode($data);
     }
+
+    public function agama()
+    {
+        $data = array();
+        $result = $this->agama_model->select_all();
+
+        foreach ($result->result_array() as  $value) {
+            $data[] = array("id" => $value['id_agama'], "text" => $value['agama']);
+        }
+
+        echo json_encode($data);
+    }
+
     public function berkebutuhan_khusus()
     {
         $data = array();
@@ -176,6 +192,30 @@ class Referensi_data extends CI_Controller
 
         foreach ($result as $value) {
             $data[] = array('id' => $value['id_penghasilan'], 'text' => $value['penghasilan']);
+        }
+
+        echo json_encode($data);
+    }
+
+    public function kelas()
+    {
+        $data = array();
+        $result = $this->kelas_model->select_all()->result_array();
+
+        foreach ($result as $value) {
+            $data[] = array('id' => $value['id_kelas'], 'text' => $value['kelas']);
+        }
+
+        echo json_encode($data);
+    }
+
+    public function jurusan()
+    {
+        $data = array();
+        $result = $this->kompetensi_keahlian_model->select_all()->result_array();
+
+        foreach ($result as $value) {
+            $data[] = array('id' => $value['id_kompetensi_keahlian'], 'text' => $value['akronim']);
         }
 
         echo json_encode($data);

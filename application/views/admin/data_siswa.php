@@ -99,7 +99,7 @@
                                     <td><?php echo $value->jurusan; ?></td>
                                     <td class="actions">
                                         <a data-toggle="tooltip" title="Detail Data Siswa" href="<?php echo base_url('admin/data_siswa/detail_siswa/') . $value->id_siswa; ?>"><i class="fa fa-info"></i></a>
-                                        <a data-toggle="tooltip" title="Edit Data Siswa" href=""><i class="fa fa-edit"></i></a>
+                                        <a data-toggle="tooltip" title="Edit Data Siswa" href="<?php echo base_url('admin/data_siswa/edit_siswa/') . $value->id_siswa; ?>"><i class="fa fa-edit"></i></a>
                                         <a data-toggle="tooltip" title="Hapus Data Siswa" onclick="hapus_siswa(<?php echo $value->id_siswa; ?>)"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 <?php
@@ -179,7 +179,7 @@
                             } else {
                                 Swal.fire({
                                     icon: 'error',
-                                    title: 'O0ps...',
+                                    title: 'Oops...',
                                     text: pesan.isi,
                                 })
                             }
