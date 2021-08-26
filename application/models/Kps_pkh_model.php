@@ -2,10 +2,10 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pkh_model extends CI_Model
+class Kps_pkh_model extends CI_Model
 {
 
-    private $table = 'pkh';
+    private $table = 'kps_pkh';
 
     public function __construct()
     {
@@ -55,4 +55,4 @@ class Pkh_model extends CI_Model
     }
 }
 
-/* End of file Pkh_model.php */
+/* End of file Kps_pkh_model.php */

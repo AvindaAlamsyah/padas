@@ -11,8 +11,7 @@ class Data_siswa extends CI_Controller
         parent::__construct();
         $this->load->model('siswa_model');
         $this->load->model('siswa_has_berkebutuhan_khusus_model');
-        $this->load->model('kps_model');
-        $this->load->model('pkh_model');
+        $this->load->model('kps_pkh_model');
         $this->load->model('kip_model');
         $this->load->model('pip_model');
         $this->load->model('kks_model');
@@ -29,6 +28,7 @@ class Data_siswa extends CI_Controller
         $this->load->model('view_model');
         $this->load->model('user_model');
         $this->load->model('domisili_model');
+        $this->load->model('bantuan_tidak_mampu_model');
 
         $this->user_model->session_check(1);
     }
@@ -296,6 +296,166 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function edit_bantuan()
+    {
+        $id_siswa = $this->input->post('id');
+        $status_pip = $this->input->post('layak-pip');
+
+        $kip = array(
+            'nomor_kip' => $this->input->post('no-kip'),
+            'nama_tertera_kip' => $this->input->post('nama-kip')
+        );
+        $kks = array(
+            'nomor_kks' => $this->input->post('no-kks')
+        );
+        $kps_pkh = array(
+            'nomor_kps_pkh' => $this->input->post('no-kps-pkh'),
+        );
+        $pip = array(
+            'alasan_layak_pip_id_alasan_layak_pip' => $this->input->post('alasan-pip'),
+            'bank' => $this->input->post('bank'),
+            'nomor_rekening' => $this->input->post('rekening'),
+            'kantor_cabang_pembantu' => $this->input->post('kacab'),
+            'rekening_atas_nama' => $this->input->post('nama-rekening')
+        );
+        $siswa = array(
+            'moda_transportasi_id_moda_transportasi' => $this->input->post('transportasi'),
+            'anak_ke' => $this->input->post('anak-ke')
+        );
+
+        $kip = array_map(array($this, 'drop_empty'), $kip);
+        $kks = array_map(array($this, 'drop_empty'), $kks);
+        $kps_pkh = array_map(array($this, 'drop_empty'), $kps_pkh);
+        $pip = array_map(array($this, 'drop_empty'), $pip);
+        $siswa = array_map(array($this, 'drop_empty'), $siswa);
+
+        if ($this->kip_model->select_where(array('siswa_id_siswa' => $id_siswa))->num_rows() == 0) {
+            if ($this->cek_null($kip)) {
+                $kip['siswa_id_siswa'] = $id_siswa;
+                if ($this->kip_model->insert($kip)) {
+                    $this->response[] = array('isi' => "Berhasil tambah data KIP", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal tambah data KIP. " . $this->db->error(), 'status' => false);
+                }
+            }
+        } else {
+            if ($this->cek_null($kip)) {
+                if ($this->kip_model->update(array('siswa_id_siswa' => $id_siswa), $kip)) {
+                    $this->response[] = array('isi' => "Berhasil update data KIP", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal update data KIP. " . $this->db->error(), 'status' => false);
+                }
+            } else {
+                $this->kip_model->delete(array('siswa_id_siswa' => $id_siswa));
+                if ($this->db->affected_rows() > 0) {
+                    $this->response[] = array('isi' => "Berhasil hapus data KIP", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal hapus data KIP. " . $this->db->error(), 'status' => false);
+                }
+            }
+        }
+
+        if ($this->kks_model->select_where(array('siswa_id_siswa' => $id_siswa))->num_rows() == 0) {
+            if ($this->cek_null($kks)) {
+                $kks['siswa_id_siswa'] = $id_siswa;
+                if ($this->kks_model->insert($kks)) {
+                    $this->response[] = array('isi' => "Berhasil tambah data KKS", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal tambah data KKS. " . $this->db->error(), 'status' => false);
+                }
+            }
+        } else {
+            if ($this->cek_null($kks)) {
+                if ($this->kks_model->update(array('siswa_id_siswa' => $id_siswa), $kks)) {
+                    $this->response[] = array('isi' => "Berhasil update data KKS", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal update data KKS. " . $this->db->error(), 'status' => false);
+                }
+            } else {
+                $this->kks_model->delete(array('siswa_id_siswa' => $id_siswa));
+                if ($this->db->affected_rows() > 0) {
+                    $this->response[] = array('isi' => "Berhasil hapus data KKS", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal hapus data KKS. " . $this->db->error(), 'status' => false);
+                }
+            }
+        }
+
+        if ($this->kps_pkh_model->select_where(array('siswa_id_siswa' => $id_siswa))->num_rows() == 0) {
+            if ($this->cek_null($kps_pkh)) {
+                $kps_pkh['siswa_id_siswa'] = $id_siswa;
+                if ($this->kps_pkh_model->insert($kps_pkh)) {
+                    $this->response[] = array('isi' => "Berhasil tambah data KPS/PKH", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal tambah data KPS/PKH. " . $this->db->error(), 'status' => false);
+                }
+            }
+        } else {
+            if ($this->cek_null($kps_pkh)) {
+                if ($this->kps_pkh_model->update(array('siswa_id_siswa' => $id_siswa), $kps_pkh)) {
+                    $this->response[] = array('isi' => "Berhasil update data KPS/PKH", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal update data KPS/PKH. " . $this->db->error(), 'status' => false);
+                }
+            } else {
+                $this->kps_pkh_model->delete(array('siswa_id_siswa' => $id_siswa));
+                if ($this->db->affected_rows() > 0) {
+                    $this->response[] = array('isi' => "Berhasil hapus data KPS/PKH", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal hapus data KPS/PKH. " . $this->db->error(), 'status' => false);
+                }
+            }
+        }
+
+        if ($status_pip == 1) {
+            if ($this->pip_model->select_where(array('siswa_id_siswa' => $id_siswa))->num_rows() == 0) {
+                $pip['siswa_id_siswa'] = $id_siswa;
+                if ($this->pip_model->insert($pip)) {
+                    $this->response[] = array('isi' => "Berhasil tambah data PIP", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal tambah data PIP. " . $this->db->error(), 'status' => false);
+                }
+            } else {
+                if ($this->pip_model->update(array('siswa_id_siswa' => $id_siswa), $pip)) {
+                    $this->response[] = array('isi' => "Berhasil update data PIP", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal update data PIP. " . $this->db->error(), 'status' => false);
+                }
+            }
+        } else {
+            if ($this->pip_model->select_where(array('siswa_id_siswa' => $id_siswa))->num_rows() > 0) {
+                $this->pip_model->delete(array('siswa_id_siswa' => $id_siswa));
+                if ($this->db->affected_rows() > 0) {
+                    $this->response[] = array('isi' => "Berhasil hapus data PIP", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal hapus data PIP. " . $this->db->error(), 'status' => false);
+                }
+            }
+        }
+
+        if ($this->siswa_model->update(array('id_siswa' => $id_siswa), $siswa)) {
+            $this->response[] = array('isi' => "Berhasil update data siswa", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal update data siswa. " . $this->db->error(), 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function cek_null($array)
+    {
+        $status = true;
+        foreach ($array as $value) {
+            if ($value === NULL) {
+                $status = false;
+            } else {
+                $status = true;
+                break 1;
+            }
+        }
+        return $status;
+    }
+
     public function drop_empty($var)
     {
         return ($var === '') ? NULL : $var;
@@ -324,6 +484,57 @@ class Data_siswa extends CI_Controller
         if (is_file($path)) {
             @unlink($path);
         }
+    }
+
+    public function bantuan_siswa()
+    {
+        $id = $this->input->post('id_siswa');
+        $result = $this->bantuan_tidak_mampu_model->select_where(array("siswa_id_siswa" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
+    public function tambah_bantuan_siswa()
+    {
+        $data_bantuan = array(
+            'nama_program' => $this->input->post('nama-program'),
+            'bukti' => $this->input->post('bukti'),
+            'siswa_id_siswa' => $this->input->post('id')
+        );
+
+        if ($this->bantuan_tidak_mampu_model->insert($data_bantuan)) {
+            $this->response[] = array('isi' => "Berhasil tambah data bantuan lainnya", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah data bantuan lainnya. " . $this->db->error(), 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function edit_bantuan_siswa()
+    {
+        $data_bantuan = array(
+            'nama_program' => $this->input->post('nama-program'),
+            'bukti' => $this->input->post('bukti')
+        );
+
+        if ($this->bantuan_tidak_mampu_model->update(array('id_bantuan_tidak_mampu' => $this->input->post('id-bantuan')), $data_bantuan)) {
+            $this->response[] = array('isi' => "Berhasil edit data bantuan lainnya", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit data bantuan lainnya. " . $this->db->error(), 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_bantuan_siswa()
+    {
+        if ($this->bantuan_tidak_mampu_model->delete(array('id_bantuan_tidak_mampu' => $this->input->post('id_bantuan'))) == false) {
+            $this->response[] = array('isi' => "Gagal hapus data bantuan lainnya. " . $this->db->error(), 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus data bantuan lainnya.", 'status' => true);
+        }
+
+        echo json_encode($this->response);
     }
 
     public function simpan_data_siswa()

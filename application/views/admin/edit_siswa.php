@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/sweetalert2/dist/sweetalert2.min.css" />
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css" />
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.css" />
-
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/stylesheets/theme.css" />
 
@@ -39,6 +39,7 @@
 
     <!-- Head Libs -->
     <script src="<?php echo base_url('/'); ?>assets/vendor/modernizr/modernizr.js"></script>
+
     <style>
         .select2-container {
             width: 100% !important;
@@ -88,7 +89,7 @@
                                     <label><i class="fa fa-user"> </i> Data Pribadi</label>
                                     <div class="toggle-content">
                                         <div class="panel-body">
-                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden>
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden required>
                                             <div class="form-group">
                                                 <div class="col-md-4"></div>
                                                 <div class="col-md-6">
@@ -123,7 +124,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">NISN: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="nisn" value="<?php echo $data_pribadi[0]['nisn']; ?>" class="form-control">
+                                                    <input type="text" name="nisn" value="<?php echo $data_pribadi[0]['nisn']; ?>" class="form-control" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -153,7 +154,7 @@
                                                         <div class="mb-md hidden-lg hidden-xl"></div>
 
                                                         <div class="col-lg-4">
-                                                            <input type="text" name="siswa-golongan" value="<?php echo $data_pribadi[0]['golongan']; ?>" class="form-control" required>
+                                                            <input type="text" name="siswa-golongan" value="<?php echo $data_pribadi[0]['golongan']; ?>" class="form-control" required digits="true">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -161,7 +162,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">NIK: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="siswa-nik" value="<?php echo $data_pribadi[0]['nik']; ?>" class="form-control">
+                                                    <input type="text" name="siswa-nik" value="<?php echo $data_pribadi[0]['nik']; ?>" class="form-control" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -179,7 +180,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">No Kartu Keluarga: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="nomor-kk" value="<?php echo $data_pribadi[0]['nomor_kk']; ?>" class="form-control">
+                                                    <input type="text" name="nomor-kk" value="<?php echo $data_pribadi[0]['nomor_kk']; ?>" class="form-control" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -228,7 +229,7 @@
                                     <label> <i class="fa fa-home"></i> Alamat Sesuai Tempat Tinggal Saat Ini</label>
                                     <div class="toggle-content">
                                         <div class="panel-body">
-                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden>
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden required>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Alamat Jalan: </label>
                                                 <div class="col-sm-8">
@@ -250,13 +251,13 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">RT: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="rt" value="<?php echo $alamat_dan_domisili->rt; ?>" class="form-control">
+                                                    <input type="text" name="rt" value="<?php echo $alamat_dan_domisili->rt; ?>" class="form-control" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">RW: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="rw" value="<?php echo $alamat_dan_domisili->rw; ?>" class="form-control">
+                                                    <input type="text" name="rw" value="<?php echo $alamat_dan_domisili->rw; ?>" class="form-control" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -284,7 +285,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Kode Pos: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="kode-pos" value="<?php echo $alamat_dan_domisili->kode_pos; ?>" class="form-control">
+                                                    <input type="text" name="kode-pos" value="<?php echo $alamat_dan_domisili->kode_pos; ?>" class="form-control" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -319,7 +320,7 @@
                                     <label> <i class="fa fa-map-marker"></i> Domisili</label>
                                     <div class="toggle-content">
                                         <div class="panel-body">
-                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden>
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden required>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Alamat Jalan: </label>
                                                 <div class="col-sm-8">
@@ -335,13 +336,13 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">RT: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="rt" value="<?php echo $alamat_dan_domisili->domisili_rt; ?>" class="form-control">
+                                                    <input type="text" name="rt" value="<?php echo $alamat_dan_domisili->domisili_rt; ?>" class="form-control" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">RW: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="rw" value="<?php echo $alamat_dan_domisili->domisili_rw; ?>" class="form-control">
+                                                    <input type="text" name="rw" value="<?php echo $alamat_dan_domisili->domisili_rw; ?>" class="form-control" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -369,7 +370,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Kode Pos: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="kode-pos" value="<?php echo $alamat_dan_domisili->domisili_kode_pos; ?>" class="form-control">
+                                                    <input type="text" name="kode-pos" value="<?php echo $alamat_dan_domisili->domisili_kode_pos; ?>" class="form-control" digits="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -399,116 +400,120 @@
                                     </div>
                                 </section>
                             </form>
-                            <section class="toggle">
-                                <label> <i class="fa fa-credit-card"></i> Bantuan Keluarga Tidak Mampu</label>
-                                <div class="toggle-content panel-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Moda Transportasi: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['moda_transportasi']; ?>" class="form-control" readonly>
+                            <form id="form-bantuan" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                                <section class="toggle">
+                                    <label> <i class="fa fa-credit-card"></i> Bantuan Keluarga Tidak Mampu</label>
+                                    <div class="toggle-content">
+                                        <div class="panel-body">
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden required>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Moda Transportasi: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="transportasi" id="transportasi" class="form-control">
+                                                        <option value="<?php echo $bantuan_tidak_mampu[0]['id_moda_transportasi']; ?>"><?php echo $bantuan_tidak_mampu[0]['moda_transportasi']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor KKS: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-kks" value="<?php echo $bantuan_tidak_mampu[0]['nomor_kks']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Anak ke-: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="anak-ke" value="<?php echo $bantuan_tidak_mampu[0]['anak_ke']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor KPS/PKH: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-kps-pkh" value="<?php echo $bantuan_tidak_mampu[0]['nomor_kps_pkh']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor KIP: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-kip" value="<?php echo $bantuan_tidak_mampu[0]['nomor_kip']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nama di KIP: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nama-kip" value="<?php echo $bantuan_tidak_mampu[0]['nama_tertera_kip']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Layak PIP: </label>
+                                                <div class="col-sm-8">
+                                                    <select id="layak-pip" name="layak-pip" class="form-control">
+                                                        <?php if ($bantuan_tidak_mampu[0]['id_pip'] === NULL) {
+                                                            echo "<option value='1'>Ya</option><option value='0' selected>Tidak</option>";
+                                                        } else {
+                                                            echo "<option value='1' selected>Ya</option><option value='0'>Tidak</option>";
+                                                        }; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Alasan Layak PIP: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="alasan-pip" id="alasan-pip" class="form-control">
+                                                        <option value="<?php echo $bantuan_tidak_mampu[0]['id_alasan_layak_pip']; ?>"><?php echo $bantuan_tidak_mampu[0]['alasan_layak_pip']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nama Bank: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="bank" value="<?php echo $bantuan_tidak_mampu[0]['bank']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor Rekening: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="rekening" value="<?php echo $bantuan_tidak_mampu[0]['nomor_rekening']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kantor Cabang Pembantu: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="kacab" value="<?php echo $bantuan_tidak_mampu[0]['kantor_cabang_pembantu']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Rekening Atas Nama: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nama-rekening" value="<?php echo $bantuan_tidak_mampu[0]['rekening_atas_nama']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <h5 class="text-center"><strong><u>Bantuan Tidak Mampu Lainnya</u></strong></h5>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="mb-md" style="float: right;">
+                                                        <a data-toggle="modal" data-target="#modal-tambah-bantuan" class="modal-with-form btn btn-primary">Tambah data bantuan lainnya <i class="fa fa-plus-square"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table id="table-bantuan-lainnya" class="table table-bordered table-striped mb-none">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nama Program</th>
+                                                        <th>Bukti</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        <footer class="panel-footer">
+                                            <button class="btn btn-primary" type="submit">Update </button>
+                                        </footer>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor KKS: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['nomor_kks']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Anak ke-: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['anak_ke']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor KPS/PKH: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['nomor_kps_pkh']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor KIP: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['nomor_kip']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nama di KIP: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['nama_tertera_kip']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Layak PIP: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php if ($bantuan_tidak_mampu[0]['id_pip'] === NULL) {
-                                                                            echo "Tidak";
-                                                                        } else {
-                                                                            echo "Ya";
-                                                                        }; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Alasan Layak PIP: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['alasan_layak_pip']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nama Bank: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['bank']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Rekening: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['nomor_rekening']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kantor Cabang Pembantu: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['kantor_cabang_pembantu']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Rekening Atas Nama: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $bantuan_tidak_mampu[0]['rekening_atas_nama']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" colspan="3">Bantuan Keluarga Tidak Mampu Lainnya</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Nama Program</th>
-                                                    <th>Bukti</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($bantuan_tidak_mampu[0]['bantuan_tidak_mampu_lainnya'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($bantuan_tidak_mampu[0]['bantuan_tidak_mampu_lainnya'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['nama_program'] . "</td>";
-                                                        echo "<td>" . $key['bukti'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
+                            </form>
                             <section class="toggle">
                                 <label> <i class="fa fa-male"></i> Data Ayah Kandung</label>
                                 <div class="toggle-content panel-body">
@@ -1424,6 +1429,75 @@
     </div>
     </section>
 
+    <!--All Modal-->
+    <div class="modal fade" id="modal-tambah-bantuan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Bantuan Lainnya</h4>
+                </div>
+                <form id="form-tambah-bantuan" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Nama Program Bantuan</label>
+                            <input type="text" class="form-control" name="nama-program" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Bukti</label>
+                            <input type="text" class="form-control" name="bukti" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-edit-bantuan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Bantuan Lainnya</h4>
+                </div>
+                <form id="form-edit-bantuan" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-id-bantuan" name="id-bantuan" hidden>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Nama Program Bantuan</label>
+                            <input type="text" class="form-control" id="edit-nama-program" name="nama-program" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Bukti</label>
+                            <input type="text" class="form-control" id="edit-bukti" name="bukti" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal_loading" data-backdrop="static" data-keyboard="false" class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                    <div>
+                        <strong>Tunggu sebentar yaaa....</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end: All Modal-->
+
     <!-- Vendor -->
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery/jquery.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
@@ -1444,7 +1518,9 @@
     <script src="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.js"></script>
 
     <!-- JS -->
-    <script type="text/javascript" src="<?php echo base_url('/'); ?>assets/js/table/database.siswa.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('/'); ?>assets/js/select2.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('/'); ?>assets/js/sweetalert2.js"></script>
+    <script type="text/javascript" src="<?php echo base_url('/'); ?>assets/js/fetch.js"></script>
 
     <!-- Theme Base, Components and Settings -->
     <script src="<?php echo base_url('/'); ?>assets/js/theme.js"></script>
@@ -1456,313 +1532,145 @@
     <script src="<?php echo base_url('/'); ?>assets/js/theme.init.js"></script>
 
     <script>
-        var groupBy = function(xs, key) {
-            return xs.reduce(function(rv, x) {
-                (rv[x[key]] = rv[x[key]] || []).push(x);
-                return rv;
-            }, {});
-        };
+        $('.modal').on('hidden.bs.modal', function() {
+            $('#form-tambah-bantuan').trigger('reset');
+            $('#form-edit-bantuan').trigger('reset');
+        })
 
-        function get_desa(id_kec, selector) {
-            selector.select2({
-                ajax: {
-                    url: '<?php echo base_url('referensi_data/kel_desa') ?>',
-                    dataType: 'json',
-                    delay: 500,
-                    data: function(params) {
-                        return {
-                            kel: params.term,
-                            id_kec: id_kec
-                        }
-                    },
-                    processResults: function(response) {
-                        return {
-                            results: response
-                        };
-                    },
-                    cache: true
-                },
-                minimumInputLength: 1,
-                placeholder: "Pilih kelurahan/desa"
-            });
+        function enable_disable_pip(option) {
+            if (option == 0) {
+                $('input[name="bank"], select[name="alasan-pip"], input[name="kacab"], input[name="rekening"], input[name="nama-rekening"]').attr('disabled', true);
+            } else {
+                $('input[name="bank"], select[name="alasan-pip"], input[name="kacab"], input[name="rekening"], input[name="nama-rekening"]').attr('disabled', false);
+            }
         }
+        enable_disable_pip(<?php echo ($bantuan_tidak_mampu[0]['id_pip'] === NULL) ? 0 : 1; ?>);
+        $('#layak-pip').on('change', () => {
+            let option = $('#layak-pip').val();
 
-        function get_kec(selector) {
-            selector.select2({
-                ajax: {
-                    url: '<?php echo base_url('referensi_data/kecamatan') ?>',
-                    dataType: 'json',
-                    delay: 500,
-                    data: function(params) {
-                        return {
-                            kec: params.term
-                        }
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: $.map(groupBy(data, 'kab'), function(item, key) {
-                                var children = [];
-                                for (var k in item) {
-                                    var childItem = item[k];
-                                    childItem.text = item[k].kec;
-                                    children.push(childItem);
-                                }
-                                return {
-                                    text: key,
-                                    children: children,
-                                }
-                            })
-                        };
-                    },
-                    cache: true
-                },
-                minimumInputLength: 2,
-                placeholder: "Pilih Kecamatan"
-            });
-        }
+            enable_disable_pip(option);
+        })
 
-        $('#siswa-gender').select2({
-            ajax: {
-                url: '<?php echo base_url('referensi_data/gender') ?>',
-                dataType: 'json',
-                delay: 500,
-                processResults: function(response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-            },
-            minimumResultsForSearch: Infinity,
-            placeholder: "Pilih Jenis Kelamin"
-        });
+        /**Call All Select2 */
+        select2_get('#siswa-gender', '<?php echo base_url('referensi_data/gender') ?>', "Pilih Jenis Kelamin");
+        select2_get('#siswa-kelas', '<?php echo base_url('referensi_data/kelas') ?>', "Pilih Kelas");
+        select2_get('#siswa-jurusan', '<?php echo base_url('referensi_data/jurusan') ?>', "Pilih Jurusan");
+        select2_get('#siswa-agama', '<?php echo base_url('referensi_data/agama') ?>', "Pilih Agama");
+        select2_get('#tempat-tinggal, #domisili-tempat-tinggal', '<?php echo base_url('referensi_data/tempat_tinggal') ?>', "Pilih Tempat Tinggal");
+        select2_get('#siswa-kebutuhan-khusus, #kebutuhan-khusus-ayah, #kebutuhan-khusus-ibu, #kebutuhan-khusus-wali', '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>', "Pilih Kebutuhan Khusus");
+        select2_get('#transportasi', '<?php echo base_url('referensi_data/transportasi') ?>', "Pilih Transportasi");
+        select2_get('#alasan-pip', '<?php echo base_url('referensi_data/alasan_pip') ?>', "Pilih Alasan Layak PIP");
 
-        $('#siswa-kelas').select2({
-            ajax: {
-                url: '<?php echo base_url('referensi_data/kelas') ?>',
-                dataType: 'json',
-                delay: 500,
-                processResults: function(response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-            },
-            minimumResultsForSearch: Infinity,
-            placeholder: "Pilih Kelas"
-        });
-
-        $('#siswa-jurusan').select2({
-            ajax: {
-                url: '<?php echo base_url('referensi_data/jurusan') ?>',
-                dataType: 'json',
-                delay: 500,
-                processResults: function(response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-            },
-            minimumResultsForSearch: Infinity,
-            placeholder: "Pilih Jurusan"
-        });
-
-        $('#siswa-agama').select2({
-            ajax: {
-                url: '<?php echo base_url('referensi_data/agama') ?>',
-                dataType: 'json',
-                delay: 500,
-                processResults: function(response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-            },
-            minimumResultsForSearch: Infinity,
-            placeholder: "Pilih Agama"
-        });
-
-        $('#tempat-tinggal, #domisili-tempat-tinggal').select2({
-            ajax: {
-                url: '<?php echo base_url('referensi_data/tempat_tinggal') ?>',
-                dataType: 'json',
-                delay: 500,
-                processResults: function(response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-            },
-            minimumResultsForSearch: Infinity,
-            placeholder: "Pilih Tempat Tinggal"
-        });
-
-        get_desa(<?php echo $alamat_dan_domisili->id_kecamatan; ?>, $('#desa'));
-        get_kec($('#kecamatan'));
-
+        get_desa(<?php echo $alamat_dan_domisili->id_kecamatan; ?>, $('#desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
+        get_kec($('#kecamatan'), '<?php echo base_url('referensi_data/kecamatan') ?>');
         $('#kecamatan').on("change", function() {
             var id_kec = $(this).val();
             $('#desa').val('');
-            get_desa(id_kec, $('#desa'));
+            get_desa(id_kec, $('#desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
         })
 
-        get_desa(<?php echo (is_null($alamat_dan_domisili->domisili_id_kecamatan) ? 3665 : $alamat_dan_domisili->domisili_id_kecamatan); ?>, $('#domisili-desa'));
-        get_kec($('#domisili-kecamatan'));
-
+        get_desa(<?php echo (is_null($alamat_dan_domisili->domisili_id_kecamatan) ? 3665 : $alamat_dan_domisili->domisili_id_kecamatan); ?>, $('#domisili-desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
+        get_kec($('#domisili-kecamatan'), '<?php echo base_url('referensi_data/kecamatan') ?>');
         $('#domisili-kecamatan').on("change", function() {
             var id_kec = $(this).val();
             $('#domisili-desa').val('');
-            get_desa(id_kec, $('#domisili-desa'));
+            get_desa(id_kec, $('#domisili-desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
+        })
+        /**END */
+
+        /**CUD Bantuaun Lainnya */
+        var tabel_bantuan_lainnya = $('#table-bantuan-lainnya').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/bantuan_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id_siswa: <?php echo $data_pribadi[0]['id_siswa']; ?>
+                }
+            },
+            columns: [{
+                    data: "nama_program"
+                },
+                {
+                    data: "bukti"
+                },
+                {
+                    data: "id_bantuan_tidak_mampu",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Edit Data Bantuan" class="item-edit" href="javascript:void(0)" data-id="' + row.id_bantuan_tidak_mampu + '" data-program="' + row.nama_program + '" data-bukti="' + row.bukti + '"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Data Bantuan" href="javascript:void(0)" onclick="hapus_bantuan(' + row.id_bantuan_tidak_mampu + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
         })
 
-        $('#siswa-kebutuhan-khusus, #kebutuhan-khusus-ayah, #kebutuhan-khusus-ibu, #kebutuhan-khusus-wali').select2({
-            ajax: {
-                url: '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>',
-                dataType: 'json',
-                delay: 500,
-                processResults: function(response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-            },
-            minimumResultsForSearch: Infinity,
-            allowClear: true,
-            placeholder: "Pilih Kebutuhan Khusus"
-        });
+        function hapus_bantuan(params) {
+            let formData = new FormData();
+            formData.append('id_bantuan', params);
 
-        $(document).ready(function() {
-            $("#form-data-pribadi").submit(function(event) {
-                event.preventDefault();
-                var formData = new FormData(this);
-                fetch('<?php echo base_url("admin/data_siswa/edit_data_pribadi") ?>', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json()
-                        } else {
-                            throw new Error(response.statusText)
-                        }
-                    })
-                    .then(pesan => {
-                        pesan.forEach((element, index) => {
-                            setTimeout(() => {
-                                if (element.status === true) {
-                                    new PNotify({
-                                        title: 'Data Pribadi',
-                                        text: element.isi,
-                                        type: 'success'
-                                    });
-                                } else {
-                                    new PNotify({
-                                        title: 'Data Pribadi',
-                                        text: element.isi,
-                                        type: 'error'
-                                    });
-                                }
-                            }, index * 1000);
-                        });
-                    })
-                    .catch(error => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: error,
-                        })
-                    })
-            });
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan data bantuan yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_bantuan_siswa'); ?>', formData, tabel_bantuan_lainnya, 'Bantuan Lainnya');
+        }
 
-            $("#form-alamat-tinggal").submit(function(event) {
-                event.preventDefault();
-                var formData = new FormData(this);
-                fetch('<?php echo base_url("admin/data_siswa/edit_alamat_tinggal") ?>', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json()
-                        } else {
-                            throw new Error(response.statusText)
-                        }
-                    })
-                    .then(pesan => {
-                        pesan.forEach((element, index) => {
-                            setTimeout(() => {
-                                if (element.status === true) {
-                                    new PNotify({
-                                        title: 'Tempat Tinggal Siswa',
-                                        text: element.isi,
-                                        type: 'success'
-                                    });
-                                } else {
-                                    new PNotify({
-                                        title: 'Tempat Tinggal Siswa',
-                                        text: element.isi,
-                                        type: 'error'
-                                    });
-                                }
-                            }, index * 1000);
-                        });
-                    })
-                    .catch(error => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: error,
-                        })
-                    })
-            });
+        $('#form-tambah-bantuan').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-bantuan'));
+                formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
 
-            $("#form-domisili").submit(function(event) {
-                event.preventDefault();
-                var formData = new FormData(this);
-                fetch('<?php echo base_url("admin/data_siswa/edit_domisili") ?>', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            return response.json()
-                        } else {
-                            throw new Error(response.statusText)
-                        }
-                    })
-                    .then(pesan => {
-                        pesan.forEach((element, index) => {
-                            setTimeout(() => {
-                                if (element.status === true) {
-                                    new PNotify({
-                                        title: 'Domisili Siswa',
-                                        text: element.isi,
-                                        type: 'success'
-                                    });
-                                } else {
-                                    new PNotify({
-                                        title: 'Domisili Siswa',
-                                        text: element.isi,
-                                        type: 'error'
-                                    });
-                                }
-                            }, index * 1000);
-                        });
-                    })
-                    .catch(error => {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: error,
-                        })
-                    })
-            });
-        });
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_bantuan_siswa'); ?>", formData, '#modal-tambah-bantuan', tabel_bantuan_lainnya, 'Bantuan Lainnya');
+            }
+        })
+
+        $('#table-bantuan-lainnya').on('click', '.item-edit', function() {
+            $('#edit-bukti').val($(this).data('bukti'));
+            $('#edit-nama-program').val($(this).data('program'));
+            $('#edit-id-bantuan').val($(this).data('id'));
+            $('#modal-edit-bantuan').modal('show');
+        })
+        $('#form-edit-bantuan').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-bantuan'));
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_bantuan_siswa'); ?>", formData, '#modal-edit-bantuan', tabel_bantuan_lainnya, 'Bantuan Lainnya');
+            }
+        })
+        /**END */
+
+        /**Validate Form */
+        $("#form-data-pribadi").validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-data-pribadi'));
+
+                fetch_save_form('<?php echo base_url("admin/data_siswa/edit_data_pribadi") ?>', formData, 'Data Pribadi');
+            }
+        })
+
+        $("#form-alamat-tinggal").validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-alamat-tinggal'));
+
+                fetch_save_form('<?php echo base_url("admin/data_siswa/edit_alamat_tinggal") ?>', formData, 'Tempat Tinggal Siswa');
+            }
+        })
+
+        $("#form-domisili").validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-domisili'));
+
+                fetch_save_form('<?php echo base_url("admin/data_siswa/edit_domisili") ?>', formData, 'Domisili Siswa');
+            }
+        })
+
+        $("#form-bantuan").validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-bantuan'));
+
+                fetch_save_form('<?php echo base_url("admin/data_siswa/edit_bantuan") ?>', formData, 'Bantuan Siswa');
+            }
+        })
+        /**END */
     </script>
 
 </body>
