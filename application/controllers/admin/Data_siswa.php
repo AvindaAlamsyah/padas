@@ -497,6 +497,58 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function edit_ibu()
+    {
+        $id_ibu = $this->input->post('id');
+
+        $ibu = array(
+            'nama' => $this->input->post('nama'),
+            'kondisi' => $this->input->post('kondisi'),
+            'nik' => $this->input->post('nik'),
+            'nomor_telepon_seluler' => $this->input->post('no-telp'),
+            'nomor_rumah' => $this->input->post('no-rumah'),
+            'rt' => $this->input->post('rt'),
+            'rw' => $this->input->post('rw'),
+            'dusun' => $this->input->post('dusun'),
+            'desa_id_desa' => $this->input->post('desa'),
+            'kode_pos' => $this->input->post('kode-pos'),
+            'lintang' => $this->input->post('lintang'),
+            'bujur' => $this->input->post('bujur'),
+            'detail_alamat' => $this->input->post('jalan'),
+            'tempat_tinggal_id_tempat_tinggal' => $this->input->post('tempat-tinggal'),
+            'tanggal_lahir' => $this->input->post('tanggal-lahir'),
+            'pendidikan_id_pendidikan' => $this->input->post('pendidikan'),
+            'pekerjaan_id_pekerjaan' => $this->input->post('pekerjaan'),
+            'penghasilan_id_penghasilan' => $this->input->post('penghasilan')
+        );
+
+        $ibu = array_map(array($this, 'drop_empty'), $ibu);
+
+        if ($this->ibu_model->update(array('id_ibu' => $id_ibu), $ibu)) {
+            $this->response[] = array('isi' => "Berhasil update data ibu", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal update data ibu. " . $this->db->error(), 'status' => false);
+        }
+
+        $this->ibu_has_berkebutuhan_khusus_model->delete(array('ibu_id_ibu' => $id_ibu));
+        if ($this->input->post('ibu-kebutuhan-khusus') != false) {
+            $ibu_has_berkebutuhan_khusus = array();
+            foreach ($this->input->post('ibu-kebutuhan-khusus') as $value) {
+                $ibu_has_berkebutuhan_khusus[] = array(
+                    'ibu_id_ibu' => $id_ibu,
+                    'berkebutuhan_khusus_id_berkebutuhan_khusus' => $value
+                );
+            }
+            if ($this->ibu_has_berkebutuhan_khusus_model->insert_batch($ibu_has_berkebutuhan_khusus) == false) {
+                $this->response[] = array('isi' => "Gagal update kebutuhan khusus ibu. " . $this->db->error(), 'status' => false);
+            } else {
+                $this->response[] = array('isi' => "Berhasil update kebutuhan khusus ibu", 'status' => true);
+            }
+        }
+
+        echo json_encode($this->response);
+    }
+
     public function cek_null($array)
     {
         $status = true;
