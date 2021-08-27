@@ -514,143 +514,165 @@
                                     </div>
                                 </section>
                             </form>
-                            <section class="toggle">
-                                <label> <i class="fa fa-male"></i> Data Ayah Kandung</label>
-                                <div class="toggle-content panel-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nama Ayah Kandung: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['nama_ayah']; ?>" class="form-control" readonly>
+                            <form id="form-ayah" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                                <section class="toggle">
+                                    <label> <i class="fa fa-male"></i> Data Ayah Kandung</label>
+                                    <div class="toggle-content">
+                                        <div class="panel-body">
+                                            <input type="text" name="id" value="<?php echo $ayah[0]['id_ayah']; ?>" hidden required>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nama Ayah Kandung: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nama" value="<?php echo $ayah[0]['nama_ayah']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kondisi Ayah Kandung: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="kondisi" class="form-control">
+                                                        <?php if ($ayah[0]['kondisi_ayah'] === "Hidup") {
+                                                            echo "<option value='Meninggal'>Meninggal</option><option value='Hidup' selected>Hidup</option>";
+                                                        } else {
+                                                            echo "<option value='Meninggal' selected>Meninggal</option><option value='Hidup'>Hidup</option>";
+                                                        }; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">NIK Ayah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nik" value="<?php echo $ayah[0]['nik_ayah']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor Handphone: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-telp" value="<?php echo $ayah[0]['nomor_telepon_seluler_ayah']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor Rumah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-rumah" value="<?php echo $ayah[0]['nomor_rumah_ayah']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">RT: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="rt" value="<?php echo $ayah[0]['rt_ayah']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">RW: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="rw" value="<?php echo $ayah[0]['rw_ayah']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Dusun: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="dusun" value="<?php echo $ayah[0]['dusun_ayah']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kelurahan/Desa: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="desa" id="ayah-desa" class="form-control" required>
+                                                        <option value="<?php echo $ayah[0]['id_desa_ayah']; ?>"><?php echo $ayah[0]['desa_ayah']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kecamatan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="kecamatan" id="ayah-kecamatan" class="form-control" required>
+                                                        <option value="<?php echo $ayah[0]['id_kecamatan_ayah']; ?>"><?php echo $ayah[0]['kecamatan_ayah']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kode Pos: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="kode-pos" value="<?php echo $ayah[0]['kode_pos_ayah']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Lintang: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="lintang" value="<?php echo $ayah[0]['lintang_ayah']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Bujur: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="bujur" value="<?php echo $ayah[0]['bujur_ayah']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Alamat Jalan: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="jalan" value="<?php echo $ayah[0]['detail_alamat_ayah']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tempat Tinggal: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="tempat-tinggal" id="tempat-tinggal-ayah" class="form-control">
+                                                        <option value="<?php echo $ayah[0]['id_tempat_tinggal_ayah']; ?>"><?php echo $ayah[0]['tempat_tinggal_ayah']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tanggal Lahir: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="date" name="tanggal-lahir" value="<?php echo $ayah[0]['tanggal_lahir_ayah']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Pendidikan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="pendidikan" id="pendidikan-ayah" class="form-control">
+                                                        <option value="<?php echo $ayah[0]['id_pendidikan_ayah']; ?>"><?php echo $ayah[0]['pendidikan_ayah']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Pekerjaan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="pekerjaan" id="pekerjaan-ayah" class="form-control">
+                                                        <option value="<?php echo $ayah[0]['id_pekerjaan_ayah']; ?>"><?php echo $ayah[0]['pekerjaan_ayah']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Penghasilan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="penghasilan" id="penghasilan-ayah" class="form-control">
+                                                        <option value="<?php echo $ayah[0]['id_penghasilan_ayah']; ?>"><?php echo $ayah[0]['penghasilan_ayah']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Berkebutuhan Khusus: </label>
+                                                <div class="col-sm-8">
+                                                    <select multiple name="ayah-kebutuhan-khusus[]" id="ayah-kebutuhan-khusus" class="form-control">
+                                                        <?php if ($data_pribadi[0]['berkebutuhan_khusus_ayah'] == NULL) {
+                                                            echo "<option></option>";
+                                                        } else {
+                                                            foreach ($data_pribadi[0]['berkebutuhan_khusus_ayah'] as $key) {
+                                                                echo "<option selected='selected' value='" . $key['id_berkebutuhan_khusus_ayah'] . "'>" . $key['berkebutuhan_khusus_ayah'] . "</option>";
+                                                            }
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <footer class="panel-footer">
+                                            <button class="btn btn-primary" type="submit">Update </button>
+                                        </footer>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kondisi Ayah Kandung: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['kondisi_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">NIK Ayah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['nik_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Handphone: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['nomor_telepon_seluler_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Rumah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['nomor_rumah_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">RT: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['rt_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">RW: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['rw_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Dusun: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['dusun_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kelurahan/Desa: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['desa_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kecamatan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['kecamatan_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kabupaten: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['kabupaten_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kode Pos: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['kode_pos_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Lintang: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['lintang_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Bujur: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['bujur_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Alamat Jalan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['detail_alamat_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tempat Lahir: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['tempat_lahir_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tanggal Lahir: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['tanggal_lahir_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Pendidikan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['pendidikan_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Pekerjaan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['pekerjaan_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Penghasilan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $ayah[0]['penghasilan_ayah']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Berkebutuhan Khusus: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php if ($ayah[0]['berkebutuhan_khusus_ayah'] == NULL) {
-                                                                            echo $ayah[0]['berkebutuhan_khusus_ayah'];
-                                                                        } else {
-                                                                            foreach ($ayah[0]['berkebutuhan_khusus_ayah'] as $key) {
-                                                                                echo $key['berkebutuhan_khusus_ayah'] . ". ";
-                                                                            }
-                                                                        } ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
+                            </form>
                             <section class="toggle">
                                 <label> <i class="fa fa-female"></i> Data Ibu Kandung</label>
                                 <div class="toggle-content panel-body">
@@ -1556,10 +1578,13 @@
         select2_get('#siswa-kelas', '<?php echo base_url('referensi_data/kelas') ?>', "Pilih Kelas");
         select2_get('#siswa-jurusan', '<?php echo base_url('referensi_data/jurusan') ?>', "Pilih Jurusan");
         select2_get('#siswa-agama', '<?php echo base_url('referensi_data/agama') ?>', "Pilih Agama");
-        select2_get('#tempat-tinggal, #domisili-tempat-tinggal', '<?php echo base_url('referensi_data/tempat_tinggal') ?>', "Pilih Tempat Tinggal");
-        select2_get('#siswa-kebutuhan-khusus, #kebutuhan-khusus-ayah, #kebutuhan-khusus-ibu, #kebutuhan-khusus-wali', '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>', "Pilih Kebutuhan Khusus");
+        select2_get('#tempat-tinggal, #domisili-tempat-tinggal, #tempat-tinggal-ayah', '<?php echo base_url('referensi_data/tempat_tinggal') ?>', "Pilih Tempat Tinggal");
+        select2_get('#siswa-kebutuhan-khusus, #ayah-kebutuhan-khusus, #ibu-kebutuhan-khusus, #wali-kebutuhan-khusus', '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>', "Pilih Kebutuhan Khusus");
         select2_get('#transportasi', '<?php echo base_url('referensi_data/transportasi') ?>', "Pilih Transportasi");
         select2_get('#alasan-pip', '<?php echo base_url('referensi_data/alasan_pip') ?>', "Pilih Alasan Layak PIP");
+        select2_get('#pendidikan-ayah', '<?php echo base_url('referensi_data/pendidikan') ?>', "Pilih Pendidikan Terakhir");
+        select2_get('#pekerjaan-ayah', '<?php echo base_url('referensi_data/pekerjaan') ?>', "Pilih Pekerjaan");
+        select2_get('#penghasilan-ayah', '<?php echo base_url('referensi_data/penghasilan') ?>', "Pilih Penghasilan per Bulan");
 
         get_desa(<?php echo $alamat_dan_domisili->id_kecamatan; ?>, $('#desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
         get_kec($('#kecamatan'), '<?php echo base_url('referensi_data/kecamatan') ?>');
@@ -1575,6 +1600,14 @@
             var id_kec = $(this).val();
             $('#domisili-desa').val('');
             get_desa(id_kec, $('#domisili-desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
+        })
+
+        get_desa(<?php echo (is_null($ayah[0]['id_kecamatan_ayah']) ? 3665 : $ayah[0]['id_kecamatan_ayah']); ?>, $('#ayah-desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
+        get_kec($('#ayah-kecamatan'), '<?php echo base_url('referensi_data/kecamatan') ?>');
+        $('#ayah-kecamatan').on("change", function() {
+            var id_kec = $(this).val();
+            $('#ayah-desa').val('');
+            get_desa(id_kec, $('#ayah-desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
         })
         /**END */
 
@@ -1668,6 +1701,14 @@
                 let formData = new FormData(document.getElementById('form-bantuan'));
 
                 fetch_save_form('<?php echo base_url("admin/data_siswa/edit_bantuan") ?>', formData, 'Bantuan Siswa');
+            }
+        })
+
+        $("#form-ayah").validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-ayah'));
+
+                fetch_save_form('<?php echo base_url("admin/data_siswa/edit_ayah") ?>', formData, 'Data Ayah');
             }
         })
         /**END */

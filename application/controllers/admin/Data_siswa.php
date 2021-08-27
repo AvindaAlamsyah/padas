@@ -119,6 +119,7 @@ class Data_siswa extends CI_Controller
 
         echo json_encode($this->pesan);
     }
+
     public function edit_siswa($id_siswa = null)
     {
         if ($id_siswa != null) {
@@ -202,6 +203,8 @@ class Data_siswa extends CI_Controller
             $this->delete_file($result->foto);
             $upload = $this->upload('siswa-foto', 'png|jpg|jpeg');
             $siswa['foto'] = $upload['file_name'];
+
+            $this->response[] = array('isi' => "Berhasil upload foto profile.", 'status' => true);
         }
 
         if ($this->siswa_model->update(array('id_siswa' => $id_siswa), $siswa)) {
@@ -437,6 +440,58 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Berhasil update data siswa", 'status' => true);
         } else {
             $this->response[] = array('isi' => "Gagal update data siswa. " . $this->db->error(), 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function edit_ayah()
+    {
+        $id_ayah = $this->input->post('id');
+
+        $ayah = array(
+            'nama' => $this->input->post('nama'),
+            'kondisi' => $this->input->post('kondisi'),
+            'nik' => $this->input->post('nik'),
+            'nomor_telepon_seluler' => $this->input->post('no-telp'),
+            'nomor_rumah' => $this->input->post('no-rumah'),
+            'rt' => $this->input->post('rt'),
+            'rw' => $this->input->post('rw'),
+            'dusun' => $this->input->post('dusun'),
+            'desa_id_desa' => $this->input->post('desa'),
+            'kode_pos' => $this->input->post('kode-pos'),
+            'lintang' => $this->input->post('lintang'),
+            'bujur' => $this->input->post('bujur'),
+            'detail_alamat' => $this->input->post('jalan'),
+            'tempat_tinggal_id_tempat_tinggal' => $this->input->post('tempat-tinggal'),
+            'tanggal_lahir' => $this->input->post('tanggal-lahir'),
+            'pendidikan_id_pendidikan' => $this->input->post('pendidikan'),
+            'pekerjaan_id_pekerjaan' => $this->input->post('pekerjaan'),
+            'penghasilan_id_penghasilan' => $this->input->post('penghasilan')
+        );
+
+        $ayah = array_map(array($this, 'drop_empty'), $ayah);
+
+        if ($this->ayah_model->update(array('id_ayah' => $id_ayah), $ayah)) {
+            $this->response[] = array('isi' => "Berhasil update data ayah", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal update data ayah. " . $this->db->error(), 'status' => false);
+        }
+
+        $this->ayah_has_berkebutuhan_khusus_model->delete(array('ayah_id_ayah' => $id_ayah));
+        if ($this->input->post('ayah-kebutuhan-khusus') != false) {
+            $ayah_has_berkebutuhan_khusus = array();
+            foreach ($this->input->post('ayah-kebutuhan-khusus') as $value) {
+                $ayah_has_berkebutuhan_khusus[] = array(
+                    'ayah_id_ayah' => $id_ayah,
+                    'berkebutuhan_khusus_id_berkebutuhan_khusus' => $value
+                );
+            }
+            if ($this->ayah_has_berkebutuhan_khusus_model->insert_batch($ayah_has_berkebutuhan_khusus) == false) {
+                $this->response[] = array('isi' => "Gagal update kebutuhan khusus ayah. " . $this->db->error(), 'status' => false);
+            } else {
+                $this->response[] = array('isi' => "Berhasil update kebutuhan khusus ayah", 'status' => true);
+            }
         }
 
         echo json_encode($this->response);
