@@ -110,13 +110,13 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Nama Lengkap: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="siswa-nama" value="<?php echo $data_pribadi[0]['nama']; ?>" class="form-control">
+                                                    <input type="text" name="siswa-nama" value="<?php echo $data_pribadi[0]['nama']; ?>" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Jenis Kelamin: </label>
                                                 <div class="col-sm-8">
-                                                    <select name="siswa-gender" id="siswa-gender" class="form-control">
+                                                    <select name="siswa-gender" id="siswa-gender" class="form-control" required>
                                                         <option value="<?php echo $data_pribadi[0]['id_gender']; ?>"><?php echo $data_pribadi[0]['gender']; ?></option>
                                                     </select>
                                                 </div>
@@ -138,7 +138,7 @@
                                                 <div class="col-sm-8">
                                                     <div class="row form-group">
                                                         <div class="col-lg-4">
-                                                            <select name="siswa-kelas" id="siswa-kelas" class="form-control">
+                                                            <select name="siswa-kelas" id="siswa-kelas" class="form-control" required>
                                                                 <option value="<?php echo $data_pribadi[0]['id_kelas']; ?>"><?php echo $data_pribadi[0]['kelas']; ?></option>
                                                             </select>
                                                         </div>
@@ -146,7 +146,7 @@
                                                         <div class="mb-md hidden-lg hidden-xl"></div>
 
                                                         <div class="col-lg-4">
-                                                            <select name="siswa-jurusan" id="siswa-jurusan" class="form-control">
+                                                            <select name="siswa-jurusan" id="siswa-jurusan" class="form-control" required>
                                                                 <option value="<?php echo $pendaftaran_masuk->id_kompetensi_keahlian_diterima; ?>"><?php echo $pendaftaran_masuk->akronim_diterima; ?></option>
                                                             </select>
                                                         </div>
@@ -192,7 +192,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Agama: </label>
                                                 <div class="col-sm-8">
-                                                    <select name="siswa-agama" id="siswa-agama" class="form-control">
+                                                    <select name="siswa-agama" id="siswa-agama" class="form-control" required>
                                                         <option value="<?php echo $data_pribadi[0]['id_agama']; ?>"><?php echo $data_pribadi[0]['agama']; ?></option>
                                                     </select>
                                                 </div>
@@ -200,7 +200,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Kewarganegaraan: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="kewarganegaraan" value="<?php echo $data_pribadi[0]['kewarganegaraan']; ?>" class="form-control">
+                                                    <input type="text" name="kewarganegaraan" value="<?php echo $data_pribadi[0]['kewarganegaraan']; ?>" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -277,7 +277,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Kecamatan: </label>
                                                 <div class="col-sm-8">
-                                                    <select name="kecamatan" id="kecamatan" class="form-control">
+                                                    <select name="kecamatan" id="kecamatan" class="form-control" required>
                                                         <option value="<?php echo $alamat_dan_domisili->id_kecamatan; ?>"><?php echo $alamat_dan_domisili->kecamatan; ?></option>
                                                     </select>
                                                 </div>
@@ -291,19 +291,19 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Lintang: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="lintang" value="<?php echo $alamat_dan_domisili->lintang; ?>" class="form-control">
+                                                    <input type="text" name="lintang" value="<?php echo $alamat_dan_domisili->lintang; ?>" class="form-control" number="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Bujur: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="bujur" value="<?php echo $alamat_dan_domisili->bujur; ?>" class="form-control">
+                                                    <input type="text" name="bujur" value="<?php echo $alamat_dan_domisili->bujur; ?>" class="form-control" number="true">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Tempat Tinggal: </label>
                                                 <div class="col-sm-8">
-                                                    <select name="tempat-tinggal" id="tempat-tinggal" class="form-control">
+                                                    <select name="tempat-tinggal" id="tempat-tinggal" class="form-control" required>
                                                         <option value="<?php echo $alamat_dan_domisili->id_tempat_tinggal; ?>"><?php echo $alamat_dan_domisili->tempat_tinggal; ?></option>
                                                     </select>
                                                 </div>
@@ -396,6 +396,7 @@
                                         </div>
                                         <footer class="panel-footer">
                                             <button class="btn btn-primary" type="submit">Update </button>
+                                            <button data-toggle="tooltip" title="Hapus seluruh data domisili secara permanent" class="btn btn-warning btn-delete" type="button">Hapus </button>
                                         </footer>
                                     </div>
                                 </section>
@@ -447,13 +448,16 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Layak PIP: </label>
                                                 <div class="col-sm-8">
-                                                    <select id="layak-pip" name="layak-pip" class="form-control">
-                                                        <?php if ($bantuan_tidak_mampu[0]['id_pip'] === NULL) {
-                                                            echo "<option value='1'>Ya</option><option value='0' selected>Tidak</option>";
-                                                        } else {
-                                                            echo "<option value='1' selected>Ya</option><option value='0'>Tidak</option>";
-                                                        }; ?>
-                                                    </select>
+                                                    <div class="input-group mb-md">
+                                                        <span data-toggle="tooltip" title="jika pilih 'Tidak' akan menghapus permanent data PIP." class="input-group-addon btn-warning">!</span>
+                                                        <select id="layak-pip" name="layak-pip" class="form-control">
+                                                            <?php if ($bantuan_tidak_mampu[0]['id_pip'] === NULL) {
+                                                                echo "<option value='1'>Ya</option><option value='0' selected>Tidak</option>";
+                                                            } else {
+                                                                echo "<option value='1' selected>Ya</option><option value='0'>Tidak</option>";
+                                                            }; ?>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -523,13 +527,13 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Nama Ayah Kandung: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="nama" value="<?php echo $ayah[0]['nama_ayah']; ?>" class="form-control">
+                                                    <input type="text" name="nama" value="<?php echo $ayah[0]['nama_ayah']; ?>" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Kondisi Ayah Kandung: </label>
                                                 <div class="col-sm-8">
-                                                    <select name="kondisi" class="form-control">
+                                                    <select name="kondisi" class="form-control" required>
                                                         <?php if ($ayah[0]['kondisi_ayah'] === "Hidup") {
                                                             echo "<option value='Meninggal'>Meninggal</option><option value='Hidup' selected>Hidup</option>";
                                                         } else {
@@ -682,13 +686,13 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Nama Ibu Kandung: </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" name="nama" value="<?php echo $ibu[0]['nama_ibu']; ?>" class="form-control">
+                                                    <input type="text" name="nama" value="<?php echo $ibu[0]['nama_ibu']; ?>" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Kondisi Ibu Kandung: </label>
                                                 <div class="col-sm-8">
-                                                    <select name="kondisi" class="form-control">
+                                                    <select name="kondisi" class="form-control" required>
                                                         <?php if ($ibu[0]['kondisi_ibu'] === "Hidup") {
                                                             echo "<option value='Meninggal'>Meninggal</option><option value='Hidup' selected>Hidup</option>";
                                                         } else {
@@ -790,8 +794,8 @@
                                             <div class="form-group">
                                                 <label class="col-sm-4 control-label">Pendidikan: </label>
                                                 <div class="col-sm-8">
-                                                    <select name="pendidikan" id="pendidikan-ayah" class="form-control">
-                                                        <option value="<?php echo $ayah[0]['id_pendidikan_ayah']; ?>"><?php echo $ayah[0]['pendidikan_ayah']; ?></option>
+                                                    <select name="pendidikan" id="pendidikan-ibu" class="form-control">
+                                                        <option value="<?php echo $ibu[0]['id_pendidikan_ibu']; ?>"><?php echo $ibu[0]['pendidikan_ibu']; ?></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -832,137 +836,166 @@
                                     </div>
                                 </section>
                             </form>
-                            <section class="toggle">
-                                <label> <i class="fa fa-male"></i> Data Wali</label>
-                                <div class="toggle-content panel-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nama Wali: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['nama_wali']; ?>" class="form-control" readonly>
+                            <form id="form-wali" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                                <section class="toggle">
+                                    <label> <i class="fa fa-male"></i> Data Wali</label>
+                                    <div class="toggle-content">
+                                        <div class="panel-body">
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden required>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nama Wali: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nama" value="<?php echo $wali[0]['nama_wali']; ?>" class="form-control" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">NIK Wali: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nik" value="<?php echo $wali[0]['nik_wali']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor Handphone: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-telp" value="<?php echo $wali[0]['nomor_telepon_seluler_wali']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor Rumah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-rumah" value="<?php echo $wali[0]['nomor_rumah_wali']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">RT: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="rt" value="<?php echo $wali[0]['rt_wali']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">RW: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="rw" value="<?php echo $wali[0]['rw_wali']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Dusun: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="dusun" value="<?php echo $wali[0]['dusun_wali']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kelurahan/Desa: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="desa" id="wali-desa" class="form-control" required>
+                                                        <option value="<?php echo $wali[0]['id_desa_wali']; ?>"><?php echo $wali[0]['desa_wali']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kecamatan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="kecamatan" id="wali-kecamatan" class="form-control" required>
+                                                        <option value="<?php echo $wali[0]['id_kecamatan_wali']; ?>"><?php echo $wali[0]['kecamatan_wali']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kode Pos: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="kode-pos" value="<?php echo $wali[0]['kode_pos_wali']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Lintang: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="lintang" value="<?php echo $wali[0]['lintang_wali']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Bujur: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="bujur" value="<?php echo $wali[0]['bujur_wali']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Alamat Jalan: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="jalan" value="<?php echo $wali[0]['detail_alamat_wali']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tempat Tinggal: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="tempat-tinggal" id="tempat-tinggal-wali" class="form-control" required>
+                                                        <option value="<?php echo $wali[0]['id_tempat_tinggal_wali']; ?>"><?php echo $wali[0]['tempat_tinggal_wali']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tanggal Lahir: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="date" name="tanggal-lahir" value="<?php echo $wali[0]['tanggal_lahir_wali']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Pendidikan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="pendidikan" id="pendidikan-wali" class="form-control">
+                                                        <?php if ($wali[0]['pendidikan_wali'] == NULL) {
+                                                            echo "<option></option>";
+                                                        } else {
+                                                            echo '<option value="' . $wali[0]['id_pendidikan_wali'] . '">' . $wali[0]['pendidikan_wali'] . '</option>';
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Pekerjaan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="pekerjaan" id="pekerjaan-wali" class="form-control">
+                                                        <?php if ($wali[0]['pekerjaan_wali'] == NULL) {
+                                                            echo "<option></option>";
+                                                        } else {
+                                                            echo '<option value="' . $wali[0]['id_pekerjaan_wali'] . '">' . $wali[0]['pekerjaan_wali'] . '</option>';
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Penghasilan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="penghasilan" id="penghasilan-wali" class="form-control">
+                                                        <?php if ($wali[0]['penghasilan_wali'] == NULL) {
+                                                            echo "<option></option>";
+                                                        } else {
+                                                            echo '<option value="' . $wali[0]['id_penghasilan_wali'] . '">' . $wali[0]['penghasilan_wali'] . '</option>';
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Berkebutuhan Khusus: </label>
+                                                <div class="col-sm-8">
+                                                    <select multiple name="wali-kebutuhan-khusus[]" id="wali-kebutuhan-khusus" class="form-control">
+                                                        <?php if ($wali[0]['berkebutuhan_khusus_wali'] == NULL) {
+                                                            echo "<option></option>";
+                                                        } else {
+                                                            foreach ($wali[0]['berkebutuhan_khusus_wali'] as $key) {
+                                                                echo "<option selected='selected' value='" . $key['id_berkebutuhan_khusus_wali'] . "'>" . $key['berkebutuhan_khusus_wali'] . "</option>";
+                                                            }
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <footer class="panel-footer">
+                                            <button class="btn btn-primary" type="submit">Update </button>
+                                            <button data-toggle="tooltip" title="Hapus seluruh data wali" class="btn btn-warning btn-delete" type="button">Hapus </button>
+                                        </footer>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">NIK Wali: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['nik_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Handphone: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['nomor_telepon_seluler_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Rumah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['nomor_rumah_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">RT: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['rt_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">RW: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['rw_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Dusun: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['dusun_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kelurahan/Desa: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['desa_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kecamatan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['kecamatan_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kabupaten: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['kabupaten_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kode Pos: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['kode_pos_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Lintang: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['lintang_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Bujur: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['bujur_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Alamat Jalan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['detail_alamat_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tempat Lahir: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['tempat_lahir_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tanggal Lahir: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['tanggal_lahir_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Pendidikan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['pendidikan_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Pekerjaan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['pekerjaan_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Penghasilan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $wali[0]['penghasilan_wali']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Berkebutuhan Khusus: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php if ($wali[0]['berkebutuhan_khusus_wali'] == NULL) {
-                                                                            echo $wali[0]['berkebutuhan_khusus_wali'];
-                                                                        } else {
-                                                                            foreach ($wali[0]['berkebutuhan_khusus_wali'] as $key) {
-                                                                                echo $key['berkebutuhan_khusus_wali'] . ". ";
-                                                                            }
-                                                                        } ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
+                            </form>
                             <section class="toggle">
                                 <label> <i class="fa fa-fax"></i> Kontak Siswa</label>
                                 <div class="toggle-content panel-body">
@@ -1604,7 +1637,7 @@
         select2_get('#siswa-kebutuhan-khusus, #ayah-kebutuhan-khusus, #ibu-kebutuhan-khusus, #wali-kebutuhan-khusus', '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>', "Pilih Kebutuhan Khusus");
         select2_get('#transportasi', '<?php echo base_url('referensi_data/transportasi') ?>', "Pilih Transportasi");
         select2_get('#alasan-pip', '<?php echo base_url('referensi_data/alasan_pip') ?>', "Pilih Alasan Layak PIP");
-        select2_get('#pendidikan-ayah, pendidikan-ibu, pendidikan-wali', '<?php echo base_url('referensi_data/pendidikan') ?>', "Pilih Pendidikan Terakhir");
+        select2_get('#pendidikan-ayah, #pendidikan-ibu, #pendidikan-wali', '<?php echo base_url('referensi_data/pendidikan') ?>', "Pilih Pendidikan Terakhir");
         select2_get('#pekerjaan-ayah, #pekerjaan-ibu, #pekerjaan-wali', '<?php echo base_url('referensi_data/pekerjaan') ?>', "Pilih Pekerjaan");
         select2_get('#penghasilan-ayah, #penghasilan-ibu, #penghasilan-wali', '<?php echo base_url('referensi_data/penghasilan') ?>', "Pilih Penghasilan per Bulan");
 
@@ -1638,6 +1671,14 @@
             var id_kec = $(this).val();
             $('#ibu-desa').val('');
             get_desa(id_kec, $('#ibu-desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
+        })
+
+        get_desa(<?php echo (is_null($wali[0]['id_kecamatan_wali']) ? 3665 : $wali[0]['id_kecamatan_wali']); ?>, $('#wali-desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
+        get_kec($('#wali-kecamatan'), '<?php echo base_url('referensi_data/kecamatan') ?>');
+        $('#wali-kecamatan').on("change", function() {
+            var id_kec = $(this).val();
+            $('#wali-desa').val('');
+            get_desa(id_kec, $('#wali-desa'), '<?php echo base_url('referensi_data/kel_desa') ?>');
         })
         /**END */
 
@@ -1701,6 +1742,22 @@
         })
         /**END */
 
+        /**Delete Data */
+        $("#form-domisili").on('click', '.btn-delete', () => {
+            let formData = new FormData();
+            formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+            sweetalert2_delete("Anda tidak akan dapat mengembalikan Data Domisili yang telah dihapus!", "<?php echo base_url('admin/data_siswa/hapus_domisili') ?>", formData, tabel_bantuan_lainnya, 'Data Domisili');
+        })
+
+        $("#form-wali").on('click', '.btn-delete', () => {
+            let formData = new FormData();
+            formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+            sweetalert2_delete("Anda tidak akan dapat mengembalikan Data Wali yang telah dihapus!", "<?php echo base_url('admin/data_siswa/hapus_wali') ?>", formData, tabel_bantuan_lainnya, 'Data Wali');
+        })
+        /**END */
+
         /**Validate Form */
         $("#form-data-pribadi").validate({
             submitHandler: () => {
@@ -1747,6 +1804,14 @@
                 let formData = new FormData(document.getElementById('form-ibu'));
 
                 fetch_save_form('<?php echo base_url("admin/data_siswa/edit_ibu") ?>', formData, 'Data Ibu');
+            }
+        })
+
+        $("#form-wali").validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-wali'));
+
+                fetch_save_form('<?php echo base_url("admin/data_siswa/edit_wali") ?>', formData, 'Data Wali');
             }
         })
         /**END */
