@@ -29,6 +29,10 @@ class Data_siswa extends CI_Controller
         $this->load->model('user_model');
         $this->load->model('domisili_model');
         $this->load->model('bantuan_tidak_mampu_model');
+        $this->load->model('whatsapp_model');
+        $this->load->model('nomor_telepon_seluler_model');
+        $this->load->model('siswa_has_media_sosial_model');
+        $this->load->model('kontak_darurat_model');
 
         $this->user_model->session_check(1);
     }
@@ -620,6 +624,58 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function edit_kontak()
+    {
+        $id_siswa = $this->input->post('id');
+
+        $siswa = array(
+            'nomor_telepon_rumah' => $this->input->post('no-telp-rumah'),
+            'email' => $this->input->post('email')
+        );
+
+        $whatsapp = array(
+            'provider_id_provider' => $this->input->post('provider-whatsapp'),
+            'nomor_whatsapp' => $this->input->post('no-whatsapp')
+        );
+
+        $siswa = array_map(array($this, 'drop_empty'), $siswa);
+        $whatsapp = array_map(array($this, 'drop_empty'), $whatsapp);
+
+        if ($this->siswa_model->update(array('id_siswa' => $id_siswa), $siswa)) {
+            $this->response[] = array('isi' => "Berhasil update kontak siswa", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal update kontak siswa", 'status' => false);
+        }
+
+        if ($this->whatsapp_model->select_where(array('siswa_id_siswa' => $id_siswa))->num_rows() == 0) {
+            if ($this->cek_null($whatsapp)) {
+                $whatsapp['siswa_id_siswa'] = $id_siswa;
+                if ($this->whatsapp_model->insert($whatsapp)) {
+                    $this->response[] = array('isi' => "Berhasil tambah whatsapp siswa", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal tambah whatsapp siswa", 'status' => false);
+                }
+            }
+        } else {
+            if ($whatsapp['nomor_whatsapp'] != NULL) {
+                if ($this->whatsapp_model->update(array('siswa_id_siswa' => $id_siswa), $whatsapp)) {
+                    $this->response[] = array('isi' => "Berhasil update whatsapp siswa", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal update whatsapp siswa", 'status' => false);
+                }
+            } else {
+                $this->whatsapp_model->delete(array('siswa_id_siswa' => $id_siswa));
+                if ($this->db->affected_rows() > 0) {
+                    $this->response[] = array('isi' => "Berhasil hapus whatsapp siswa", 'status' => true);
+                } else {
+                    $this->response[] = array('isi' => "Gagal hapus whatsapp siswa", 'status' => false);
+                }
+            }
+        }
+
+        echo json_encode($this->response);
+    }
+
     public function hapus_domisili()
     {
         $id_siswa = $this->input->post('id');
@@ -673,6 +729,8 @@ class Data_siswa extends CI_Controller
                 break 1;
             }
         }
+
+        //TRUE jika ada isinya, FALSE jika NULL semua
         return $status;
     }
 
@@ -713,6 +771,27 @@ class Data_siswa extends CI_Controller
         echo json_encode(array('data' => $result));
     }
 
+    public function telepon_siswa()
+    {
+        $id = $this->input->post('id_siswa');
+        $result = $this->nomor_telepon_seluler_model->select_where_join_provider(array("siswa_id_siswa" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
+    public function media_sosial_siswa()
+    {
+        $id = $this->input->post('id_siswa');
+        $result = $this->siswa_has_media_sosial_model->select_where_join_medsos(array("siswa_id_siswa" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
+    public function kontak_darurat_siswa()
+    {
+        $id = $this->input->post('id_siswa');
+        $result = $this->kontak_darurat_model->select_where(array("siswa_id_siswa" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
     public function tambah_bantuan_siswa()
     {
         $data_bantuan = array(
@@ -725,6 +804,58 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Berhasil tambah data bantuan lainnya", 'status' => true);
         } else {
             $this->response[] = array('isi' => "Gagal tambah data bantuan lainnya", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function tambah_nomor_siswa()
+    {
+        $nomor_telepon_seluler = array(
+            'nomor_telepon_seluler' => $this->input->post('no-telp'),
+            'provider_id_provider' => $this->input->post('provider'),
+            'siswa_id_siswa' => $this->input->post('id')
+        );
+
+        if ($this->nomor_telepon_seluler_model->insert($nomor_telepon_seluler)) {
+            $this->response[] = array('isi' => "Berhasil tambah nomor telepon siswa", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah nomor telepon siswa", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function tambah_medsos_siswa()
+    {
+        $siswa_has_media_sosial = array(
+            'siswa_id_siswa' => $this->input->post('id'),
+            'media_sosial_id_media_sosial' => $this->input->post('medsos'),
+            'akun' => $this->input->post('akun')
+        );
+
+        if ($this->siswa_has_media_sosial_model->insert($siswa_has_media_sosial)) {
+            $this->response[] = array('isi' => "Berhasil tambah data media sosial", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah data media sosial", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function tambah_kontak_darurat_siswa()
+    {
+        $kontak_darurat = array(
+            'siswa_id_siswa' => $this->input->post('id'),
+            'nama' => $this->input->post('nama'),
+            'hubungan_peserta_didik' => $this->input->post('hubungan'),
+            'nomor_telepon_seluler' => $this->input->post('nomor')
+        );
+
+        if ($this->kontak_darurat_model->insert($kontak_darurat)) {
+            $this->response[] = array('isi' => "Berhasil tambah data kontak darurat", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah data kontak darurat", 'status' => false);
         }
 
         echo json_encode($this->response);
@@ -746,12 +877,104 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function edit_nomor_siswa()
+    {
+        $nomor_telepon_seluler = array(
+            'nomor_telepon_seluler' => $this->input->post('no-telp'),
+            'provider_id_provider' => $this->input->post('provider')
+        );
+
+        if ($this->nomor_telepon_seluler_model->update(array('id_nomor_telepon_seluler' => $this->input->post('id-telp')), $nomor_telepon_seluler)) {
+            $this->response[] = array('isi' => "Berhasil edit nomor telepon siswa", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit nomor telepon siswa", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function edit_medsos_siswa()
+    {
+        $siswa_has_media_sosial = array(
+            'media_sosial_id_media_sosial' => $this->input->post('medsos'),
+            'akun' => $this->input->post('akun')
+        );
+
+        $where = array(
+            'siswa_id_siswa' => $this->input->post('id'),
+            'media_sosial_id_media_sosial' => $this->input->post('id-medsos')
+        );
+
+        if ($this->siswa_has_media_sosial_model->update($where, $siswa_has_media_sosial)) {
+            $this->response[] = array('isi' => "Berhasil edit data media sosial", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit data media sosial", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function edit_kontak_darurat_siswa()
+    {
+        $kontak_darurat = array(
+            'nama' => $this->input->post('nama'),
+            'hubungan_peserta_didik' => $this->input->post('hubungan'),
+            'nomor_telepon_seluler' => $this->input->post('nomor')
+        );
+
+        if ($this->kontak_darurat_model->update(array('id_kontak_darurat' => $this->input->post('id')), $kontak_darurat)) {
+            $this->response[] = array('isi' => "Berhasil edit data kontak darurat", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit data kontak darurat", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
     public function hapus_bantuan_siswa()
     {
         if ($this->bantuan_tidak_mampu_model->delete(array('id_bantuan_tidak_mampu' => $this->input->post('id_bantuan'))) == false) {
             $this->response[] = array('isi' => "Gagal hapus data bantuan lainnya", 'status' => false);
         } else {
             $this->response[] = array('isi' => "Berhasil hapus data bantuan lainnya", 'status' => true);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_nomor_siswa()
+    {
+        if ($this->nomor_telepon_seluler_model->delete(array('id_nomor_telepon_seluler' => $this->input->post('id_nomor'))) == false) {
+            $this->response[] = array('isi' => "Gagal hapus nomor telepon siswa", 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus nomor telepon siswa", 'status' => true);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_medsos_siswa()
+    {
+        $where = array(
+            'siswa_id_siswa' => $this->input->post('id-siswa'),
+            'media_sosial_id_media_sosial' => $this->input->post('id')
+        );
+
+        if ($this->siswa_has_media_sosial_model->delete($where) == false) {
+            $this->response[] = array('isi' => "Gagal hapus data media sosial", 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus data media sosial", 'status' => true);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_kontak_darurat_siswa()
+    {
+        if ($this->kontak_darurat_model->delete(array('id_kontak_darurat' => $this->input->post('id'))) == false) {
+            $this->response[] = array('isi' => "Gagal hapus data kontak darurat siswa", 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus data kontak darurat siswa", 'status' => true);
         }
 
         echo json_encode($this->response);
@@ -1057,6 +1280,12 @@ class Data_siswa extends CI_Controller
         } else {
             echo "Gagal Insert Siswa.";
         }
+    }
+
+    public function test()
+    {
+        $id = 12;
+        echo json_encode($this->nomor_telepon_seluler_model->select_where_join_provider(array('siswa_id_siswa' => $id))->result());
     }
 }
 

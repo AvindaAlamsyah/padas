@@ -25,6 +25,8 @@ class Referensi_data extends CI_Controller
         $this->load->model('agama_model');
         $this->load->model('kelas_model');
         $this->load->model('kompetensi_keahlian_model');
+        $this->load->model('provider_model');
+        $this->load->model('media_sosial_model');
     }
 
     public function gender()
@@ -216,6 +218,30 @@ class Referensi_data extends CI_Controller
 
         foreach ($result as $value) {
             $data[] = array('id' => $value['id_kompetensi_keahlian'], 'text' => $value['akronim']);
+        }
+
+        echo json_encode($data);
+    }
+
+    public function provider()
+    {
+        $data = array();
+        $result = $this->provider_model->select_all()->result_array();
+
+        foreach ($result as $value) {
+            $data[] = array('id' => $value['id_provider'], 'text' => $value['provider']);
+        }
+
+        echo json_encode($data);
+    }
+
+    public function media_sosial()
+    {
+        $data = array();
+        $result = $this->media_sosial_model->select_all()->result_array();
+
+        foreach ($result as $value) {
+            $data[] = array('id' => $value['id_media_sosial'], 'text' => $value['media_sosial']);
         }
 
         echo json_encode($data);

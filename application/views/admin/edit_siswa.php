@@ -996,124 +996,103 @@
                                     </div>
                                 </section>
                             </form>
-                            <section class="toggle">
-                                <label> <i class="fa fa-fax"></i> Kontak Siswa</label>
-                                <div class="toggle-content panel-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Telepon Rumah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $kontak_siswa[0]['nomor_telepon_rumah']; ?>" class="form-control" readonly>
+                            <form id="form-kontak" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                                <section class="toggle">
+                                    <label> <i class="fa fa-fax"></i> Kontak Siswa</label>
+                                    <div class="toggle-content">
+                                        <div class="panel-body">
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden required>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor Telepon Rumah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-telp-rumah" value="<?php echo $kontak_siswa[0]['nomor_telepon_rumah']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Email: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="email" name="email" value="<?php echo $kontak_siswa[0]['email']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor WhatsApp: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="no-whatsapp" value="<?php echo $kontak_siswa[0]['nomor_whatsapp']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Provider WhatsApp: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="provider-whatsapp" id="provider-whatsapp-siswa" class="form-control" required>
+                                                        <option value="<?php echo $kontak_siswa[0]['id_provider_whatsapp']; ?>"><?php echo $kontak_siswa[0]['provider_whatsapp']; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <h5 class="text-center"><strong><u>Nomor Telepon Siswa</u></strong></h5>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="mb-md" style="float: right;">
+                                                        <a data-toggle="modal" data-target="#modal-tambah-nomor" class="modal-with-form btn btn-primary">Tambah nomor telepon <i class="fa fa-plus-square"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table id="table-nomor-telp" class="table table-bordered table-striped mb-none">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nomor Handphone</th>
+                                                        <th>Provider</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <h5 class="text-center"><strong><u>Media Sosial</u></strong></h5>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="mb-md" style="float: right;">
+                                                        <a data-toggle="modal" data-target="#modal-tambah-medsos" class="modal-with-form btn btn-primary">Tambah media sosial <i class="fa fa-plus-square"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table id="table-media-sosial" class="table table-bordered table-striped mb-none">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Akun</th>
+                                                        <th>Jenis Akun</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <h5 class="text-center"><strong><u>Kontak Darurat</u></strong></h5>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="mb-md" style="float: right;">
+                                                        <a data-toggle="modal" data-target="#modal-tambah-kontak-darurat" class="modal-with-form btn btn-primary">Tambah kontak darurat <i class="fa fa-plus-square"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table id="table-kontak-darurat" class="table table-bordered table-striped mb-none">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nama</th>
+                                                        <th>Hubungan dengan Siswa</th>
+                                                        <th>Nomor Handphone</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        <footer class="panel-footer">
+                                            <button class="btn btn-primary" type="submit">Update </button>
+                                        </footer>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Email: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $kontak_siswa[0]['email']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor WhatsApp: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $kontak_siswa[0]['nomor_whatsapp']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Provider WhatsApp: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $kontak_siswa[0]['provider_whatsapp']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" colspan="3">Nomor Handphone</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Nomor Handphone</th>
-                                                    <th>Provider</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($kontak_siswa[0]['nomor_hp'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($kontak_siswa[0]['nomor_hp'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['nomor_telepon_seluler'] . "</td>";
-                                                        echo "<td>" . $key['provider'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="table-responsive" style="margin-top: 20px;">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" colspan="3">Media Sosial</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Akun</th>
-                                                    <th>Jenis Akun</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($medsos[0]['media_sosial'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($medsos[0]['media_sosial'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['akun'] . "</td>";
-                                                        echo "<td>" . $key['media_sosial'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="table-responsive" style="margin-top: 20px;">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" colspan="4">Kontak Darurat</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Nama</th>
-                                                    <th>Hubungan dengan Siswa</th>
-                                                    <th>Nomor Handphone</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($kontak_darurat[0]['kontak_darurat'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($kontak_darurat[0]['kontak_darurat'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['nama'] . "</td>";
-                                                        echo "<td>" . $key['hubungan_peserta_didik'] . "</td>";
-                                                        echo "<td>" . $key['nomor_telepon_seluler'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
+                            </form>
                             <section class="toggle">
                                 <label> <i class="fa fa-book"></i> Data Periodik</label>
                                 <div class="toggle-content panel-body">
@@ -1517,12 +1496,98 @@
                 <form id="form-tambah-bantuan" method="POST">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Nama Program Bantuan</label>
+                            <label for="nama-program" class="col-form-label">Nama Program Bantuan</label>
                             <input type="text" class="form-control" name="nama-program" required>
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Bukti</label>
+                            <label for="bukti" class="col-form-label">Bukti</label>
                             <input type="text" class="form-control" name="bukti" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-tambah-nomor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Nomor Telepon</h4>
+                </div>
+                <form id="form-tambah-nomor" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="no-telp" class="col-form-label">Nomor Telepon</label>
+                            <input type="text" class="form-control" name="no-telp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="provider" class="col-form-label">Provider</label>
+                            <select class="form-control" name="provider" id="provider-telp-siswa" required>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-tambah-medsos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Media Sosial</h4>
+                </div>
+                <form id="form-tambah-medsos" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="akun" class="col-form-label">Akun</label>
+                            <input type="text" class="form-control" name="akun" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="medsos" class="col-form-label">Jenis Akun</label>
+                            <select class="form-control" name="medsos" id="medsos-siswa" required>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-tambah-kontak-darurat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Kontak Darurat</h4>
+                </div>
+                <form id="form-tambah-kontak-darurat" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nama" class="col-form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hubungan" class="col-form-label">Hubungan dengan siswa</label>
+                            <input type="text" class="form-control" name="hubungan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomor" class="col-form-label">Nomor Handphone</label>
+                            <input type="text" class="form-control" name="nomor" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -1550,6 +1615,93 @@
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Bukti</label>
                             <input type="text" class="form-control" id="edit-bukti" name="bukti" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-edit-nomor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Nomor Telepon</h4>
+                </div>
+                <form id="form-edit-nomor" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-id-telp" name="id-telp" hidden>
+                        <div class="form-group">
+                            <label for="no-telp" class="col-form-label">Nomor Telepon</label>
+                            <input type="text" class="form-control" name="no-telp" id="edit-no-telp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="provider" class="col-form-label">Provider</label>
+                            <select class="form-control" name="provider" id="edit-provider-telp-siswa" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-edit-medsos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Media Sosial</h4>
+                </div>
+                <form id="form-edit-medsos" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-id-medsos" name="id-medsos" hidden>
+                        <div class="form-group">
+                            <label for="akun" class="col-form-label">Akun</label>
+                            <input type="text" class="form-control" name="akun" id="edit-akun" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="medsos" class="col-form-label">Jenis Akun</label>
+                            <select class="form-control" name="medsos" id="edit-medsos-siswa" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class=" modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-edit-kontak-darurat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Kontak Darurat</h4>
+                </div>
+                <form id="form-edit-kontak-darurat" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-id-kontak" name="id" hidden>
+                        <div class="form-group">
+                            <label for="nama" class="col-form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" id="edit-nama-kontak" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hubungan" class="col-form-label">Hubungan dengan siswa</label>
+                            <input type="text" class="form-control" name="hubungan" id="edit-hubungan-kontak" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomor" class="col-form-label">Nomor Handphone</label>
+                            <input type="text" class="form-control" name="nomor" id="edit-nomor-kontak" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -1611,7 +1763,11 @@
     <script>
         $('.modal').on('hidden.bs.modal', function() {
             $('#form-tambah-bantuan').trigger('reset');
+            $('#form-tambah-nomor').trigger('reset');
+            $('#form-tambah-kontak-darurat').trigger('reset');
             $('#form-edit-bantuan').trigger('reset');
+            $('#form-edit-nomor').trigger('reset');
+            $('#form-edit-kontak-darurat').trigger('reset');
         })
 
         function enable_disable_pip(option) {
@@ -1637,6 +1793,8 @@
         select2_get('#siswa-kebutuhan-khusus, #ayah-kebutuhan-khusus, #ibu-kebutuhan-khusus, #wali-kebutuhan-khusus', '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>', "Pilih Kebutuhan Khusus");
         select2_get('#transportasi', '<?php echo base_url('referensi_data/transportasi') ?>', "Pilih Transportasi");
         select2_get('#alasan-pip', '<?php echo base_url('referensi_data/alasan_pip') ?>', "Pilih Alasan Layak PIP");
+        select2_get('#medsos-siswa, #edit-medsos-siswa', '<?php echo base_url('referensi_data/media_sosial') ?>', "Pilih Jenis Media Sosial");
+        select2_get('#provider-whatsapp-siswa, #provider-telp-siswa, #edit-provider-telp-siswa', '<?php echo base_url('referensi_data/provider') ?>', "Pilih Provider");
         select2_get('#pendidikan-ayah, #pendidikan-ibu, #pendidikan-wali', '<?php echo base_url('referensi_data/pendidikan') ?>', "Pilih Pendidikan Terakhir");
         select2_get('#pekerjaan-ayah, #pekerjaan-ibu, #pekerjaan-wali', '<?php echo base_url('referensi_data/pekerjaan') ?>', "Pilih Pekerjaan");
         select2_get('#penghasilan-ayah, #penghasilan-ibu, #penghasilan-wali', '<?php echo base_url('referensi_data/penghasilan') ?>', "Pilih Penghasilan per Bulan");
@@ -1682,7 +1840,7 @@
         })
         /**END */
 
-        /**CUD Bantuaun Lainnya */
+        /**CRUD Bantuaun Lainnya */
         var tabel_bantuan_lainnya = $('#table-bantuan-lainnya').DataTable({
             ajax: {
                 method: "POST",
@@ -1738,6 +1896,194 @@
                 let formData = new FormData(document.getElementById('form-edit-bantuan'));
 
                 custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_bantuan_siswa'); ?>", formData, '#modal-edit-bantuan', tabel_bantuan_lainnya, 'Bantuan Lainnya');
+            }
+        })
+        /**END */
+
+        /**CRUD Nomor Handphone */
+        var table_nomor_telp = $('#table-nomor-telp').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/telepon_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id_siswa: <?php echo $data_pribadi[0]['id_siswa']; ?>
+                }
+            },
+            columns: [{
+                    data: "nomor_telepon_seluler"
+                },
+                {
+                    data: "provider"
+                },
+                {
+                    data: "id_nomor_telepon_seluler",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Edit Nomor Telepon" class="item-edit" href="javascript:void(0)" data-id="' + row.id_nomor_telepon_seluler + '" data-nomor="' + row.nomor_telepon_seluler + '" data-provider="' + row.provider + '" data-id-provider="' + row.provider_id_provider + '"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Nomor Temepon" href="javascript:void(0)" onclick="hapus_nomor(' + row.id_nomor_telepon_seluler + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
+        })
+
+        function hapus_nomor(params) {
+            let formData = new FormData();
+            formData.append('id_nomor', params);
+
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan nomor telepon yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_nomor_siswa'); ?>', formData, table_nomor_telp, 'Nomor Telepon Siswa');
+        }
+
+        $('#form-tambah-nomor').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-nomor'));
+                formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_nomor_siswa'); ?>", formData, '#modal-tambah-nomor', table_nomor_telp, 'Nomor Telepon Siswa');
+            }
+        })
+
+        $('#table-nomor-telp').on('click', '.item-edit', function() {
+            let newOption = new Option($(this).data('provider'), $(this).data('id-provider'), false, false);
+            $('#edit-provider-telp-siswa').append(newOption).trigger('change');
+            $('#edit-no-telp').val($(this).data('nomor'));
+            $('#edit-id-telp').val($(this).data('id'));
+            $('#modal-edit-nomor').modal('show');
+        })
+        $('#form-edit-nomor').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-nomor'));
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_nomor_siswa'); ?>", formData, '#modal-edit-nomor', table_nomor_telp, 'Nomor Telepon Siswa');
+            }
+        })
+        /**END */
+
+        /**CRUD Media Sosial */
+        var table_medsos = $('#table-media-sosial').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/media_sosial_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id_siswa: <?php echo $data_pribadi[0]['id_siswa']; ?>
+                }
+            },
+            columns: [{
+                    data: "akun"
+                },
+                {
+                    data: "media_sosial"
+                },
+                {
+                    data: "media_sosial_id_media_sosial",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Edit Media Sosial" class="item-edit" href="javascript:void(0)" data-id="' + row.media_sosial_id_media_sosial + '" data-akun="' + row.akun + '" data-medsos="' + row.media_sosial + '"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Media Sosial" href="javascript:void(0)" onclick="hapus_medsos(' + row.media_sosial_id_media_sosial + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
+        })
+
+        function hapus_medsos(params) {
+            let formData = new FormData();
+            formData.append('id', params);
+            formData.append('id-siswa', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan data media sosial yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_medsos_siswa'); ?>', formData, table_medsos, 'Media Sosial');
+        }
+
+        $('#form-tambah-medsos').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-medsos'));
+                formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_medsos_siswa'); ?>", formData, '#modal-tambah-medsos', table_medsos, 'Media Sosial');
+            }
+        })
+
+        $('#table-media-sosial').on('click', '.item-edit', function() {
+            let newOption = new Option($(this).data('medsos'), $(this).data('id'), false, false);
+            $('#edit-medsos-siswa').append(newOption).trigger('change');
+            $('#edit-akun').val($(this).data('akun'));
+            $('#edit-id-medsos').val($(this).data('id'));
+            $('#modal-edit-medsos').modal('show');
+        })
+        $('#form-edit-medsos').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-medsos'));
+                formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_medsos_siswa'); ?>", formData, '#modal-edit-medsos', table_medsos, 'Media Sosial');
+            }
+        })
+        /**END */
+
+        /**CRUD Kontak Darurat */
+        var table_kontak_darurat = $('#table-kontak-darurat').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/kontak_darurat_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id_siswa: <?php echo $data_pribadi[0]['id_siswa']; ?>
+                }
+            },
+            columns: [{
+                    data: "nama"
+                },
+                {
+                    data: "hubungan_peserta_didik"
+                },
+                {
+                    data: "nomor_telepon_seluler"
+                },
+                {
+                    data: "id_kontak_darurat",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Edit Kontak Darurat" class="item-edit" href="javascript:void(0)" data-id="' + row.id_kontak_darurat + '" data-nama="' + row.nama + '" data-hubungan="' + row.hubungan_peserta_didik + '" data-nomor="' + row.nomor_telepon_seluler + '"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Kontak Darurat" href="javascript:void(0)" onclick="hapus_kontak_darurat(' + row.id_kontak_darurat + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
+        })
+
+        function hapus_kontak_darurat(params) {
+            let formData = new FormData();
+            formData.append('id', params);
+
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan data kontak darurat yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_kontak_darurat_siswa'); ?>', formData, table_kontak_darurat, 'Kontak Darurat');
+        }
+
+        $('#form-tambah-kontak-darurat').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-kontak-darurat'));
+                formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_kontak_darurat_siswa'); ?>", formData, '#modal-tambah-kontak-darurat', table_kontak_darurat, 'Kontak Darurat');
+            }
+        })
+
+        $('#table-kontak-darurat').on('click', '.item-edit', function() {
+            $('#edit-nama-kontak').val($(this).data('nama'));
+            $('#edit-hubungan-kontak').val($(this).data('hubungan'));
+            $('#edit-nomor-kontak').val($(this).data('nomor'));
+            $('#edit-id-kontak').val($(this).data('id'));
+            $('#modal-edit-kontak-darurat').modal('show');
+        })
+        $('#form-edit-kontak-darurat').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-kontak-darurat'));
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_kontak_darurat_siswa'); ?>", formData, '#modal-edit-kontak-darurat', table_kontak_darurat, 'Kontak Darurat');
             }
         })
         /**END */
@@ -1812,6 +2158,14 @@
                 let formData = new FormData(document.getElementById('form-wali'));
 
                 fetch_save_form('<?php echo base_url("admin/data_siswa/edit_wali") ?>', formData, 'Data Wali');
+            }
+        })
+
+        $("#form-kontak").validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-kontak'));
+
+                fetch_save_form('<?php echo base_url("admin/data_siswa/edit_kontak") ?>', formData, 'Kontak Siswa');
             }
         })
         /**END */
