@@ -33,6 +33,7 @@ class Data_siswa extends CI_Controller
         $this->load->model('nomor_telepon_seluler_model');
         $this->load->model('siswa_has_media_sosial_model');
         $this->load->model('kontak_darurat_model');
+        $this->load->model('saudara_kandung_model');
 
         $this->user_model->session_check(1);
     }
@@ -676,6 +677,34 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function edit_periodik()
+    {
+        $id_siswa = $this->input->post('id');
+
+        $siswa = array(
+            'tinggi_badan_cm' => $this->input->post('tinggi'),
+            'berat_badan_kg' => $this->input->post('berat'),
+            'lingkar_kepala_cm' => $this->input->post('lingkar'),
+            'jarak_tempat_tinggal_ke_sekolah_m' => $this->input->post('jarak'),
+            'waktu_tempuh_ke_sekolah_menit' => $this->input->post('waktu'),
+            'ukuran_baju' => $this->input->post('baju'),
+            'ukuran_celana' => $this->input->post('celana'),
+            'ukuran_sepatu' => $this->input->post('sepatu'),
+            'ukuran_topi' => $this->input->post('topi'),
+            'jumlah_saudara_kandung' => $this->input->post('jumlah-saudara')
+        );
+
+        $siswa = array_map(array($this, 'drop_empty'), $siswa);
+
+        if ($this->siswa_model->update(array('id_siswa' => $id_siswa), $siswa)) {
+            $this->response[] = array('isi' => "Berhasil update data periodik", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal update data periodik", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
     public function hapus_domisili()
     {
         $id_siswa = $this->input->post('id');
@@ -792,6 +821,13 @@ class Data_siswa extends CI_Controller
         echo json_encode(array('data' => $result));
     }
 
+    public function saudara_siswa()
+    {
+        $id = $this->input->post('id_siswa');
+        $result = $this->saudara_kandung_model->select_where_join_gender(array("siswa_id_siswa" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
     public function tambah_bantuan_siswa()
     {
         $data_bantuan = array(
@@ -856,6 +892,27 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Berhasil tambah data kontak darurat", 'status' => true);
         } else {
             $this->response[] = array('isi' => "Gagal tambah data kontak darurat", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function tambah_saudara_siswa()
+    {
+        $saudara_kandung = array(
+            'siswa_id_siswa' => $this->input->post('id'),
+            'gender_id_gender' => $this->input->post('gender'),
+            'nama' => $this->input->post('nama'),
+            'anak_ke' => $this->input->post('anak-ke'),
+            'nomor_telepon_seluler' => $this->input->post('no-telp')
+        );
+
+        $saudara_kandung = array_map(array($this, 'drop_empty'), $saudara_kandung);
+
+        if ($this->saudara_kandung_model->insert($saudara_kandung)) {
+            $this->response[] = array('isi' => "Berhasil tambah data saudara kandung", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah data saudara kandung", 'status' => false);
         }
 
         echo json_encode($this->response);
@@ -931,6 +988,24 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function edit_saudara_siswa()
+    {
+        $saudara_kandung = array(
+            'gender_id_gender' => $this->input->post('gender'),
+            'nama' => $this->input->post('nama'),
+            'anak_ke' => $this->input->post('anak-ke'),
+            'nomor_telepon_seluler' => $this->input->post('no-telp')
+        );
+
+        if ($this->saudara_kandung_model->update(array('id_saudara_kandung' => $this->input->post('id')), $saudara_kandung)) {
+            $this->response[] = array('isi' => "Berhasil edit data saudara kandung", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit data saudara kandung", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
     public function hapus_bantuan_siswa()
     {
         if ($this->bantuan_tidak_mampu_model->delete(array('id_bantuan_tidak_mampu' => $this->input->post('id_bantuan'))) == false) {
@@ -975,6 +1050,17 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Gagal hapus data kontak darurat siswa", 'status' => false);
         } else {
             $this->response[] = array('isi' => "Berhasil hapus data kontak darurat siswa", 'status' => true);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_saudara_siswa()
+    {
+        if ($this->saudara_kandung_model->delete(array('id_saudara_kandung' => $this->input->post('id'))) == false) {
+            $this->response[] = array('isi' => "Gagal hapus data saudara kandung", 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus data saudara kandung", 'status' => true);
         }
 
         echo json_encode($this->response);

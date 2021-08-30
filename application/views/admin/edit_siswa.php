@@ -1093,104 +1093,102 @@
                                     </div>
                                 </section>
                             </form>
-                            <section class="toggle">
-                                <label> <i class="fa fa-book"></i> Data Periodik</label>
-                                <div class="toggle-content panel-body">
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tinggi Badan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['tinggi_badan_cm']; ?>" class="form-control" readonly>
+                            <form id="form-periodik" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                                <section class="toggle">
+                                    <label> <i class="fa fa-book"></i> Data Periodik</label>
+                                    <div class="toggle-content">
+                                        <div class="panel-body">
+                                            <input type="text" name="id" value="<?php echo $data_pribadi[0]['id_siswa']; ?>" hidden required>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tinggi Badan: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="tinggi" value="<?php echo $data_periodik[0]['tinggi_badan_cm']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Berat Badan: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="berat" value="<?php echo $data_periodik[0]['berat_badan_kg']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Lingkar Kepala: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="lingkar" value="<?php echo $data_periodik[0]['lingkar_kepala_cm']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Jarak Tempat Tinggal ke Sekolah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="jarak" value="<?php echo $data_periodik[0]['jarak_tempat_tinggal_ke_sekolah_m']; ?>" class="form-control" digits="true">
+                                                    <small class="form-text text-muted">Dalam satuan <strong>kilometer</strong>. isi dengan 0 jika kurang dari 1 kilometer.</small>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Waktu Tempuh ke Sekolah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="waktu" value="<?php echo $data_periodik[0]['waktu_tempuh_ke_sekolah_menit']; ?>" class="form-control" digits="true">
+                                                    <small class="form-text text-muted">Dalam satuan <strong>menit</strong>.</small>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Ukuran Baju: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="baju" value="<?php echo $data_periodik[0]['ukuran_baju']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Ukuran Celana: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="celana" value="<?php echo $data_periodik[0]['ukuran_celana']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Ukuran Sepatu: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="sepatu" value="<?php echo $data_periodik[0]['ukuran_sepatu']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Ukuran Topi: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="topi" value="<?php echo $data_periodik[0]['ukuran_topi']; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Jumlah Saudara Kandung: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="jumlah-saudara" value="<?php echo $data_periodik[0]['jumlah_saudara_kandung']; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <h5 class="text-center"><strong><u>Saudara Kandung</u></strong></h5>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="mb-md" style="float: right;">
+                                                        <a data-toggle="modal" data-target="#modal-tambah-saudara" class="modal-with-form btn btn-primary">Tambah saudara kandung <i class="fa fa-plus-square"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table id="table-saudara" class="table table-bordered table-striped mb-none">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nama</th>
+                                                        <th>Anak ke-</th>
+                                                        <th>nomor Telepon</th>
+                                                        <th>Gender</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        <footer class="panel-footer">
+                                            <button class="btn btn-primary" type="submit">Update </button>
+                                        </footer>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Berat Badan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['berat_badan_kg']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Lingkar Kepala: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['lingkar_kepala_cm']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Jarak Tempat Tinggal ke Sekolah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['jarak_tempat_tinggal_ke_sekolah_m']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Waktu Tempuh ke Sekolah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['waktu_tempuh_ke_sekolah_menit']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Ukuran Baju: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['ukuran_baju']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Ukuran Celana: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['ukuran_celana']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Ukuran Sepatu: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['ukuran_sepatu']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Ukuran Topi: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['ukuran_topi']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Jumlah Saudara Kandung: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $data_periodik[0]['jumlah_saudara_kandung']; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" colspan="5">Saudara Kandung</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Nama</th>
-                                                    <th>Anak ke-</th>
-                                                    <th>Nomor Telephone</th>
-                                                    <th>Gender</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($data_periodik[0]['saudara_kandung'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($data_periodik[0]['saudara_kandung'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['nama'] . "</td>";
-                                                        echo "<td>" . $key['anak_ke'] . "</td>";
-                                                        echo "<td>" . $key['nomor_telepon_seluler'] . "</td>";
-                                                        echo "<td>" . $key['gender_saudara_kandung'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
+                            </form>
                             <section class="toggle">
                                 <label> <i class="fa fa-trophy"></i> Prestasi</label>
                                 <div class="toggle-content panel-body">
@@ -1598,6 +1596,42 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-tambah-saudara" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Saudara Kandung</h4>
+                </div>
+                <form id="form-tambah-saudara" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nama" class="col-form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="anak-ke" class="col-form-label">Anak ke-</label>
+                            <input type="text" class="form-control" name="anak-ke" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="no-telp" class="col-form-label">Nomor Telepon Seluler</label>
+                            <input type="text" class="form-control" name="no-telp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender" class="col-form-label">Gender</label>
+                            <select class="form-control" name="gender" id="gender-saudara" required>
+                                <option value=""></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="modal-edit-bantuan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1712,6 +1746,42 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-edit-saudara" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Saudara Kandung</h4>
+                </div>
+                <form id="form-edit-saudara" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-id-saudara" name="id" hidden>
+                        <div class="form-group">
+                            <label for="nama" class="col-form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" id="edit-nama-saudara" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="anak-ke" class="col-form-label">Anak ke-</label>
+                            <input type="text" class="form-control" name="anak-ke" id="edit-anak-saudara" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="no-telp" class="col-form-label">Nomor Telepon Seluler</label>
+                            <input type="text" class="form-control" name="no-telp" id="edit-nomor-saudara" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender" class="col-form-label">Gender</label>
+                            <select class="form-control" name="gender" id="edit-gender-saudara" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div id="modal_loading" data-backdrop="static" data-keyboard="false" class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -1765,9 +1835,11 @@
             $('#form-tambah-bantuan').trigger('reset');
             $('#form-tambah-nomor').trigger('reset');
             $('#form-tambah-kontak-darurat').trigger('reset');
+            $('#form-tambah-saudara').trigger('reset');
             $('#form-edit-bantuan').trigger('reset');
             $('#form-edit-nomor').trigger('reset');
             $('#form-edit-kontak-darurat').trigger('reset');
+            $('#form-edit-saudara').trigger('reset');
         })
 
         function enable_disable_pip(option) {
@@ -1785,7 +1857,7 @@
         })
 
         /**Call All Select2 */
-        select2_get('#siswa-gender', '<?php echo base_url('referensi_data/gender') ?>', "Pilih Jenis Kelamin");
+        select2_get('#siswa-gender, #gender-saudara, #edit-gender-saudara', '<?php echo base_url('referensi_data/gender') ?>', "Pilih Jenis Kelamin");
         select2_get('#siswa-kelas', '<?php echo base_url('referensi_data/kelas') ?>', "Pilih Kelas");
         select2_get('#siswa-jurusan', '<?php echo base_url('referensi_data/jurusan') ?>', "Pilih Jurusan");
         select2_get('#siswa-agama', '<?php echo base_url('referensi_data/agama') ?>', "Pilih Agama");
@@ -2088,6 +2160,75 @@
         })
         /**END */
 
+        /**CRUD Saudara Kandung */
+        var table_saudara = $('#table-saudara').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/saudara_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id_siswa: <?php echo $data_pribadi[0]['id_siswa']; ?>
+                }
+            },
+            columns: [{
+                    data: "nama"
+                },
+                {
+                    data: "anak_ke"
+                },
+                {
+                    data: "nomor_telepon_seluler"
+                },
+                {
+                    data: "gender"
+                },
+                {
+                    data: "id_saudara_kandung",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Edit Saudara Kandung" class="item-edit" href="javascript:void(0)" data-id="' + row.id_saudara_kandung + '" data-nama="' + row.nama + '" data-anak="' + row.anak_ke + '" data-nomor="' + row.nomor_telepon_seluler + '" data-id-gender="' + row.gender_id_gender + '" data-gender="' + row.gender + '"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Saudara Kandung" href="javascript:void(0)" onclick="hapus_saudara(' + row.id_saudara_kandung + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
+        })
+
+        function hapus_saudara(params) {
+            let formData = new FormData();
+            formData.append('id', params);
+
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan data saudara siswa yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_saudara_siswa'); ?>', formData, table_saudara, 'Saudara Kandung');
+        }
+
+        $('#form-tambah-saudara').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-saudara'));
+                formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_saudara_siswa'); ?>", formData, '#modal-tambah-saudara', table_saudara, 'Saudara Kandung');
+            }
+        })
+
+        $('#table-saudara').on('click', '.item-edit', function() {
+            let newOption = new Option($(this).data('gender'), $(this).data('id-gender'), false, false);
+            $('#edit-gender-saudara').append(newOption).trigger('change');
+            $('#edit-nama-saudara').val($(this).data('nama'));
+            $('#edit-anak-saudara').val($(this).data('anak'));
+            $('#edit-nomor-saudara').val($(this).data('nomor'));
+            $('#edit-id-saudara').val($(this).data('id'));
+            $('#modal-edit-saudara').modal('show');
+        })
+        $('#form-edit-saudara').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-saudara'));
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_saudara_siswa'); ?>", formData, '#modal-edit-saudara', table_saudara, 'Saudara Siswa');
+            }
+        })
+        /**END */
+
         /**Delete Data */
         $("#form-domisili").on('click', '.btn-delete', () => {
             let formData = new FormData();
@@ -2166,6 +2307,14 @@
                 let formData = new FormData(document.getElementById('form-kontak'));
 
                 fetch_save_form('<?php echo base_url("admin/data_siswa/edit_kontak") ?>', formData, 'Kontak Siswa');
+            }
+        })
+
+        $("#form-periodik").validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-periodik'));
+
+                fetch_save_form('<?php echo base_url("admin/data_siswa/edit_periodik") ?>', formData, 'Data Periodik');
             }
         })
         /**END */
