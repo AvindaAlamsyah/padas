@@ -1192,40 +1192,25 @@
                             <section class="toggle">
                                 <label> <i class="fa fa-trophy"></i> Prestasi</label>
                                 <div class="toggle-content panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Nama</th>
-                                                    <th>Tahun</th>
-                                                    <th>Penyelenggara</th>
-                                                    <th>Peringkat</th>
-                                                    <th>Bidang</th>
-                                                    <th>Tingkat</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($prestasi[0]['prestasi'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($prestasi[0]['prestasi'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['nama'] . "</td>";
-                                                        echo "<td>" . $key['tahun'] . "</td>";
-                                                        echo "<td>" . $key['penyelenggara'] . "</td>";
-                                                        echo "<td>" . $key['peringkat'] . "</td>";
-                                                        echo "<td>" . $key['bidang_prestasi'] . "</td>";
-                                                        echo "<td>" . $key['tingkat_prestasi'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="mb-md" style="float: right;">
+                                                <a data-toggle="modal" data-target="#modal-tambah-prestasi" class="modal-with-form btn btn-primary">Tambah prestasi <i class="fa fa-plus-square"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <table id="table-prestasi" class="table table-bordered table-striped mb-none">
+                                        <thead>
+                                            <tr>
+                                                <th>Nama</th>
+                                                <th>Penyelenggara</th>
+                                                <th>Peringkat</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </section>
                             <section class="toggle">
@@ -1632,6 +1617,86 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-tambah-prestasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Prestasi</h4>
+                </div>
+                <form id="form-tambah-prestasi" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nama" class="col-form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="penyelenggara" class="col-form-label">Penyelenggara</label>
+                            <input type="text" class="form-control" name="penyelenggara" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bidang" class="col-form-label">Bidang</label>
+                            <select class="form-control" name="bidang" id="tambah-bidang-prestasi" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tingkat" class="col-form-label">Tingkat</label>
+                            <select class="form-control" name="tingkat" id="tambah-tingkat-prestasi" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="peringkat" class="col-form-label">Peringkat</label>
+                            <input class="form-control" name="peringkat" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tahun" class="col-form-label">Tahun</label>
+                            <input type="text" class="form-control" name="tahun" required digits="true">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-detail-prestasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Detail Prestasi</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="nama" class="col-form-label">Nama</label>
+                        <input type="text" class="form-control" id="detail-nama-prestasi" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="penyelenggara" class="col-form-label">Penyelenggara</label>
+                        <input type="text" class="form-control" id="detail-penyelenggara-prestasi" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="bidang" class="col-form-label">Bidang</label>
+                        <input type="text" class="form-control" id="detail-bidang-prestasi" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="tingkat" class="col-form-label">Tingkat</label>
+                        <input type="text" class="form-control" id="detail-tingkat-prestasi" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="peringkat" class="col-form-label">Peringkat</label>
+                        <input type="text" class="form-control" id="detail-peringkat-prestasi" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="tahun" class="col-form-label">Tahun</label>
+                        <input type="text" class="form-control" id="detail-tahun-prestasi" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="modal-edit-bantuan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1782,6 +1847,51 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-edit-prestasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Prestasi</h4>
+                </div>
+                <form id="form-edit-prestasi" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-id-prestasi" name="id" hidden>
+                        <div class="form-group">
+                            <label for="nama" class="col-form-label">Nama</label>
+                            <input type="text" class="form-control" name="nama" id="edit-nama-prestasi" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="penyelenggara" class="col-form-label">Penyelenggara</label>
+                            <input type="text" class="form-control" name="penyelenggara" id="edit-penyelenggara-prestasi" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bidang" class="col-form-label">Bidang</label>
+                            <select class="form-control" name="bidang" id="edit-bidang-prestasi" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tingkat" class="col-form-label">Tingkat</label>
+                            <select class="form-control" name="tingkat" id="edit-tingkat-prestasi" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="peringkat" class="col-form-label">Peringkat</label>
+                            <input class="form-control" name="peringkat" id="edit-peringkat-prestasi" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tahun" class="col-form-label">Tahun</label>
+                            <input type="text" class="form-control" name="tahun" id="edit-tahun-prestasi" required digits="true">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div id="modal_loading" data-backdrop="static" data-keyboard="false" class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -1865,6 +1975,8 @@
         select2_get('#siswa-kebutuhan-khusus, #ayah-kebutuhan-khusus, #ibu-kebutuhan-khusus, #wali-kebutuhan-khusus', '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>', "Pilih Kebutuhan Khusus");
         select2_get('#transportasi', '<?php echo base_url('referensi_data/transportasi') ?>', "Pilih Transportasi");
         select2_get('#alasan-pip', '<?php echo base_url('referensi_data/alasan_pip') ?>', "Pilih Alasan Layak PIP");
+        select2_get('#edit-bidang-prestasi, #tambah-bidang-prestasi', '<?php echo base_url('referensi_data/bidang_prestasi') ?>', "Pilih Bidang Prestasi");
+        select2_get('#edit-tingkat-prestasi, #tambah-tingkat-prestasi', '<?php echo base_url('referensi_data/tingkat_prestasi') ?>', "Pilih Tingkat Prestasi");
         select2_get('#medsos-siswa, #edit-medsos-siswa', '<?php echo base_url('referensi_data/media_sosial') ?>', "Pilih Jenis Media Sosial");
         select2_get('#provider-whatsapp-siswa, #provider-telp-siswa, #edit-provider-telp-siswa', '<?php echo base_url('referensi_data/provider') ?>', "Pilih Provider");
         select2_get('#pendidikan-ayah, #pendidikan-ibu, #pendidikan-wali', '<?php echo base_url('referensi_data/pendidikan') ?>', "Pilih Pendidikan Terakhir");
@@ -2225,6 +2337,107 @@
                 let formData = new FormData(document.getElementById('form-edit-saudara'));
 
                 custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_saudara_siswa'); ?>", formData, '#modal-edit-saudara', table_saudara, 'Saudara Siswa');
+            }
+        })
+        /**END */
+
+        /**CRUD Prestasi Prestasi */
+        var table_prestasi = $('#table-prestasi').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/prestasi_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id_siswa: <?php echo $data_pribadi[0]['id_siswa']; ?>
+                }
+            },
+            columns: [{
+                    data: "nama"
+                },
+                {
+                    data: "penyelenggara"
+                },
+                {
+                    data: "peringkat"
+                },
+                {
+                    data: "id_prestasi",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Detail Saudara Kandung" href="javascript:void(0)" onclick="detail_prestasi(' + row.id_prestasi + ')"><i class="fa fa-info"></i></a>' +
+                            '<a data-toggle="tooltip" title="Edit Saudara Kandung" href="javascript:void(0)" onclick="edit_prestasi(' + row.id_prestasi + ')"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Saudara Kandung" href="javascript:void(0)" onclick="hapus_prestasi(' + row.id_prestasi + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
+        })
+
+        function detail_prestasi(params) {
+            let formData = new FormData();
+            formData.append('id', params);
+
+            const arrays = fetch_get_modal("<?php echo base_url('admin/data_siswa/get_row_prestasi_siswa'); ?>", formData);
+            const getPromise = () => {
+                arrays.then((a) => {
+                    $('#detail-bidang-prestasi').val(a.bidang_prestasi);
+                    $('#detail-nama-prestasi').val(a.nama);
+                    $('#detail-penyelenggara-prestasi').val(a.penyelenggara);
+                    $('#detail-peringkat-prestasi').val(a.peringkat);
+                    $('#detail-tahun-prestasi').val(a.tahun);
+                    $('#detail-tingkat-prestasi').val(a.tingkat_prestasi);
+                    $('#modal-detail-prestasi').modal('show');
+                })
+            }
+
+            getPromise();
+        }
+
+        function edit_prestasi(params) {
+            let formData = new FormData();
+            formData.append('id', params);
+
+            const arrays = fetch_get_modal("<?php echo base_url('admin/data_siswa/get_row_prestasi_siswa'); ?>", formData);
+            const getPromise = () => {
+                arrays.then((a) => {
+                    let bidang = new Option(a.bidang_prestasi, a.id_bidang_prestasi, false, false);
+                    let tingkat = new Option(a.tingkat_prestasi, a.id_tingkat_prestasi, false, false);
+                    $('#edit-bidang-prestasi').append(bidang).trigger('change');
+                    $('#edit-nama-prestasi').val(a.nama);
+                    $('#edit-id-prestasi').val(a.id_prestasi);
+                    $('#edit-penyelenggara-prestasi').val(a.penyelenggara);
+                    $('#edit-peringkat-prestasi').val(a.peringkat);
+                    $('#edit-tahun-prestasi').val(a.tahun);
+                    $('#edit-tingkat-prestasi').append(tingkat).trigger('change');
+                    $('#modal-edit-prestasi').modal('show');
+                })
+            }
+
+            getPromise();
+        }
+
+        function hapus_prestasi(params) {
+            let formData = new FormData();
+            formData.append('id', params);
+
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan data prestasi siswa yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_prestasi_siswa'); ?>', formData, table_prestasi, 'Prestasi Siswa');
+        }
+
+        $('#form-tambah-prestasi').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-prestasi'));
+                formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_prestasi_siswa'); ?>", formData, '#modal-tambah-prestasi', table_prestasi, 'Prestasi Siswa');
+            }
+        })
+
+        $('#form-edit-prestasi').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-prestasi'));
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_prestasi_siswa'); ?>", formData, '#modal-edit-prestasi', table_prestasi, 'Prestasi Siswa');
             }
         })
         /**END */

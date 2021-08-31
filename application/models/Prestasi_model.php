@@ -53,6 +53,16 @@ class Prestasi_model extends CI_Model
     {
         return $this->db->delete($this->table, $where);
     }
+
+    public function select_where_join_bidang_and_tingkat($where)
+    {
+        $this->db->select('id_bidang_prestasi, bidang_prestasi, id_prestasi, nama, penyelenggara, peringkat, tahun, id_tingkat_prestasi, tingkat_prestasi');
+        $this->db->where($where);
+        $this->db->join('bidang_prestasi', $this->table . '.bidang_prestasi_id_bidang_prestasi = bidang_prestasi.id_bidang_prestasi', 'left');
+        $this->db->join('tingkat_prestasi', $this->table . '.tingkat_prestasi_id_tingkat_prestasi = tingkat_prestasi.id_tingkat_prestasi', 'left');
+
+        return $this->db->get($this->table);
+    }
 }
 
 /* End of file Prestasi_model.php */

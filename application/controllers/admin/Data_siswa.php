@@ -828,6 +828,13 @@ class Data_siswa extends CI_Controller
         echo json_encode(array('data' => $result));
     }
 
+    public function prestasi_siswa()
+    {
+        $id = $this->input->post('id_siswa');
+        $result = $this->prestasi_model->select_where(array("siswa_id_siswa" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
     public function tambah_bantuan_siswa()
     {
         $data_bantuan = array(
@@ -913,6 +920,26 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Berhasil tambah data saudara kandung", 'status' => true);
         } else {
             $this->response[] = array('isi' => "Gagal tambah data saudara kandung", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+    public function tambah_prestasi_siswa()
+    {
+        $prestasi = array(
+            'siswa_id_siswa' => $this->input->post('id'),
+            'nama' => $this->input->post('nama'),
+            'penyelenggara' => $this->input->post('penyelenggara'),
+            'bidang_prestasi_id_bidang_prestasi' => $this->input->post('bidang'),
+            'tingkat_prestasi_id_tingkat_prestasi' => $this->input->post('tingkat'),
+            'peringkat' => $this->input->post('peringkat'),
+            'tahun' => $this->input->post('tahun')
+        );
+
+        if ($this->prestasi_model->insert($prestasi)) {
+            $this->response[] = array('isi' => "Berhasil tambah data prestasi", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah data prestasi", 'status' => false);
         }
 
         echo json_encode($this->response);
@@ -1006,6 +1033,33 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function edit_prestasi_siswa()
+    {
+        $prestasi = array(
+            'nama' => $this->input->post('nama'),
+            'penyelenggara' => $this->input->post('penyelenggara'),
+            'bidang_prestasi_id_bidang_prestasi' => $this->input->post('bidang'),
+            'tingkat_prestasi_id_tingkat_prestasi' => $this->input->post('tingkat'),
+            'peringkat' => $this->input->post('peringkat'),
+            'tahun' => $this->input->post('tahun')
+        );
+
+        if ($this->prestasi_model->update(array('id_prestasi' => $this->input->post('id')), $prestasi)) {
+            $this->response[] = array('isi' => "Berhasil edit data prestasi", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit data prestasi", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function get_row_prestasi_siswa()
+    {
+        $id = $this->input->post('id');
+        $result = $this->prestasi_model->select_where_join_bidang_and_tingkat(array("id_prestasi" => $id))->row();
+        echo json_encode(array('data' => $result));
+    }
+
     public function hapus_bantuan_siswa()
     {
         if ($this->bantuan_tidak_mampu_model->delete(array('id_bantuan_tidak_mampu' => $this->input->post('id_bantuan'))) == false) {
@@ -1061,6 +1115,17 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Gagal hapus data saudara kandung", 'status' => false);
         } else {
             $this->response[] = array('isi' => "Berhasil hapus data saudara kandung", 'status' => true);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_prestasi_siswa()
+    {
+        if ($this->prestasi_model->delete(array('id_prestasi' => $this->input->post('id'))) == false) {
+            $this->response[] = array('isi' => "Gagal hapus data prestasi", 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus data prestasi", 'status' => true);
         }
 
         echo json_encode($this->response);
