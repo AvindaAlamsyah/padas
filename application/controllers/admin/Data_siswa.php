@@ -835,6 +835,13 @@ class Data_siswa extends CI_Controller
         echo json_encode(array('data' => $result));
     }
 
+    public function beasiswa_siswa()
+    {
+        $id = $this->input->post('id_siswa');
+        $result = $this->beasiswa_model->select_where_join_jenis(array("siswa_id_siswa" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
     public function tambah_bantuan_siswa()
     {
         $data_bantuan = array(
@@ -924,6 +931,7 @@ class Data_siswa extends CI_Controller
 
         echo json_encode($this->response);
     }
+
     public function tambah_prestasi_siswa()
     {
         $prestasi = array(
@@ -940,6 +948,25 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Berhasil tambah data prestasi", 'status' => true);
         } else {
             $this->response[] = array('isi' => "Gagal tambah data prestasi", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function tambah_beasiswa_siswa()
+    {
+        $beasiswa = array(
+            'siswa_id_siswa' => $this->input->post('id'),
+            'keterangan' => $this->input->post('keterangan'),
+            'jenis_beasiswa_id_jenis_beasiswa' => $this->input->post('jenis'),
+            'tanggal_mulai' => $this->input->post('mulai'),
+            'tanggal_selesai' => $this->input->post('selesai')
+        );
+
+        if ($this->beasiswa_model->insert($beasiswa)) {
+            $this->response[] = array('isi' => "Berhasil tambah data beasiswa", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah data beasiswa", 'status' => false);
         }
 
         echo json_encode($this->response);
@@ -1052,6 +1079,23 @@ class Data_siswa extends CI_Controller
 
         echo json_encode($this->response);
     }
+    public function edit_beasiswa_siswa()
+    {
+        $beasiswa = array(
+            'keterangan' => $this->input->post('keterangan'),
+            'jenis_beasiswa_id_jenis_beasiswa' => $this->input->post('jenis'),
+            'tanggal_mulai' => $this->input->post('mulai'),
+            'tanggal_selesai' => $this->input->post('selesai')
+        );
+
+        if ($this->beasiswa_model->update(array('id_beasiswa' => $this->input->post('id')), $beasiswa)) {
+            $this->response[] = array('isi' => "Berhasil edit data beasiswa", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit data beasiswa", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
 
     public function get_row_prestasi_siswa()
     {
@@ -1126,6 +1170,17 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Gagal hapus data prestasi", 'status' => false);
         } else {
             $this->response[] = array('isi' => "Berhasil hapus data prestasi", 'status' => true);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_beasiswa_siswa()
+    {
+        if ($this->beasiswa_model->delete(array('id_beasiswa' => $this->input->post('id'))) == false) {
+            $this->response[] = array('isi' => "Gagal hapus data beasiswa", 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus data beasiswa", 'status' => true);
         }
 
         echo json_encode($this->response);

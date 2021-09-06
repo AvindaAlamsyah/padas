@@ -53,6 +53,15 @@ class Beasiswa_model extends CI_Model
     {
         return $this->db->delete($this->table, $where);
     }
+
+    public function select_where_join_jenis($where)
+    {
+        $this->db->select('id_beasiswa, id_jenis_beasiswa, jenis_beasiswa, keterangan, tanggal_mulai, tanggal_selesai');
+        $this->db->where($where);
+        $this->db->join('jenis_beasiswa', $this->table . '.jenis_beasiswa_id_jenis_beasiswa = jenis_beasiswa.id_jenis_beasiswa', 'left');
+
+        return $this->db->get($this->table);
+    }
 }
 
 /* End of file Beasiswa_model.php */

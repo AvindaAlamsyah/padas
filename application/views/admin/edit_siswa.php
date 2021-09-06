@@ -1216,36 +1216,26 @@
                             <section class="toggle">
                                 <label> <i class="fa fa-graduation-cap"></i> Beasiswa</label>
                                 <div class="toggle-content panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Keterangan/Nama</th>
-                                                    <th>Jenis Beasiswa</th>
-                                                    <th>Tanggal Mulai</th>
-                                                    <th>Tanggal Berakhir</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($beasiswa[0]['beasiswa'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($beasiswa[0]['beasiswa'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['keterangan'] . "</td>";
-                                                        echo "<td>" . $key['jenis_beasiswa'] . "</td>";
-                                                        echo "<td>" . $key['tanggal_mulai'] . "</td>";
-                                                        echo "<td>" . $key['tanggal_selesai'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="mb-md" style="float: right;">
+                                                <a data-toggle="modal" data-target="#modal-tambah-beasiswa" class="modal-with-form btn btn-primary">Tambah beasiswa <i class="fa fa-plus-square"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <table id="table-beasiswa" class="table table-bordered table-striped mb-none">
+                                        <thead>
+                                            <tr>
+                                                <th>Keterangan/Nama</th>
+                                                <th>Jenis</th>
+                                                <th>Tanggal Mulai</th>
+                                                <th>Tanggal selesai</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </section>
                             <section class="toggle">
@@ -1661,6 +1651,41 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-tambah-beasiswa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Beasiswa</h4>
+                </div>
+                <form id="form-tambah-beasiswa" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="keterangan" class="col-form-label">Keterangan</label>
+                            <input type="text" class="form-control" name="keterangan" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="penyelenggara" class="col-form-label">Jenis</label>
+                            <select class="form-control" name="jenis" id="tambah-jenis-beasiswa" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mulai" class="col-form-label">Tanggal Mulai</label>
+                            <input type="date" class="form-control" name="mulai" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="selesai" class="col-form-label">Tanggal Selesai</label>
+                            <input type="date" class="form-control" name="selesai" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="modal fade" id="modal-detail-prestasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -1892,6 +1917,42 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-edit-beasiswa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Beasiswa</h4>
+                </div>
+                <form id="form-edit-beasiswa" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-id-beasiswa" name="id" hidden>
+                        <div class="form-group">
+                            <label for="keterangan" class="col-form-label">Keterangan</label>
+                            <input type="text" class="form-control" name="keterangan" id="edit-keterangan-beasiswa" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="penyelenggara" class="col-form-label">Jenis</label>
+                            <select class="form-control" name="jenis" id="edit-jenis-beasiswa" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mulai" class="col-form-label">Tanggal Mulai</label>
+                            <input type="date" class="form-control" name="mulai" id="edit-mulai-beasiswa" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="selesai" class="col-form-label">Tanggal Selesai</label>
+                            <input type="date" class="form-control" name="selesai" id="edit-selesai-beasiswa" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div id="modal_loading" data-backdrop="static" data-keyboard="false" class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -1975,6 +2036,7 @@
         select2_get('#siswa-kebutuhan-khusus, #ayah-kebutuhan-khusus, #ibu-kebutuhan-khusus, #wali-kebutuhan-khusus', '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>', "Pilih Kebutuhan Khusus");
         select2_get('#transportasi', '<?php echo base_url('referensi_data/transportasi') ?>', "Pilih Transportasi");
         select2_get('#alasan-pip', '<?php echo base_url('referensi_data/alasan_pip') ?>', "Pilih Alasan Layak PIP");
+        select2_get('#tambah-jenis-beasiswa, #edit-jenis-beasiswa', '<?php echo base_url('referensi_data/jenis_beasiswa') ?>', "Pilih Jenis Beasiswa");
         select2_get('#edit-bidang-prestasi, #tambah-bidang-prestasi', '<?php echo base_url('referensi_data/bidang_prestasi') ?>', "Pilih Bidang Prestasi");
         select2_get('#edit-tingkat-prestasi, #tambah-tingkat-prestasi', '<?php echo base_url('referensi_data/tingkat_prestasi') ?>', "Pilih Tingkat Prestasi");
         select2_get('#medsos-siswa, #edit-medsos-siswa', '<?php echo base_url('referensi_data/media_sosial') ?>', "Pilih Jenis Media Sosial");
@@ -2341,7 +2403,7 @@
         })
         /**END */
 
-        /**CRUD Prestasi Prestasi */
+        /**CRUD Prestasi */
         var table_prestasi = $('#table-prestasi').DataTable({
             ajax: {
                 method: "POST",
@@ -2363,9 +2425,9 @@
                 {
                     data: "id_prestasi",
                     render: (data, type, row) => {
-                        return '<a data-toggle="tooltip" title="Detail Saudara Kandung" href="javascript:void(0)" onclick="detail_prestasi(' + row.id_prestasi + ')"><i class="fa fa-info"></i></a>' +
-                            '<a data-toggle="tooltip" title="Edit Saudara Kandung" href="javascript:void(0)" onclick="edit_prestasi(' + row.id_prestasi + ')"><i class="fa fa-edit"></i></a>' +
-                            '<a data-toggle="tooltip" title="Hapus Saudara Kandung" href="javascript:void(0)" onclick="hapus_prestasi(' + row.id_prestasi + ')"><i class="fa fa-trash-o"></i></a>';
+                        return '<a data-toggle="tooltip" title="Detail Prestasi" href="javascript:void(0)" onclick="detail_prestasi(' + row.id_prestasi + ')"><i class="fa fa-info"></i></a>' +
+                            '<a data-toggle="tooltip" title="Edit Prestasi" href="javascript:void(0)" onclick="edit_prestasi(' + row.id_prestasi + ')"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Prestasi" href="javascript:void(0)" onclick="hapus_prestasi(' + row.id_prestasi + ')"><i class="fa fa-trash-o"></i></a>';
                     },
                     className: "actions"
                 }
@@ -2438,6 +2500,76 @@
                 let formData = new FormData(document.getElementById('form-edit-prestasi'));
 
                 custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_prestasi_siswa'); ?>", formData, '#modal-edit-prestasi', table_prestasi, 'Prestasi Siswa');
+            }
+        })
+        /**END */
+
+        /**CRUD Beasiswa */
+        var table_beasiswa = $('#table-beasiswa').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/beasiswa_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id_siswa: <?php echo $data_pribadi[0]['id_siswa']; ?>
+                }
+            },
+            columns: [{
+                    data: "keterangan"
+                },
+                {
+                    data: "jenis_beasiswa"
+                },
+                {
+                    data: "tanggal_mulai"
+                },
+                {
+                    data: "tanggal_selesai"
+                },
+                {
+                    data: "id_beasiswa",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Edit Beasiswa" class="item-edit" href="javascript:void(0)" data-id="' + row.id_beasiswa + '" data-id-jenis="' + row.id_jenis_beasiswa + '" data-jenis="' + row.jenis_beasiswa + '" data-keterangan="' + row.keterangan + '" data-mulai="' + row.tanggal_mulai + '" data-selesai="' + row.tanggal_selesai + '"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Beasiswa" href="javascript:void(0)" onclick="hapus_beasiswa(' + row.id_beasiswa + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
+        })
+
+        function hapus_beasiswa(params) {
+            let formData = new FormData();
+            formData.append('id', params);
+
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan data beasiswa yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_beasiswa_siswa'); ?>', formData, table_beasiswa, 'Beasiswa');
+        }
+
+        $('#form-tambah-beasiswa').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-beasiswa'));
+                formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_beasiswa_siswa'); ?>", formData, '#modal-tambah-beasiswa', table_beasiswa, 'Beasiswa');
+            }
+        })
+
+        $('#table-beasiswa').on('click', '.item-edit', function() {
+            let newOption = new Option($(this).data('jenis'), $(this).data('id-jenis'), false, false);
+            $('#edit-jenis-beasiswa').append(newOption).trigger('change');
+            $('#edit-keterangan-beasiswa').val($(this).data('keterangan'));
+            $('#edit-mulai-beasiswa').val($(this).data('mulai'));
+            $('#edit-selesai-beasiswa').val($(this).data('selesai'));
+            $('#edit-id-beasiswa').val($(this).data('id'));
+            $('#modal-edit-beasiswa').modal('show');
+        })
+
+        $('#form-edit-beasiswa').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-beasiswa'));
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_beasiswa_siswa'); ?>", formData, '#modal-edit-beasiswa', table_beasiswa, 'Beasiswa');
             }
         })
         /**END */
