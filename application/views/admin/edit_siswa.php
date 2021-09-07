@@ -1238,180 +1238,161 @@
                                     </table>
                                 </div>
                             </section>
-                            <section class="toggle">
-                                <label> <i class="fa fa-edit"></i> Registrasi Peserta Didik / PPDB</label>
-                                <div class="toggle-content panel-body">
-                                    <div class="table-responsive" style="margin-bottom: 20px;">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" colspan="3">Pilihan Jurusan saat PPDB</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>PIlihan ke-</th>
-                                                    <th>Keahlian/Jurusan</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($pilihan_jurusan[0]['pilihan_jurusan_saat_ppdb'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($pilihan_jurusan[0]['pilihan_jurusan_saat_ppdb'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['pilihan_ke'] . "</td>";
-                                                        echo "<td>" . $key['kompetensi_keahlian'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Diterima di Jurusan: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->kompetensi_keahlian_diterima; ?>" class="form-control" readonly>
+                            <form id="form-registrasi" class="form-horizontal" enctype="multipart/form-data" method="POST">
+                                <section class="toggle">
+                                    <label> <i class="fa fa-edit"></i> Registrasi Peserta Didik / PPDB</label>
+                                    <div class="toggle-content">
+                                        <div class="panel-body">
+                                            <input type="text" name="id" value="<?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>" hidden required>
+                                            <h5 class="text-center"><strong><u>Pilihan Jurusan PPDB</u></strong></h5>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="mb-md" style="float: right;">
+                                                        <a data-toggle="modal" data-target="#modal-tambah-pilihan-jurusan" class="modal-with-form btn btn-primary">Tambah pilihan jurusan <i class="fa fa-plus-square"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table id="table-pilihan-jurusan" class="table table-bordered table-striped mb-none">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Pilihan ke-</th>
+                                                        <th>Keahlian/Jurusan</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Diterima di Jurusan: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="jurusan" id="diterima-jurusan" class="form-control" required>
+                                                        <option value="<?php echo $pendaftaran_masuk->id_kompetensi_keahlian_diterima; ?>"><?php echo $pendaftaran_masuk->akronim_diterima; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Jalur PPDB yang Dipilih: </label>
+                                                <div class="col-sm-8">
+                                                    <select multiple name="jalur-ppdb-dipilih[]" id="jalur-ppdb-dipilih" class="form-control">
+                                                        <?php if ($pilihan_jalur[0]['pilihan_jalur_ppdb'] == NULL) {
+                                                            echo "<option></option>";
+                                                        } else {
+                                                            foreach ($pilihan_jalur[0]['pilihan_jalur_ppdb'] as $key) {
+                                                                echo "<option selected='selected' value='" . $key['id_jenis_pendaftaran_masuk'] . "'>" . $key['jenis_pendaftaran_masuk'] . "</option>";
+                                                            }
+                                                        } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Diterima PPDB Lewat Jalur: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="jalur" id="diterima-jalur" class="form-control" required>
+                                                        <option value="<?php echo $pendaftaran_masuk->id_diterima_ppdb_lewat_jalur; ?>"><?php echo $pendaftaran_masuk->diterima_ppdb_lewat_jalur; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Kode PIN Pendaftaran: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="kode-pin" value="<?php echo $pendaftaran_masuk->kode_pin_pendaftaran; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <h5 class="text-center"><strong><u>Nilai Rata-rata Raport SMP/MTs Semester 1 s.d 5</u></strong></h5>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="mb-md" style="float: right;">
+                                                        <a data-toggle="modal" data-target="#modal-tambah-mean" class="modal-with-form btn btn-primary">Tambah nilai rata-rata raport <i class="fa fa-plus-square"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <table id="table-mean" class="table table-bordered table-striped mb-none">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Mata Pelajaran</th>
+                                                        <th>Nilai</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Jenis Pendaftaran: </label>
+                                                <div class="col-sm-8">
+                                                    <select name="jenis" id="diterima-pendaftaran" class="form-control" required>
+                                                        <option value="<?php echo $pendaftaran_masuk->id_jenis_pendaftaran; ?>"><?php echo $pendaftaran_masuk->jenis_pendaftaran; ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">NIS: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nis" value="<?php echo $pendaftaran_masuk->nis; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">NPSN SMP atau MTs: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="npsn" value="<?php echo $pendaftaran_masuk->npsn_smp; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Akreditasi SMP atau MTs: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="akreditasi" value="<?php echo $pendaftaran_masuk->akreditasi_smp; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tahun Lulus SMP atau MTs: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="tahun" value="<?php echo $pendaftaran_masuk->tahun_lulus_smp; ?>" class="form-control" digits="true">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Tanggal Masuk Sekolah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="date" name="tanggal" value="<?php echo $pendaftaran_masuk->tanggal_masuk_sekolah; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Asal Sekolah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="asal-sekolah" value="<?php echo $pendaftaran_masuk->asal_sekolah; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor Peserta Ujian: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nomor-ujian" value="<?php echo $pendaftaran_masuk->nomor_peserta_ujian; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">No. Seri Ijazah: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="ijazah" value="<?php echo $pendaftaran_masuk->no_seri_ijazah; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">No. Seri Khusus: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="nomor-khusus" value="<?php echo $pendaftaran_masuk->no_seri_khusus; ?>" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-4 control-label">Nomor SKHUN: </label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="skhun" value="<?php echo $pendaftaran_masuk->nomor_skhun; ?>" class="form-control">
+                                                </div>
+                                            </div>
                                         </div>
+                                        <footer class="panel-footer">
+                                            <button class="btn btn-primary" type="submit">Update </button>
+                                        </footer>
                                     </div>
-                                    <div class="table-responsive" style="margin-bottom: 20px;">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" colspan="2">Jalur PPDB yang Dipilih</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Jalur PPBD</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($pilihan_jalur[0]['pilihan_jalur_ppdb'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($pilihan_jalur[0]['pilihan_jalur_ppdb'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['jenis_pendaftaran_masuk'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Diterima PPDB Lewat Jalur: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->diterima_ppdb_lewat_jalur; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Kode PIN Pendaftaran: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->kode_pin_pendaftaran; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive" style="margin-bottom: 20px;">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" colspan="3">Nilai Rata-rata Raport SMP/MTs Semester 1 s.d 5</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Mata Pelajaran</th>
-                                                    <th>Nilai</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($mean_mapel[0]['nilai_rata2_mapel'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($mean_mapel[0]['nilai_rata2_mapel'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['mata_pelajaran'] . "</td>";
-                                                        echo "<td>" . $key['nilai'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Jenis Pendaftaran: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->jenis_pendaftaran; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">NIS: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->nis; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">NPSN SMP atau MTs: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->npsn_smp; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Akreditasi SMP atau MTs: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->akreditasi_smp; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tahun Lulus SMP atau MTs: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->tahun_lulus_smp; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Tanggal Masuk Sekolah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->tanggal_masuk_sekolah; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Asal Sekolah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->asal_sekolah; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor Peserta Ujian: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->nomor_peserta_ujian; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">No. Seri Ijazah: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->no_seri_ijazah; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">No. Seri Khusus: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->no_seri_khusus; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-4 control-label">Nomor SKHUN: </label>
-                                        <div class="col-sm-8">
-                                            <input type="text" value="<?php echo $pendaftaran_masuk->nomor_skhun; ?>" class="form-control" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
+                                </section>
+                            </form>
                             <section class="toggle">
                                 <label> <i class="fa fa-university"></i> Data Proses Pembelajaran</label>
                                 <div class="toggle-content panel-body">
@@ -1676,6 +1657,60 @@
                         <div class="form-group">
                             <label for="selesai" class="col-form-label">Tanggal Selesai</label>
                             <input type="date" class="form-control" name="selesai" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-tambah-pilihan-jurusan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Pilihan Jurusan PPDB</h4>
+                </div>
+                <form id="form-tambah-pilihan-jurusan" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="pilihan-ke" class="col-form-label">Pilihan ke-</label>
+                            <input type="text" class="form-control" name="pilihan-ke" required digits="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="kompetensi-keahlian" class="col-form-label">Kompetensi Keahlian</label>
+                            <select class="form-control" name="kompetensi-keahlian" id="tambah-keahlian-pilihan-jurusan" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-tambah-mean" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Nilai Rata-rata Raport</h4>
+                </div>
+                <form id="form-tambah-mean" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="mata-pelajaran" class="col-form-label">Mata Pelajaran</label>
+                            <select class="form-control" name="mata-pelajaran" id="tambah-mapel" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nilai" class="col-form-label">Nilai</label>
+                            <input type="text" class="form-control" name="nilai" required digits="true">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -1953,6 +1988,62 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-edit-pilihan-jurusan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Pilihan Jurusan PPDB</h4>
+                </div>
+                <form id="form-edit-pilihan-jurusan" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-keahlian-pilihan-jurusan-lama" name="id-komp" hidden required>
+                        <div class="form-group">
+                            <label for="pilihan-ke" class="col-form-label">Pilihan ke-</label>
+                            <input type="text" class="form-control" name="pilihan-ke" id="edit-urutan-pilihan-jurusan" required digits="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="kompetensi-keahlian" class="col-form-label">Kompetensi Keahlian</label>
+                            <select class="form-control" name="kompetensi-keahlian" id="edit-keahlian-pilihan-jurusan" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-edit-mean" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Nilai Rata-rata Raport</h4>
+                </div>
+                <form id="form-edit-mean" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-mapel-lama" name="id-mapel" hidden required>
+                        <div class="form-group">
+                            <label for="mata-pelajaran" class="col-form-label">Mata Pelajaran</label>
+                            <select class="form-control" name="mata-pelajaran" id="edit-mapel-mean" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nilai" class="col-form-label">Nilai</label>
+                            <input type="text" class="form-control" name="nilai" id="edit-nilai-mean" required digits="true">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div id="modal_loading" data-backdrop="static" data-keyboard="false" class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -2030,12 +2121,14 @@
         /**Call All Select2 */
         select2_get('#siswa-gender, #gender-saudara, #edit-gender-saudara', '<?php echo base_url('referensi_data/gender') ?>', "Pilih Jenis Kelamin");
         select2_get('#siswa-kelas', '<?php echo base_url('referensi_data/kelas') ?>', "Pilih Kelas");
-        select2_get('#siswa-jurusan', '<?php echo base_url('referensi_data/jurusan') ?>', "Pilih Jurusan");
+        select2_get('#siswa-jurusan, #tambah-keahlian-pilihan-jurusan, #edit-keahlian-pilihan-jurusan, #diterima-jurusan', '<?php echo base_url('referensi_data/jurusan') ?>', "Pilih Jurusan");
         select2_get('#siswa-agama', '<?php echo base_url('referensi_data/agama') ?>', "Pilih Agama");
         select2_get('#tempat-tinggal, #domisili-tempat-tinggal, #tempat-tinggal-ayah, #tempat-tinggal-ibu, #tempat-tinggal-wali', '<?php echo base_url('referensi_data/tempat_tinggal') ?>', "Pilih Tempat Tinggal");
         select2_get('#siswa-kebutuhan-khusus, #ayah-kebutuhan-khusus, #ibu-kebutuhan-khusus, #wali-kebutuhan-khusus', '<?php echo base_url('referensi_data/berkebutuhan_khusus') ?>', "Pilih Kebutuhan Khusus");
         select2_get('#transportasi', '<?php echo base_url('referensi_data/transportasi') ?>', "Pilih Transportasi");
+        select2_get('#tambah-mapel, #edit-mapel-mean', '<?php echo base_url('referensi_data/mata_pelajaran') ?>', "Pilih Mata Pelajaran");
         select2_get('#alasan-pip', '<?php echo base_url('referensi_data/alasan_pip') ?>', "Pilih Alasan Layak PIP");
+        select2_get('#jalur-ppdb-dipilih, #diterima-jalur, #diterima-pendaftaran', '<?php echo base_url('referensi_data/jenis_masuk') ?>', "Pilih Jalur Pendaftaran Masuk");
         select2_get('#tambah-jenis-beasiswa, #edit-jenis-beasiswa', '<?php echo base_url('referensi_data/jenis_beasiswa') ?>', "Pilih Jenis Beasiswa");
         select2_get('#edit-bidang-prestasi, #tambah-bidang-prestasi', '<?php echo base_url('referensi_data/bidang_prestasi') ?>', "Pilih Bidang Prestasi");
         select2_get('#edit-tingkat-prestasi, #tambah-tingkat-prestasi', '<?php echo base_url('referensi_data/tingkat_prestasi') ?>', "Pilih Tingkat Prestasi");
@@ -2192,6 +2285,7 @@
         })
 
         $('#table-nomor-telp').on('click', '.item-edit', function() {
+            $('#edit-provider-telp-siswa').html('');
             let newOption = new Option($(this).data('provider'), $(this).data('id-provider'), false, false);
             $('#edit-provider-telp-siswa').append(newOption).trigger('change');
             $('#edit-no-telp').val($(this).data('nomor'));
@@ -2254,6 +2348,7 @@
         })
 
         $('#table-media-sosial').on('click', '.item-edit', function() {
+            $('#edit-medsos-siswa').html('');
             let newOption = new Option($(this).data('medsos'), $(this).data('id'), false, false);
             $('#edit-medsos-siswa').append(newOption).trigger('change');
             $('#edit-akun').val($(this).data('akun'));
@@ -2386,6 +2481,7 @@
         })
 
         $('#table-saudara').on('click', '.item-edit', function() {
+            $('#edit-gender-saudara').html('');
             let newOption = new Option($(this).data('gender'), $(this).data('id-gender'), false, false);
             $('#edit-gender-saudara').append(newOption).trigger('change');
             $('#edit-nama-saudara').val($(this).data('nama'));
@@ -2463,6 +2559,8 @@
             const arrays = fetch_get_modal("<?php echo base_url('admin/data_siswa/get_row_prestasi_siswa'); ?>", formData);
             const getPromise = () => {
                 arrays.then((a) => {
+                    $('#edit-bidang-prestasi').html('');
+                    $('#edit-tingkat-prestasi').html('');
                     let bidang = new Option(a.bidang_prestasi, a.id_bidang_prestasi, false, false);
                     let tingkat = new Option(a.tingkat_prestasi, a.id_tingkat_prestasi, false, false);
                     $('#edit-bidang-prestasi').append(bidang).trigger('change');
@@ -2556,6 +2654,7 @@
         })
 
         $('#table-beasiswa').on('click', '.item-edit', function() {
+            $('#edit-jenis-beasiswa').html('');
             let newOption = new Option($(this).data('jenis'), $(this).data('id-jenis'), false, false);
             $('#edit-jenis-beasiswa').append(newOption).trigger('change');
             $('#edit-keterangan-beasiswa').val($(this).data('keterangan'));
@@ -2570,6 +2669,136 @@
                 let formData = new FormData(document.getElementById('form-edit-beasiswa'));
 
                 custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_beasiswa_siswa'); ?>", formData, '#modal-edit-beasiswa', table_beasiswa, 'Beasiswa');
+            }
+        })
+        /**END */
+
+        /**CRUD Pilihan Jurusan PPDB*/
+        var table_pilihan_jurusan = $('#table-pilihan-jurusan').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/pilihan_jurusan_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id: <?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>
+                }
+            },
+            columns: [{
+                    data: "pilihan_ke"
+                },
+                {
+                    data: "kompetensi_keahlian"
+                },
+                {
+                    data: "id_pendaftaran_masuk",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Edit Pilihan Jurusan" class="item-edit" href="javascript:void(0)" data-id-keahlian="' + row.id_kompetensi_keahlian + '" data-keahlian="' + row.akronim + '" data-pilihan="' + row.pilihan_ke + '"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Pilihan Jurusan" href="javascript:void(0)" onclick="hapus_pilihan_jurusan(' + row.id_kompetensi_keahlian + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
+        })
+
+        function hapus_pilihan_jurusan(params) {
+            let formData = new FormData();
+            formData.append('id-komp', params);
+            formData.append('id-pend', <?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>);
+
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan data pilihan jurusan yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_pilihan_jurusan_siswa'); ?>', formData, table_pilihan_jurusan, 'Pilihan Jurusan PPDB');
+        }
+
+        $('#form-tambah-pilihan-jurusan').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-pilihan-jurusan'));
+                formData.append('id', <?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_pilihan_jurusan_siswa'); ?>", formData, '#modal-tambah-pilihan-jurusan', table_pilihan_jurusan, 'Pilihan Jurusan PPDB');
+            }
+        })
+
+        $('#table-pilihan-jurusan').on('click', '.item-edit', function() {
+            $("#edit-keahlian-pilihan-jurusan").html("")
+            let newOption = new Option($(this).data('keahlian'), $(this).data('id-keahlian'), false, false);
+            $('#edit-keahlian-pilihan-jurusan').append(newOption).trigger('change');
+            $('#edit-urutan-pilihan-jurusan').val($(this).data('pilihan'));
+            $('#edit-keahlian-pilihan-jurusan-lama').val($(this).data('id-keahlian'));
+            $('#modal-edit-pilihan-jurusan').modal('show');
+        })
+
+        $('#form-edit-pilihan-jurusan').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-pilihan-jurusan'));
+                formData.append('id', <?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_pilihan_jurusan_siswa'); ?>", formData, '#modal-edit-pilihan-jurusan', table_pilihan_jurusan, 'Pilihan Jurusan PPDB');
+            }
+        })
+        /**END */
+
+        /**CRUD Nilai Rata-rata */
+        var table_mean = $('#table-mean').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/mean_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id: <?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>
+                }
+            },
+            columns: [{
+                    data: "mata_pelajaran"
+                },
+                {
+                    data: "nilai"
+                },
+                {
+                    data: "id_mata_pelajaran",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Edit Nilai Rata-rata" class="item-edit" href="javascript:void(0)" data-id-mapel="' + row.id_mata_pelajaran + '" data-mapel="' + row.mata_pelajaran + '" data-nilai="' + row.nilai + '"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Nilai Rata-rata Jurusan" href="javascript:void(0)" onclick="hapus_mean(' + row.id_mata_pelajaran + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
+        })
+
+        function hapus_mean(params) {
+            let formData = new FormData();
+            formData.append('id-mapel', params);
+            formData.append('id-pend', <?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>);
+
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan data nilai rata-rata yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_mean_siswa'); ?>', formData, table_mean, 'Nilai Rata-rata Raport');
+        }
+
+        $('#form-tambah-mean').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-mean'));
+                formData.append('id', <?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_mean_siswa'); ?>", formData, '#modal-tambah-mean', table_mean, 'Nilai Rata-rata Raport');
+            }
+        })
+
+        $('#table-mean').on('click', '.item-edit', function() {
+            $("#edit-mapel-mean").html("")
+            let newOption = new Option($(this).data('mapel'), $(this).data('id-mapel'), false, false);
+            $('#edit-mapel-mean').append(newOption).trigger('change');
+            $('#edit-mapel-lama').val($(this).data('id-mapel'));
+            $('#edit-nilai-mean').val($(this).data('nilai'));
+            $('#modal-edit-mean').modal('show');
+        })
+
+        $('#form-edit-mean').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-mean'));
+                formData.append('id', <?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_mean_siswa'); ?>", formData, '#modal-edit-mean', table_mean, 'Nilai Rata-rata Raport');
             }
         })
         /**END */
@@ -2660,6 +2889,14 @@
                 let formData = new FormData(document.getElementById('form-periodik'));
 
                 fetch_save_form('<?php echo base_url("admin/data_siswa/edit_periodik") ?>', formData, 'Data Periodik');
+            }
+        })
+
+        $("#form-registrasi").validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-registrasi'));
+
+                fetch_save_form('<?php echo base_url("admin/data_siswa/edit_registrasi") ?>', formData, 'Registrasi Peserta Didik');
             }
         })
         /**END */

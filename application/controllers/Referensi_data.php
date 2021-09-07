@@ -30,6 +30,7 @@ class Referensi_data extends CI_Controller
         $this->load->model('bidang_prestasi_model');
         $this->load->model('tingkat_prestasi_model');
         $this->load->model('jenis_beasiswa_model');
+        $this->load->model('mata_pelajaran_model');
     }
 
     public function gender()
@@ -278,6 +279,17 @@ class Referensi_data extends CI_Controller
 
         foreach ($result as $value) {
             $data[] = array('id' => $value['id_jenis_beasiswa'], 'text' => $value['jenis_beasiswa']);
+        }
+
+        echo json_encode($data);
+    }
+    public function mata_pelajaran()
+    {
+        $data = array();
+        $result = $this->mata_pelajaran_model->select_all()->result_array();
+
+        foreach ($result as $value) {
+            $data[] = array('id' => $value['id_mata_pelajaran'], 'text' => $value['mata_pelajaran']);
         }
 
         echo json_encode($data);

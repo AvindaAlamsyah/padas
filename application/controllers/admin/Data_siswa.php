@@ -34,6 +34,10 @@ class Data_siswa extends CI_Controller
         $this->load->model('siswa_has_media_sosial_model');
         $this->load->model('kontak_darurat_model');
         $this->load->model('saudara_kandung_model');
+        $this->load->model('pilihan_jurusan_ppdb_model');
+        $this->load->model('view_model');
+        $this->load->model('mean_mapel_model');
+        $this->load->model('pilihan_jalur_ppdb_model');
 
         $this->user_model->session_check(1);
     }
@@ -705,6 +709,54 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function edit_registrasi()
+    {
+        $id_pendaftaran_masuk = $this->input->post('id');
+
+        $pendaftaran_masuk = array(
+            'kompetensi_keahlian_diterima' => $this->input->post('jurusan'),
+            'diterima_ppdb_lewat_jalur' => $this->input->post('jalur'),
+            'kode_pin_pendaftaran' => $this->input->post('kode-pin'),
+            'jenis_pendaftaran_diterima' => $this->input->post('jenis'),
+            'nis' => $this->input->post('nis'),
+            'npsn_smp' => $this->input->post('npsn'),
+            'akreditasi_smp' => $this->input->post('akreditasi'),
+            'tahun_lulus_smp' => $this->input->post('tahun'),
+            'tanggal_masuk_sekolah' => $this->input->post('tanggal'),
+            'asal_sekolah' => $this->input->post('asal-sekolah'),
+            'nomor_peserta_ujian' => $this->input->post('nomor-ujian'),
+            'no_seri_ijazah' => $this->input->post('ijazah'),
+            'no_seri_khusus' => $this->input->post('nomor-khusus'),
+            'nomor_skhun' => $this->input->post('skhun'),
+        );
+
+        $pendaftaran_masuk = array_map(array($this, 'drop_empty'), $pendaftaran_masuk);
+
+        if ($this->pendaftaran_masuk_model->update(array('id_pendaftaran_masuk' => $id_pendaftaran_masuk), $pendaftaran_masuk)) {
+            $this->response[] = array('isi' => "Berhasil update registrasi pendaftaran siswa.", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal update registrasi pendaftaran siswa.", 'status' => false);
+        }
+
+        $this->pilihan_jalur_ppdb_model->delete(array('pendaftaran_masuk_id_pendaftaran_masuk' => $id_pendaftaran_masuk));
+        if ($this->input->post('jalur-ppdb-dipilih') != false) {
+            $pilihan_jalur_ppdb = array();
+            foreach ($this->input->post('jalur-ppdb-dipilih') as $value) {
+                $pilihan_jalur_ppdb[] = array(
+                    'pendaftaran_masuk_id_pendaftaran_masuk' => $id_pendaftaran_masuk,
+                    'jenis_pendaftaran_masuk_id_jenis_pendaftaran_masuk' => $value
+                );
+            }
+            if ($this->pilihan_jalur_ppdb_model->insert_batch($pilihan_jalur_ppdb) == false) {
+                $this->response[] = array('isi' => "Gagal update pilihan jalur PPDB.", 'status' => false);
+            } else {
+                $this->response[] = array('isi' => "Berhasil update pilihan jalur PPDB.", 'status' => true);
+            }
+        }
+
+        echo json_encode($this->response);
+    }
+
     public function hapus_domisili()
     {
         $id_siswa = $this->input->post('id');
@@ -842,6 +894,20 @@ class Data_siswa extends CI_Controller
         echo json_encode(array('data' => $result));
     }
 
+    public function pilihan_jurusan_siswa()
+    {
+        $id = $this->input->post('id');
+        $result = $this->view_model->select_view_pilihan_jurusan_saat_ppdb_where(array("id_pendaftaran_masuk" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
+    public function mean_siswa()
+    {
+        $id = $this->input->post('id');
+        $result = $this->view_model->select_view_mean_mapel_where(array("id_pendaftaran_masuk" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
     public function tambah_bantuan_siswa()
     {
         $data_bantuan = array(
@@ -972,6 +1038,40 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function tambah_pilihan_jurusan_siswa()
+    {
+        $pililhan_jurusan_ppdb = array(
+            'kompetensi_keahlian_id_kompetensi_keahlian' => $this->input->post('kompetensi-keahlian'),
+            'pendaftaran_masuk_id_pendaftaran_masuk' => $this->input->post('id'),
+            'pilihan_ke' => $this->input->post('pilihan-ke')
+        );
+
+        if ($this->pilihan_jurusan_ppdb_model->insert($pililhan_jurusan_ppdb)) {
+            $this->response[] = array('isi' => "Berhasil tambah data pilihan jurusan PPDB", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah data pilihan jurusan PPDB", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function tambah_mean_siswa()
+    {
+        $mean_mapel = array(
+            'mata_pelajaran_id_mata_pelajaran' => $this->input->post('mata-pelajaran'),
+            'pendaftaran_masuk_id_pendaftaran_masuk' => $this->input->post('id'),
+            'nilai' => $this->input->post('nilai')
+        );
+
+        if ($this->mean_mapel_model->insert($mean_mapel)) {
+            $this->response[] = array('isi' => "Berhasil tambah data nilai rata-rata", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah data nilai rata-rata", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
     public function edit_bantuan_siswa()
     {
         $data_bantuan = array(
@@ -1079,6 +1179,7 @@ class Data_siswa extends CI_Controller
 
         echo json_encode($this->response);
     }
+
     public function edit_beasiswa_siswa()
     {
         $beasiswa = array(
@@ -1092,6 +1193,48 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Berhasil edit data beasiswa", 'status' => true);
         } else {
             $this->response[] = array('isi' => "Gagal edit data beasiswa", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function edit_pilihan_jurusan_siswa()
+    {
+        $pililhan_jurusan_ppdb = array(
+            'kompetensi_keahlian_id_kompetensi_keahlian' => $this->input->post('kompetensi-keahlian'),
+            'pilihan_ke' => $this->input->post('pilihan-ke')
+        );
+
+        $where = array(
+            'kompetensi_keahlian_id_kompetensi_keahlian' => $this->input->post('id-komp'),
+            'pendaftaran_masuk_id_pendaftaran_masuk' => $this->input->post('id')
+        );
+
+        if ($this->pilihan_jurusan_ppdb_model->update($where, $pililhan_jurusan_ppdb)) {
+            $this->response[] = array('isi' => "Berhasil edit data pilihan jurusan PPDB", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit data pilihan jurusan PPDB", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function edit_mean_siswa()
+    {
+        $mean_mapel = array(
+            'mata_pelajaran_id_mata_pelajaran' => $this->input->post('mata-pelajaran'),
+            'nilai' => $this->input->post('nilai')
+        );
+
+        $where = array(
+            'mata_pelajaran_id_mata_pelajaran' => $this->input->post('id-mapel'),
+            'pendaftaran_masuk_id_pendaftaran_masuk' => $this->input->post('id')
+        );
+
+        if ($this->mean_mapel_model->update($where, $mean_mapel)) {
+            $this->response[] = array('isi' => "Berhasil edit data nilai rata-rata", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit data nilai rata-rata", 'status' => false);
         }
 
         echo json_encode($this->response);
@@ -1181,6 +1324,38 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Gagal hapus data beasiswa", 'status' => false);
         } else {
             $this->response[] = array('isi' => "Berhasil hapus data beasiswa", 'status' => true);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_pilihan_jurusan_siswa()
+    {
+        $where = array(
+            'kompetensi_keahlian_id_kompetensi_keahlian' => $this->input->post('id-komp'),
+            'pendaftaran_masuk_id_pendaftaran_masuk' => $this->input->post('id-pend')
+        );
+
+        if ($this->pilihan_jurusan_ppdb_model->delete($where) == false) {
+            $this->response[] = array('isi' => "Gagal hapus data pilihan jurusan PPDB", 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus data pilihan jurusan PPDB", 'status' => true);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_mean_siswa()
+    {
+        $where = array(
+            'mata_pelajaran_id_mata_pelajaran' => $this->input->post('id-mapel'),
+            'pendaftaran_masuk_id_pendaftaran_masuk' => $this->input->post('id-pend')
+        );
+
+        if ($this->mean_mapel_model->delete($where) == false) {
+            $this->response[] = array('isi' => "Gagal hapus data nilai rata-rata", 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus data nilai rata-rata", 'status' => true);
         }
 
         echo json_encode($this->response);
@@ -1490,8 +1665,11 @@ class Data_siswa extends CI_Controller
 
     public function test()
     {
-        $id = 12;
-        echo json_encode($this->nomor_telepon_seluler_model->select_where_join_provider(array('siswa_id_siswa' => $id))->result());
+        $this->load->helper('view_helper');
+        $where = array(
+            'id_siswa' => 631
+        );
+        echo json_encode(compact_pilihan_jalur_ppdb($this->view_model->select_view_pilihan_jalur_ppdb_where($where)->result_array()));
     }
 }
 
