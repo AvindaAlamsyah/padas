@@ -38,6 +38,7 @@ class Data_siswa extends CI_Controller
         $this->load->model('view_model');
         $this->load->model('mean_mapel_model');
         $this->load->model('pilihan_jalur_ppdb_model');
+        $this->load->model('proses_pembelajaran_model');
 
         $this->user_model->session_check(1);
     }
@@ -908,6 +909,13 @@ class Data_siswa extends CI_Controller
         echo json_encode(array('data' => $result));
     }
 
+    public function pembelajaran_siswa()
+    {
+        $id = $this->input->post('id');
+        $result = $this->view_model->select_view_data_proses_pembelajaran_where(array("id_siswa" => $id))->result();
+        echo json_encode(array('data' => $result));
+    }
+
     public function tambah_bantuan_siswa()
     {
         $data_bantuan = array(
@@ -1064,6 +1072,26 @@ class Data_siswa extends CI_Controller
         );
 
         if ($this->mean_mapel_model->insert($mean_mapel)) {
+            $this->response[] = array('isi' => "Berhasil tambah data nilai rata-rata", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal tambah data nilai rata-rata", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function tambah_pembelajaran_siswa()
+    {
+        $proses_pembelajaran = array(
+            'tahun_ajaran_id_tahun_ajaran' => $this->input->post('tahun-ajaran'),
+            'siswa_id_siswa' => $this->input->post('id'),
+            'kelas_id_kelas' => $this->input->post('kelas'),
+            'nomor_absen' => $this->input->post('nomor'),
+            'wali_kelas' => $this->input->post('wali'),
+            'guru_bk' => $this->input->post('bk')
+        );
+
+        if ($this->proses_pembelajaran_model->insert($proses_pembelajaran)) {
             $this->response[] = array('isi' => "Berhasil tambah data nilai rata-rata", 'status' => true);
         } else {
             $this->response[] = array('isi' => "Gagal tambah data nilai rata-rata", 'status' => false);
@@ -1240,6 +1268,25 @@ class Data_siswa extends CI_Controller
         echo json_encode($this->response);
     }
 
+    public function edit_pembelajaran_siswa()
+    {
+        $proses_pembelajaran = array(
+            'tahun_ajaran_id_tahun_ajaran' => $this->input->post('tahun-ajaran'),
+            'kelas_id_kelas' => $this->input->post('kelas'),
+            'nomor_absen' => $this->input->post('nomor'),
+            'wali_kelas' => $this->input->post('wali'),
+            'guru_bk' => $this->input->post('bk')
+        );
+
+        if ($this->proses_pembelajaran_model->update(array('id_proses_pembelajaran' => $this->input->post('id')), $proses_pembelajaran)) {
+            $this->response[] = array('isi' => "Berhasil edit data proses pembelajaran", 'status' => true);
+        } else {
+            $this->response[] = array('isi' => "Gagal edit data proses pembelajaran", 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
     public function get_row_prestasi_siswa()
     {
         $id = $this->input->post('id');
@@ -1356,6 +1403,17 @@ class Data_siswa extends CI_Controller
             $this->response[] = array('isi' => "Gagal hapus data nilai rata-rata", 'status' => false);
         } else {
             $this->response[] = array('isi' => "Berhasil hapus data nilai rata-rata", 'status' => true);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    public function hapus_pembelajaran_siswa()
+    {
+        if ($this->proses_pembelajaran_model->delete(array('id_proses_pembelajaran' => $this->input->post('id'))) == false) {
+            $this->response[] = array('isi' => "Gagal hapus data proses pembelajaran", 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil hapus data proses pembelajaran", 'status' => true);
         }
 
         echo json_encode($this->response);

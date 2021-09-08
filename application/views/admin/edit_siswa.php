@@ -1396,38 +1396,27 @@
                             <section class="toggle">
                                 <label> <i class="fa fa-university"></i> Data Proses Pembelajaran</label>
                                 <div class="toggle-content panel-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mb-none">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Tahun Ajaran</th>
-                                                    <th>Kelas</th>
-                                                    <th>Nomor Absen</th>
-                                                    <th>Wali Kelas</th>
-                                                    <th>Guru BK</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                if ($proses_pembelajaran[0]['data_proses_pembelajaran'] !== null) {
-                                                    $i = 1;
-                                                    foreach ($proses_pembelajaran[0]['data_proses_pembelajaran'] as $key) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $i . "</td>";
-                                                        echo "<td>" . $key['tahun1'] . "/" . $key['tahun2'] . "</td>";
-                                                        echo "<td>" . $key['kelas'] . "</td>";
-                                                        echo "<td>" . $key['nomor_absen'] . "</td>";
-                                                        echo "<td>" . $key['wali_kelas'] . "</td>";
-                                                        echo "<td>" . $key['guru_bk'] . "</td>";
-                                                        echo "</tr>";
-                                                        $i++;
-                                                    }
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="mb-md" style="float: right;">
+                                                <a data-toggle="modal" data-target="#modal-tambah-pembelajaran" class="modal-with-form btn btn-primary">Tambah proses pembelajaran <i class="fa fa-plus-square"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <table id="table-pembelajaran" class="table table-bordered table-striped mb-none">
+                                        <thead>
+                                            <tr>
+                                                <th>Tahun Ajaran</th>
+                                                <th>Kelas</th>
+                                                <th>Nomor Absen</th>
+                                                <th>Wali Kelas</th>
+                                                <th>Guru BK</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </section>
                         </div>
@@ -1711,6 +1700,46 @@
                         <div class="form-group">
                             <label for="nilai" class="col-form-label">Nilai</label>
                             <input type="text" class="form-control" name="nilai" required digits="true">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modal-tambah-pembelajaran" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Tambah Data Proses Pembelajaran</h4>
+                </div>
+                <form id="form-tambah-pembelajaran" method="POST">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="tahun-ajaran" class="col-form-label">Tahun Ajaran</label>
+                            <select class="form-control" name="tahun-ajaran" id="tambah-tahun-pembelajaran" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="kelas" class="col-form-label">Kelas</label>
+                            <select class="form-control" name="kelas" id="tambah-kelas-pembelajaran" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomor" class="col-form-label">Nomor Absen</label>
+                            <input type="text" class="form-control" name="nomor" required digits="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="wali" class="col-form-label">Wali Kelas</label>
+                            <input type="text" class="form-control" name="wali" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bk" class="col-form-label">Guru BK</label>
+                            <input type="text" class="form-control" name="bk" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -2044,6 +2073,47 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-edit-pembelajaran" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Data Proses Pembelajaran</h4>
+                </div>
+                <form id="form-edit-pembelajaran" method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="edit-id-pembelajaran" name="id" hidden required>
+                        <div class="form-group">
+                            <label for="tahun-ajaran" class="col-form-label">Tahun Ajaran</label>
+                            <select class="form-control" name="tahun-ajaran" id="edit-tahun-pembelajaran" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="kelas" class="col-form-label">Kelas</label>
+                            <select class="form-control" name="kelas" id="edit-kelas-pembelajaran" required>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomor" class="col-form-label">Nomor Absen</label>
+                            <input type="text" class="form-control" name="nomor" id="edit-nomor-pembelajaran" required digits="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="wali" class="col-form-label">Wali Kelas</label>
+                            <input type="text" class="form-control" name="wali" id="edit-wali-pembelajaran" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bk" class="col-form-label">Guru BK</label>
+                            <input type="text" class="form-control" name="bk" id="edit-bk-pembelajaran" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Confirm</button>
+                        <button type="reset" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <div id="modal_loading" data-backdrop="static" data-keyboard="false" class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -2128,6 +2198,8 @@
         select2_get('#transportasi', '<?php echo base_url('referensi_data/transportasi') ?>', "Pilih Transportasi");
         select2_get('#tambah-mapel, #edit-mapel-mean', '<?php echo base_url('referensi_data/mata_pelajaran') ?>', "Pilih Mata Pelajaran");
         select2_get('#alasan-pip', '<?php echo base_url('referensi_data/alasan_pip') ?>', "Pilih Alasan Layak PIP");
+        select2_get('#tambah-kelas-pembelajaran, #edit-kelas-pembelajaran', '<?php echo base_url('referensi_data/kelas') ?>', "Pilih Kelas");
+        select2_get('#tambah-tahun-pembelajaran, #edit-tahun-pembelajaran', '<?php echo base_url('referensi_data/tahun_ajaran') ?>', "Pilih Tahun Ajaran");
         select2_get('#jalur-ppdb-dipilih, #diterima-jalur, #diterima-pendaftaran', '<?php echo base_url('referensi_data/jenis_masuk') ?>', "Pilih Jalur Pendaftaran Masuk");
         select2_get('#tambah-jenis-beasiswa, #edit-jenis-beasiswa', '<?php echo base_url('referensi_data/jenis_beasiswa') ?>', "Pilih Jenis Beasiswa");
         select2_get('#edit-bidang-prestasi, #tambah-bidang-prestasi', '<?php echo base_url('referensi_data/bidang_prestasi') ?>', "Pilih Bidang Prestasi");
@@ -2799,6 +2871,86 @@
                 formData.append('id', <?php echo $pendaftaran_masuk->id_pendaftaran_masuk; ?>);
 
                 custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_mean_siswa'); ?>", formData, '#modal-edit-mean', table_mean, 'Nilai Rata-rata Raport');
+            }
+        })
+        /**END */
+
+        /**CRUD Proses Pembelajaran */
+        var table_pembelajaran = $('#table-pembelajaran').DataTable({
+            ajax: {
+                method: "POST",
+                url: "<?php echo base_url('admin/data_siswa/pembelajaran_siswa') ?>",
+                dataType: "JSON",
+                data: {
+                    id: <?php echo $data_pribadi[0]['id_siswa']; ?>
+                }
+            },
+            columns: [{
+                    data: "id_tahun_ajaran",
+                    render: (data, type, row) => {
+                        return row.tahun1 + "/" + row.tahun2;
+                    }
+                },
+                {
+                    data: "kelas"
+                },
+                {
+                    data: "nomor_absen"
+                },
+                {
+                    data: "wali_kelas"
+                },
+                {
+                    data: "guru_bk"
+                },
+                {
+                    data: "id_proses_pembelajaran",
+                    render: (data, type, row) => {
+                        return '<a data-toggle="tooltip" title="Edit Nilai Rata-rata" class="item-edit" href="javascript:void(0)" data-id="' + row.id_proses_pembelajaran + '" data-id-kelas="' + row.id_kelas + '" data-kelas="' + row.kelas + '" data-id-tahun="' + row.id_tahun_ajaran + '" data-tahun="' + row.tahun1 + ' / ' + row.tahun2 + '" data-nomor="' + row.nomor_absen + '" data-wali="' + row.wali_kelas + '" data-bk="' + row.guru_bk + '"><i class="fa fa-edit"></i></a>' +
+                            '<a data-toggle="tooltip" title="Hapus Nilai Rata-rata Jurusan" href="javascript:void(0)" onclick="hapus_pembelajaran(' + row.id_proses_pembelajaran + ')"><i class="fa fa-trash-o"></i></a>';
+                    },
+                    className: "actions"
+                }
+            ],
+            bSort: false,
+            bLengthChange: false
+        })
+
+        function hapus_pembelajaran(params) {
+            let formData = new FormData();
+            formData.append('id', params);
+
+            sweetalert2_delete('Anda tidak akan dapat mengembalikan data proses pembelajaran yang telah dihapus!', '<?php echo base_url('admin/data_siswa/hapus_pembelajaran_siswa'); ?>', formData, table_pembelajaran, 'Data Proses Pembelajaran');
+        }
+
+        $('#form-tambah-pembelajaran').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-tambah-pembelajaran'));
+                formData.append('id', <?php echo $data_pribadi[0]['id_siswa']; ?>);
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/tambah_pembelajaran_siswa'); ?>", formData, '#modal-tambah-pembelajaran', table_pembelajaran, 'Data Proses Pembelajaran');
+            }
+        })
+
+        $('#table-pembelajaran').on('click', '.item-edit', function() {
+            $("#edit-tahun-pembelajaran").html("")
+            $("#edit-kelas-pembelajaran").html("")
+            let tahun = new Option($(this).data('tahun'), $(this).data('id-tahun'), false, false);
+            let kelas = new Option($(this).data('kelas'), $(this).data('id-kelas'), false, false);
+            $('#edit-tahun-pembelajaran').append(tahun).trigger('change');
+            $('#edit-kelas-pembelajaran').append(kelas).trigger('change');
+            $('#edit-nomor-pembelajaran').val($(this).data('nomor'));
+            $('#edit-wali-pembelajaran').val($(this).data('wali'));
+            $('#edit-bk-pembelajaran').val($(this).data('bk'));
+            $('#edit-id-pembelajaran').val($(this).data('id'));
+            $('#modal-edit-pembelajaran').modal('show');
+        })
+
+        $('#form-edit-pembelajaran').validate({
+            submitHandler: () => {
+                let formData = new FormData(document.getElementById('form-edit-pembelajaran'));
+
+                custom_fetch('#modal_loading', "<?php echo base_url('admin/data_siswa/edit_pembelajaran_siswa'); ?>", formData, '#modal-edit-pembelajaran', table_pembelajaran, 'Data Proses Pembelajaran');
             }
         })
         /**END */
