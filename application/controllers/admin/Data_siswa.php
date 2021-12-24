@@ -2513,7 +2513,7 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table wali
                     for ($i = 3; $i < $countHasilConvert; $i++) {
-                        if (!empty($sheetHasilConvert[$i][36])) {
+                        if (!empty($sheetDataSumber[$i][36])) {
                             $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                             $wali[] = array(
                                 'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
