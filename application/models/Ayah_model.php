@@ -53,6 +53,15 @@ class Ayah_model extends CI_Model
     {
         return $this->db->delete($this->table, $where);
     }
+
+    public function get_id_ayah($where)
+    {
+        $this->db->select('id_ayah,siswa_id_siswa, siswa.nisn');
+        $this->db->join('siswa', 'ayah.siswa_id_siswa = siswa.id_siswa');
+        $this->db->where($where);
+
+        return $this->db->get($this->table);
+    }
 }
 
 /* End of file Ayah_model.php */

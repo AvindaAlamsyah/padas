@@ -57,7 +57,7 @@
                     <div class="right-wrapper pull-right">
                         <ol class="breadcrumbs">
                             <li>
-                                <a href="index.html">
+                                <a href="<?php echo base_url(); ?>">
                                     <i class="fa fa-home"></i>
                                 </a>
                             </li>
@@ -79,7 +79,7 @@
                                 <div class="toggle-content panel-body">
                                     <div class="col-sm-12" style="margin-bottom: 25px;">
                                         <div class="col-md-3">
-                                            <img src="<?php echo base_url('/') . 'assets/img/' . $data_pribadi[0]['foto']; ?>" class="rounded img-responsive" alt="<?php echo $data_pribadi[0]['nama']; ?>">
+                                            <img src="<?php echo base_url('/') . 'assets/img/foto_profil/' . $data_pribadi[0]['foto']; ?>" class="rounded img-responsive" alt="<?php echo $data_pribadi[0]['nama']; ?>">
                                         </div>
                                     </div>
                                     <div class="form-group">

@@ -53,6 +53,15 @@ class Wali_model extends CI_Model
     {
         return $this->db->delete($this->table, $where);
     }
+
+    public function get_id_wali($where)
+    {
+        $this->db->select('id_wali,siswa_id_siswa, siswa.nisn');
+        $this->db->join('siswa', 'wali.siswa_id_siswa = siswa.id_siswa');
+        $this->db->where($where);
+
+        return $this->db->get($this->table);
+    }
 }
 
 /* End of file Wali_model.php */

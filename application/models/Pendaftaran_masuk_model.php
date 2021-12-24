@@ -53,6 +53,15 @@ class Pendaftaran_masuk_model extends CI_Model
     {
         return $this->db->delete($this->table, $where);
     }
+
+    public function get_id_pendaftaran_masuk($where)
+    {
+        $this->db->select('id_pendaftaran_masuk, siswa_id_siswa, siswa.nisn');
+        $this->db->join('siswa', 'pendaftaran_masuk.siswa_id_siswa = siswa.id_siswa');
+        $this->db->where($where);
+
+        return $this->db->get($this->table);
+    }
 }
 
 /* End of file Pendaftaran_masuk_model.php */

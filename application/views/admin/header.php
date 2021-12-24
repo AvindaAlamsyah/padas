@@ -1,6 +1,6 @@
 <header class="header">
     <div class="logo-container">
-        <a href="#" class="logo">
+        <a href="<?php echo base_url(); ?>" class="logo">
             <img src="<?php echo base_url('/'); ?>assets/img/logo-sementara.png" height="35" alt="Admin Pangkalan Data Siswa" />
         </a>
         <div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
@@ -29,9 +29,6 @@
             <div class="dropdown-menu">
                 <ul class="list-unstyled">
                     <li class="divider"></li>
-                    <li>
-                        <a role="menuitem" tabindex="-1" href="#"><i class="fa fa-user"></i> Akun</a>
-                    </li>
                     <li>
                         <a role="menuitem" tabindex="-1" href="<?php echo base_url('logout'); ?>"><i class="fa fa-power-off"></i> Logout</a>
                     </li>

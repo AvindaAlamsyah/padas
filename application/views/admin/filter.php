@@ -66,7 +66,7 @@
                     <div class="right-wrapper pull-right">
                         <ol class="breadcrumbs">
                             <li>
-                                <a href="#">
+                                <a href="<?php echo base_url(); ?>">
                                     <i class="fa fa-home"></i>
                                 </a>
                             </li>

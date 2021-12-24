@@ -24,6 +24,7 @@
 
     <!-- Specific Page Vendor CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/sweetalert2/dist/sweetalert2.min.css" />
+    <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.css" />
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<?php echo base_url('/'); ?>assets/stylesheets/theme.css" />
@@ -58,7 +59,7 @@
                     <div class="right-wrapper pull-right">
                         <ol class="breadcrumbs">
                             <li>
-                                <a href="index.html">
+                                <a href="<?php echo base_url(); ?>">
                                     <i class="fa fa-home"></i>
                                 </a>
                             </li>
@@ -75,6 +76,7 @@
                         <h2 class="panel-title">Siswa Aktif</h2>
                     </header>
                     <div class="panel-body">
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#modal_import" style="margin-bottom: 10px;">Import Data Siswa</button>
                         <table class="table table-bordered table-striped mb-none" id="datatable-siswa-aktif">
                             <thead>
                                 <tr>
@@ -114,6 +116,59 @@
         </div>
     </section>
 
+    <!-- Modal Import -->
+    <div class="modal fade" id="modal_import" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import Anggota</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="form_import" name="form_import" type="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group file" id="div-import">
+                            <label for="import_file" id="label_edit_file">File (.xlsx)</label>
+                            <div class="controls">
+                                <input type="file" id="import_file" name="import_file" class="form-control-file">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btn_import" class="btn btn-warning">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal_loading" data-backdrop="static" data-keyboard="false" class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                    <div>
+                        <strong>Tunggu sebentar yaaa....</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal_loading_long" data-backdrop="static" data-keyboard="false" class="modal bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <span class="fa fa-spinner fa-spin fa-3x w-100"></span>
+                    <div>
+                        <strong>Harap sabar menunggu untuk proses import data. Jangan muat ulang(refresh), keluar(exit), batal(cancel) selama proses sedang berlangsung! Karena akan menyebabkan kerusakan pada Sistem Database!</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END Modal Import -->
+
     <!-- Vendor -->
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery/jquery.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
@@ -128,6 +183,8 @@
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-datatables-bs3/assets/js/datatables.js"></script>
     <script src="<?php echo base_url('/'); ?>assets/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/jquery-validation/jquery.validate.js"></script>
+    <script src="<?php echo base_url('/'); ?>assets/vendor/pnotify/pnotify.custom.js"></script>
 
     <!-- JS -->
     <script type="text/javascript" src="<?php echo base_url('/'); ?>assets/js/table/database.siswa.js"></script>
@@ -193,6 +250,57 @@
                 allowOutsideClick: () => !Swal.isLoading()
             })
         }
+        $('form[name="form_import"]').validate({
+            rules: {
+                import_file: {
+                    required: true
+                }
+            },
+            lang: "id",
+            submitHandler: function(form) {
+                $('#modal_loading_long').modal('show');
+                let fd = new FormData(form);
+                $.ajax({
+                    url: "<?php echo base_url('admin/data_siswa/import_excel'); ?>",
+                    type: "POST",
+                    dataType: "JSON",
+                    contentType: false,
+                    processData: false,
+                    data: fd,
+                    success: function(response) {
+                        $('#modal_loading_long').modal('hide');
+                        $('#modal_import').modal('hide');
+                        response.forEach((element, index) => {
+                            setTimeout(() => {
+                                if (element.status === true) {
+                                    new PNotify({
+                                        title: "Import Data",
+                                        text: element.isi,
+                                        type: "success",
+                                    });
+                                } else {
+                                    new PNotify({
+                                        title: "Import Data",
+                                        text: element.isi,
+                                        type: "error",
+                                    });
+                                }
+                            }, index * 1000);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        $('#modal_import').modal('hide');
+                        $('#modal_loading_long').modal('hide');
+                        var errorMessage = xhr.status + ': ' + xhr.statusText;
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: errorMessage,
+                        });
+                    }
+                })
+            }
+        })
     </script>
 
 </body>
