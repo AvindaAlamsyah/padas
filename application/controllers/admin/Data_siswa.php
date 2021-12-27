@@ -1768,6 +1768,9 @@ class Data_siswa extends CI_Controller
 
                 //Insert table siswa
                 for ($i = 3; $i < $countHasilConvert; $i++) {
+                    if (empty($sheetHasilConvert[$i][1])) {
+                        break;
+                    }
                     $siswa[] = array(
                         'gender_id_gender' => $sheetHasilConvert[$i][3],
                         'agama_id_agama' => $sheetHasilConvert[$i][8],
@@ -1826,25 +1829,29 @@ class Data_siswa extends CI_Controller
                     //Insert and Delete table pendaftaran_keluar
                     $this->pendaftaran_keluar_model->delete($whereIdSiswaForDelete);
                     $idSiswaNisnNotImport = $this->siswa_model->get_id_siswa($whereNotNisnForDelete)->result();
-                    for ($i = 0; $i < count($idSiswaNisnNotImport); $i++) {
-                        $pendaftaran_keluar[] = array(
-                            'siswa_id_siswa' => $idSiswaNisnNotImport[$i]->id_siswa,
-                            'jenis_pendaftaran_keluar_id_jenis_pendaftaran_keluar' => 1,
-                            'tanggal_keluar' => date("Y-m-d"),
-                            'alasan' => 'Import data excel'
-                        );
+                    if (!empty($idSiswaNisnNotImport)) {
+                        for ($i = 0; $i < count($idSiswaNisnNotImport); $i++) {
+                            $pendaftaran_keluar[] = array(
+                                'siswa_id_siswa' => $idSiswaNisnNotImport[$i]->id_siswa,
+                                'jenis_pendaftaran_keluar_id_jenis_pendaftaran_keluar' => 1,
+                                'tanggal_keluar' => date("Y-m-d"),
+                                'alasan' => 'Import data excel'
+                            );
+                        }
+                        $sql = $this->insert_batch_string('pendaftaran_keluar', $pendaftaran_keluar, true);
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data Pendaftaran Keluar.", 'status' => true);
+                        } else {
+                            $this->response[] = array('isi' => "Gagal Import Data Pendaftaran Keluar.", 'status' => false);
+                        }
                     }
-                    $sql = $this->insert_batch_string('pendaftaran_keluar', $pendaftaran_keluar, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data Pendaftaran Keluar.", 'status' => true);
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data Pendaftaran Keluar.", 'status' => false);
-                    }
-
 
                     //Insert and Delete table siswa_has_berkebutuhan_khusus
                     $this->siswa_has_berkebutuhan_khusus_model->delete($whereIdSiswaForDelete);
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         if ($sheetHasilConvert[$i][55] > 0) {
                             $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                             $siswa_has_berkebutuhan_khusus[] = array(
@@ -1863,6 +1870,9 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table alamat
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                         $alamat[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -1895,6 +1905,9 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table ayah
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                         $ayah[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -1937,6 +1950,9 @@ class Data_siswa extends CI_Controller
                         }
                         $this->ayah_has_berkebutuhan_khusus_model->delete($whereIdAyahForDelete);
                         for ($i = 3; $i < $countHasilConvert; $i++) {
+                            if (empty($sheetHasilConvert[$i][1])) {
+                                break;
+                            }
                             if ($sheetDataSumber[$i][94] > 0) {
                                 $temp = array_search($sheetHasilConvert[$i][4], array_column($idAyahSiswa, 'nisn'));
                                 $ayah_has_berkebutuhan_khusus[] = array(
@@ -1959,6 +1975,9 @@ class Data_siswa extends CI_Controller
                     //Insert and Delete table bantuan_tidak_mampu
                     $this->bantuan_tidak_mampu_model->delete($whereIdSiswaForDelete);
                     for ($i = 2; $i < $countBantuanLainnya; $i++) {
+                        if (empty($sheetBantuanLainnya[$i][0])) {
+                            break;
+                        }
                         $temp = array_search($sheetBantuanLainnya[$i][0], array_column($idSiswaNisn, 'nisn'));
                         $bantuan_tidak_mampu[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -1977,6 +1996,9 @@ class Data_siswa extends CI_Controller
                     //Insert and Delete table bantuan_tidak_mampu
                     $this->beasiswa_model->delete($whereIdSiswaForDelete);
                     for ($i = 2; $i < $countBeasiswa; $i++) {
+                        if (empty($sheetBeasiswa[$i][0])) {
+                            break;
+                        }
                         $temp = array_search($sheetBeasiswa[$i][0], array_column($idSiswaNisn, 'nisn'));
                         $beasiswa[] = array(
                             'jenis_beasiswa_id_jenis_beasiswa' => $sheetBeasiswa[$i][2],
@@ -1996,6 +2018,9 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table domisili
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                         $domisili[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2034,6 +2059,9 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table ibu
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                         $ibu[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2076,6 +2104,9 @@ class Data_siswa extends CI_Controller
                         }
                         $this->ibu_has_berkebutuhan_khusus_model->delete($whereIdIbuForDelete);
                         for ($i = 3; $i < $countHasilConvert; $i++) {
+                            if (empty($sheetHasilConvert[$i][1])) {
+                                break;
+                            }
                             if ($sheetDataSumber[$i][108] > 0) {
                                 $temp = array_search($sheetHasilConvert[$i][4], array_column($idIbuSiswa, 'nisn'));
                                 $ibu_has_berkebutuhan_khusus[] = array(
@@ -2097,7 +2128,10 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table kip
                     for ($i = 3; $i < $countHasilConvert; $i++) {
-                        if ($sheetHasilConvert[$i][45] == 1 || !empty($sheetHasilConvert[$i][46])) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
+                        if ($sheetHasilConvert[$i][45] == 1 || $sheetHasilConvert[$i][46] != '-') {
                             $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                             $kip[] = array(
                                 'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2119,7 +2153,10 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table kks
                     for ($i = 3; $i < $countHasilConvert; $i++) {
-                        if (!empty($sheetHasilConvert[$i][48])) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
+                        if ($sheetHasilConvert[$i][48] != '-') {
                             $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                             $kks[] = array(
                                 'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2141,6 +2178,9 @@ class Data_siswa extends CI_Controller
                     //Insert and Delete table kontak_darurat
                     $this->kontak_darurat_model->delete($whereIdSiswaForDelete);
                     for ($i = 2; $i < $countKontakDarurat; $i++) {
+                        if (empty($sheetKontakDarurat[$i][0])) {
+                            break;
+                        }
                         $temp = array_search($sheetKontakDarurat[$i][0], array_column($idSiswaNisn, 'nisn'));
                         $kontak_darurat[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2162,7 +2202,10 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table kps_pkh
                     for ($i = 3; $i < $countHasilConvert; $i++) {
-                        if ($sheetHasilConvert[$i][22] == 1 || !empty($sheetHasilConvert[$i][23])) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
+                        if ($sheetHasilConvert[$i][22] == 1 || $sheetHasilConvert[$i][23] != '-') {
                             $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                             $kps_pkh[] = array(
                                 'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2183,6 +2226,9 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table nomor_telepon_seluler
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                         $nomor_telepon_seluler[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2206,6 +2252,9 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table pendaftaran_masuk
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                         $pendaftaran_masuk[] = array(
                             'jenis_pendaftaran_diterima' => $sheetDataSumber[$i][151],
@@ -2245,6 +2294,9 @@ class Data_siswa extends CI_Controller
                         }
                         $this->mean_mapel_model->delete($whereIdPendMasukForDelete);
                         for ($i = 3; $i < $countHasilConvert; $i++) {
+                            if (empty($sheetHasilConvert[$i][1])) {
+                                break;
+                            }
                             $temp = array_search($sheetHasilConvert[$i][4], array_column($idPendMasukSiswa, 'nisn'));
                             $mean_mapel[] = array(
                                 'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
@@ -2291,6 +2343,9 @@ class Data_siswa extends CI_Controller
                         //Insert and Delete table pilihan_jalur_ppdb
                         $this->pilihan_jalur_ppdb_model->delete($whereIdPendMasukForDelete);
                         for ($i = 2; $i < $countJalurPpdb; $i++) {
+                            if (empty($sheetJalurPpdb[$i][0])) {
+                                break;
+                            }
                             $temp = array_search($sheetJalurPpdb[$i][0], array_column($idPendMasukSiswa, 'nisn'));
                             $pilihan_jalur_ppdb[] = array(
                                 'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
@@ -2306,6 +2361,9 @@ class Data_siswa extends CI_Controller
                         //Insert and Delete table pilihan_jurusan_ppdb
                         $this->pilihan_jurusan_ppdb_model->delete($whereIdPendMasukForDelete);
                         for ($i = 3; $i < $countHasilConvert; $i++) {
+                            if (empty($sheetHasilConvert[$i][1])) {
+                                break;
+                            }
                             $temp = array_search($sheetHasilConvert[$i][4], array_column($idPendMasukSiswa, 'nisn'));
                             $pilihan_jurusan_ppdb[] = array(
                                 'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][76],
@@ -2334,7 +2392,10 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table pip
                     for ($i = 3; $i < $countHasilConvert; $i++) {
-                        if (!empty($sheetHasilConvert[$i][54]) || $sheetHasilConvert[$i][53] == 1) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
+                        if ($sheetHasilConvert[$i][54] != '-' || $sheetHasilConvert[$i][53] == 1) {
                             $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                             $pip[] = array(
                                 'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2363,6 +2424,9 @@ class Data_siswa extends CI_Controller
                     //Insert and Delete table prestasi
                     $this->prestasi_model->delete($whereIdSiswaForDelete);
                     for ($i = 2; $i < $countPrestasi; $i++) {
+                        if (empty($sheetPrestasi[$i][0])) {
+                            break;
+                        }
                         $temp = array_search($sheetPrestasi[$i][0], array_column($idSiswaNisn, 'nisn'));
                         $prestasi[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2386,6 +2450,9 @@ class Data_siswa extends CI_Controller
                     //Insert and Delete table proses_pembelajaran
                     $this->proses_pembelajaran_model->delete($whereIdSiswaForDelete);
                     for ($i = 2; $i < $countProsesPembelajaran; $i++) {
+                        if (empty($sheetProsesPembelajaran[$i][0])) {
+                            break;
+                        }
                         $temp = array_search($sheetProsesPembelajaran[$i][0], array_column($idSiswaNisn, 'nisn'));
                         $proses_pembelajaran[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2408,6 +2475,9 @@ class Data_siswa extends CI_Controller
                     //Insert and Delete table riwayat_kesehatan
                     $this->riwayat_kesehatan_model->delete($whereIdSiswaForDelete);
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                         if (!empty($sheetDataSumber[$i][136])) {
                             $riwayat_kesehatan[] = array(
@@ -2440,6 +2510,9 @@ class Data_siswa extends CI_Controller
                     //langkah2
                     $this->saudara_kandung_model->delete($whereIdSiswaForDelete);
                     for ($i = 2; $i < $countSaudara; $i++) {
+                        if (empty($sheetSaudara[$i][0])) {
+                            break;
+                        }
                         $temp = array_search($sheetSaudara[$i][0], array_column($idSiswaNisn, 'nisn'));
                         $saudara_kandung[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
@@ -2461,6 +2534,9 @@ class Data_siswa extends CI_Controller
                     //Insert and Delete table siswa_has_media_sosial
                     $this->siswa_has_media_sosial_model->delete($whereIdSiswaForDelete);
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                         if (!empty($sheetDataSumber[$i][125])) {
                             $siswa_has_media_sosial[] = array(
@@ -2513,6 +2589,9 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Update table wali
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         if (!empty($sheetDataSumber[$i][36])) {
                             $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                             $wali[] = array(
@@ -2557,6 +2636,9 @@ class Data_siswa extends CI_Controller
                         }
                         $this->wali_has_berkebutuhan_khusus_model->delete($whereIdWaliForDelete);
                         for ($i = 3; $i < $countHasilConvert; $i++) {
+                            if (empty($sheetHasilConvert[$i][1])) {
+                                break;
+                            }
                             if ($sheetDataSumber[$i][122] > 0) {
                                 $temp = array_search($sheetHasilConvert[$i][4], array_column($idWaliSiswa, 'nisn'));
                                 $wali_has_berkebutuhan_khusus[] = array(
@@ -2579,6 +2661,9 @@ class Data_siswa extends CI_Controller
                     //Insert and Delete table whatsapp
                     $this->whatsapp_model->delete($whereIdSiswaForDelete);
                     for ($i = 3; $i < $countHasilConvert; $i++) {
+                        if (empty($sheetHasilConvert[$i][1])) {
+                            break;
+                        }
                         $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
                         $whatsapp[] = array(
                             'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
