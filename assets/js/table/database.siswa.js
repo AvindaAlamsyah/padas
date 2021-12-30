@@ -1,13 +1,12 @@
-(function( $ ) {
-    
-    'use strict';
-    
-	var datatableInit = function() {
-        $('#datatable-siswa-aktif').dataTable({});
+(function ($) {
+	"use strict";
+
+	var datatableInit = function () {
+		$("#datatable-siswa-aktif").dataTable({});
+		$("#datatable-siswa-keluar").dataTable({});
 	};
 
-	$(function() {
+	$(function () {
 		datatableInit();
 	});
-
-}).apply( this, [ jQuery ]);
+}.apply(this, [jQuery]));

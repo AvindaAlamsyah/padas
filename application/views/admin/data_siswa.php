@@ -72,7 +72,6 @@
                 <!-- start: page -->
                 <section class="panel">
                     <header class="panel-heading">
-
                         <h2 class="panel-title">Siswa Aktif</h2>
                     </header>
                     <div class="panel-body">
@@ -111,6 +110,46 @@
                         </table>
                     </div>
                 </section>
+
+                <section class="panel">
+                    <header class="panel-heading">
+                        <h2 class="panel-title">Siswa Keluar</h2>
+                    </header>
+                    <div class="panel-body">
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#modal_import_keluar" style="margin-bottom: 10px;">Import Siswa Keluar</button>
+                        <table class="table table-bordered table-striped mb-none" id="datatable-siswa-keluar">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>NISN</th>
+                                    <th>Ketetangan</th>
+                                    <th>Tanggal</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $i = 1;
+                                foreach ($lulus as $value) {
+                                    echo '<tr>'; ?>
+                                    <td><?= $i;
+                                        $i++; ?></td>
+                                    <td><?php echo $value->nama; ?></td>
+                                    <td><?php echo $value->nisn; ?></td>
+                                    <td><?php echo $value->keterangan; ?></td>
+                                    <td><?php echo $value->tanggal_keluar; ?></td>
+                                    <td class="actions">
+                                        <a data-toggle="tooltip" title="Detail Data Siswa" href="<?php echo base_url('admin/data_siswa/detail_siswa/') . $value->id_siswa; ?>"><i class="fa fa-info"></i></a>
+                                        <a data-toggle="tooltip" title="Hapus Data Siswa" onclick="hapus_siswa(<?php echo $value->id_siswa; ?>)"><i class="fa fa-trash-o"></i></a>
+                                    </td>
+                                <?php
+                                    echo '</tr>';
+                                } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
                 <!-- end: page -->
             </section>
         </div>
@@ -132,6 +171,32 @@
                             <label for="import_file" id="label_edit_file">File (.xlsx)</label>
                             <div class="controls">
                                 <input type="file" id="import_file" name="import_file" class="form-control-file">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" id="btn_import" class="btn btn-warning">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal_import_keluar" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Import Siswa Keluar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="form_import_keluar" name="form_import_keluar" type="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="form-group file" id="div-import">
+                            <label for="import_file_keluar" id="label_edit_file">File (.xlsx)</label>
+                            <div class="controls">
+                                <input type="file" id="import_file_keluar" name="import_file_keluar" class="form-control-file">
                             </div>
                         </div>
                     </div>
@@ -261,7 +326,7 @@
                 $('#modal_loading_long').modal('show');
                 let fd = new FormData(form);
                 $.ajax({
-                    url: "<?php echo base_url('admin/data_siswa/import_excel'); ?>",
+                    url: "<?php echo base_url('admin/data_siswa/import_siswa_aktif'); ?>",
                     type: "POST",
                     dataType: "JSON",
                     contentType: false,
@@ -290,6 +355,57 @@
                     },
                     error: function(xhr, status, error) {
                         $('#modal_import').modal('hide');
+                        $('#modal_loading_long').modal('hide');
+                        var errorMessage = xhr.status + ': ' + xhr.statusText;
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: errorMessage,
+                        });
+                    }
+                })
+            }
+        })
+        $('form[name="form_import_keluar"]').validate({
+            rules: {
+                import_file_keluar: {
+                    required: true
+                }
+            },
+            lang: "id",
+            submitHandler: function(form) {
+                $('#modal_loading_long').modal('show');
+                let fd = new FormData(form);
+                $.ajax({
+                    url: "<?php echo base_url('admin/data_siswa/import_siswa_keluar'); ?>",
+                    type: "POST",
+                    dataType: "JSON",
+                    contentType: false,
+                    processData: false,
+                    data: fd,
+                    success: function(response) {
+                        $('#modal_loading_long').modal('hide');
+                        $('#modal_import_keluar').modal('hide');
+                        response.forEach((element, index) => {
+                            setTimeout(() => {
+                                if (element.status === true) {
+                                    new PNotify({
+                                        title: "Import Data",
+                                        text: element.isi,
+                                        type: "success",
+                                    });
+                                } else {
+                                    new PNotify({
+                                        title: "Import Data",
+                                        text: element.isi,
+                                        type: "error",
+                                    });
+                                }
+                            }, index * 1000);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        $('#modal_import_keluar').modal('hide');
                         $('#modal_loading_long').modal('hide');
                         var errorMessage = xhr.status + ': ' + xhr.statusText;
                         Swal.fire({

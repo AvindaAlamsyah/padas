@@ -66,6 +66,16 @@ class Siswa_model extends CI_Model
         return $this->db->get($this->table);
     }
 
+    public function get_siswa_keluar($where)
+    {
+        $this->db->select('siswa.id_siswa, siswa.nama, siswa.nisn, jenis_pendaftaran_keluar.nama as keterangan, pendaftaran_keluar.tanggal_keluar');
+        $this->db->join('pendaftaran_keluar', 'siswa.id_siswa = pendaftaran_keluar.siswa_id_siswa');
+        $this->db->join('jenis_pendaftaran_keluar', 'pendaftaran_keluar.jenis_pendaftaran_keluar_id_jenis_pendaftaran_keluar = jenis_pendaftaran_keluar.id_jenis_pendaftaran_keluar');
+        $this->db->where($where);
+
+        return $this->db->get($this->table);
+    }
+
     public function get_id_siswa($where)
     {
         $this->db->select('id_siswa,nisn');

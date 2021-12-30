@@ -51,7 +51,8 @@ class Data_siswa extends CI_Controller
     public function index()
     {
         $data = array(
-            'data' => $this->siswa_model->get_siswa_aktif(array('siswa.deleted_at' => NULL, 'pendaftaran_keluar.id_pendaftaran_keluar' => NULL))->result()
+            'data' => $this->siswa_model->get_siswa_aktif(array('siswa.deleted_at' => NULL, 'pendaftaran_keluar.id_pendaftaran_keluar' => NULL))->result(),
+            'lulus' => $this->siswa_model->get_siswa_keluar(array('siswa.deleted_at' => NULL))->result(),
         );
         $this->load->view('admin/data_siswa', $data);
     }
@@ -59,7 +60,7 @@ class Data_siswa extends CI_Controller
     public function detail_siswa($id_siswa = null)
     {
         if ($id_siswa != null) {
-            if ($this->siswa_model->get_siswa_aktif(array('siswa.deleted_at' => NULL, 'pendaftaran_keluar.id_pendaftaran_keluar' => NULL, 'siswa.id_siswa' => $id_siswa))->num_rows() > 0) {
+            if ($this->siswa_model->get_siswa_aktif(array('siswa.deleted_at' => NULL, 'siswa.id_siswa' => $id_siswa))->num_rows() > 0) {
                 $this->load->helper('view_helper');
                 $final_data = array();
 
@@ -104,7 +105,7 @@ class Data_siswa extends CI_Controller
                 // echo json_encode($final_data);
                 $this->load->view('admin/detail_siswa', $final_data);
             } else {
-                echo "maah bukan siswa aktif";
+                echo "maah bukan siswa sini";
             }
         } else {
             echo "kosong ges";
@@ -1692,14 +1693,14 @@ class Data_siswa extends CI_Controller
         }
     }
 
-    //import data excel
-    public function import_excel()
+    //import data siswa aktif
+    public function import_siswa_aktif()
     {
         $this->load->library('upload');
 
         $config['upload_path'] = './assets/temp/';
         $config['allowed_types'] = 'xlsx';
-        $config['maxsize'] = '0';
+        $config['max_size'] = '0';
         $config['file_name'] = 'file-import';
         $config['overwrite'] = TRUE;
         $this->upload->initialize($config);
@@ -2681,7 +2682,69 @@ class Data_siswa extends CI_Controller
                 }
             }
         } else {
-            $this->response[] = array('isi' => "Gagal upload excel", 'status' => false);
+            $this->response[] = array('isi' => "Gagal upload excel. " . $this->upload->display_errors(), 'status' => false);
+        }
+
+        echo json_encode($this->response);
+    }
+
+    //import data siswa lulus
+    public function import_siswa_keluar()
+    {
+        $config['upload_path'] = './assets/temp/';
+        $config['allowed_types'] = 'xlsx';
+        $config['max_size']  = '0';
+        $config['file_name'] = 'file-lulus';
+        $config['overwrite'] = TRUE;
+
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('import_file_keluar')) {
+            $this->response[] = array('isi' => "Gagal upload excel. " . $this->upload->display_errors(), 'status' => false);
+        } else {
+            $this->response[] = array('isi' => "Berhasil upload excel", 'status' => true);
+            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            $spreadsheet = $reader->load('./assets/temp/file-lulus.xlsx');
+
+            $sheetDataMaster = $spreadsheet->getSheetByName('Data Master')->toArray();
+            $countDataMaster = count($sheetDataMaster);
+            $pendaftaran_keluar = array();
+            $whereNisnForInsert = 'nisn=""';
+            $idSiswaNisn = [];
+            $temp = '';
+
+            if ($countDataMaster > 2) {
+                for ($i = 1; $i < $countDataMaster; $i++) {
+                    if (empty($sheetDataMaster[$i][0])) {
+                        break;
+                    }
+                    $whereNisnForInsert .= ' OR nisn="' . $sheetDataMaster[$i][0] . '"';
+                }
+                $idSiswaNisn = $this->siswa_model->get_id_siswa($whereNisnForInsert)->result();
+
+                for ($i = 1; $i < $countDataMaster; $i++) {
+                    if (empty($sheetDataMaster[$i][0])) {
+                        break;
+                    }
+                    $temp = array_search($sheetDataMaster[$i][0], array_column($idSiswaNisn, 'nisn'));
+                    $pendaftaran_keluar[] = array(
+                        'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
+                        'jenis_pendaftaran_keluar_id_jenis_pendaftaran_keluar' => $sheetDataMaster[$i][1],
+                        'tanggal_keluar' => $sheetDataMaster[$i][2],
+                        'alasan' => $sheetDataMaster[$i][3]
+                    );
+                }
+                $sql = $this->insert_batch_string('pendaftaran_keluar', $pendaftaran_keluar, true);
+                if ($this->db->query($sql)) {
+                    $this->response[] = array('isi' => "Berhasil Import Data Siswa Keluar", 'status' => true);
+                    $update = $this->db->update_batch('pendaftaran_keluar', $pendaftaran_keluar, 'siswa_id_siswa');
+                    if ($update === false) {
+                        $this->response[] = array('isi' => "Gagal Update Data Siswa Keluar.", 'status' => false);
+                    }
+                } else {
+                    $this->response[] = array('isi' => "Gagal Import Data Siswa Keluar", 'status' => false);
+                }
+            }
         }
 
         echo json_encode($this->response);
