@@ -75,22 +75,22 @@ class Filter extends CI_Controller
         $data_pribadi = array(
             'id_siswa',
             'nama',
-            'nisn',
-            'nik',
-            'tempat_lahir',
-            'tanggal_lahir',
-            'nomor_kk',
-            'nomor_registrasi_akta_lahir',
-            'kewarganegaraan',
             'nipd',
-            'golongan',
-            'foto',
             'id_gender',
             'gender',
+            'nisn',
+            'tempat_lahir',
+            'tanggal_lahir',
+            'nik',
             'id_agama',
             'agama',
-            'id_kelas',
-            'kelas',
+            // 'nomor_kk',
+            // 'nomor_registrasi_akta_lahir',
+            // 'kewarganegaraan',
+            // 'golongan',
+            // 'foto',
+            // 'id_kelas',
+            // 'kelas',
             // 'berkebutuhan_khusus',
             // 'alamat',
             // 'bantuan_tidak_mampu',
@@ -104,7 +104,6 @@ class Filter extends CI_Controller
             // 'registrasi',
             // 'data_proses_pembelajaran',
         );
-
         $berkebutuhan_khusus = array(
             'id_berkebutuhan_khusus',
             'berkebutuhan_khusus'
@@ -112,76 +111,84 @@ class Filter extends CI_Controller
         $alamat = array(
             'id_alamat',
             'detail_alamat',
-            'nomor_rumah',
-            'nomor_asuransi',
             'rt',
             'rw',
             'dusun',
-            'kode_pos',
-            'lintang',
-            'bujur',
-            'id_tempat_tinggal',
-            'tempat_tinggal',
             'id_desa',
             'desa',
-            'kode_desa',
+            // 'kode_desa',
             'id_kecamatan',
             'kecamatan',
-            'kode_kecamatan',
-            'id_kabupaten',
-            'kabupaten',
-            'kode_kabupaten',
-            'id_provinsi',
-            'provinsi',
-            'kode_provinsi',
-            'id_domisili',
-            'domisili_detail_domisili',
-            'domisili_nomor_rumah',
-            'domisili_rt',
-            'domisili_rw',
-            'domisili_dusun',
-            'domisili_kode_pos',
-            'domisili_lintang',
-            'domisili_bujur',
-            'domisili_id_tempat_tinggal',
-            'domisili_tempat_tinggal',
-            'domisili_id_desa',
-            'domisili_desa',
-            'domisili_kode_desa',
-            'domisili_id_kecamatan',
-            'domisili_kecamatan',
-            'domisili_kode_kecamatan',
-            'domisili_id_kabupaten',
-            'domisili_kabupaten',
-            'domisili_kode_kabupaten',
-            'domisili_id_provinsi',
-            'domisili_provinsi',
-            'domisili_kode_provinsi',
+            // 'kode_kecamatan',
+            'kode_pos',
+            'id_tempat_tinggal',
+            'tempat_tinggal',
+            // 'nomor_rumah',
+            // 'nomor_asuransi',
+            // 'lintang',
+            // 'bujur',
+            // 'id_kabupaten',
+            // 'kabupaten',
+            // 'kode_kabupaten',
+            // 'id_provinsi',
+            // 'provinsi',
+            // 'kode_provinsi',
+            // 'id_domisili',
+            // 'domisili_detail_domisili',
+            // 'domisili_nomor_rumah',
+            // 'domisili_rt',
+            // 'domisili_rw',
+            // 'domisili_dusun',
+            // 'domisili_kode_pos',
+            // 'domisili_lintang',
+            // 'domisili_bujur',
+            // 'domisili_id_tempat_tinggal',
+            // 'domisili_tempat_tinggal',
+            // 'domisili_id_desa',
+            // 'domisili_desa',
+            // 'domisili_kode_desa',
+            // 'domisili_id_kecamatan',
+            // 'domisili_kecamatan',
+            // 'domisili_kode_kecamatan',
+            // 'domisili_id_kabupaten',
+            // 'domisili_kabupaten',
+            // 'domisili_kode_kabupaten',
+            // 'domisili_id_provinsi',
+            // 'domisili_provinsi',
+            // 'domisili_kode_provinsi',
         );
+		$kontak_siswa = array(
+			'nomor_telepon_rumah',
+			'nomor_hp',
+			'email',
+		);
+		$registrasi = array(
+			'nomor_skhun',
+		);
 
         $bantuan_tidak_mampu = array(
             'id_moda_transportasi',
             'moda_transportasi',
-            'id_kks',
-            'nomor_kks',
-            'anak_ke',
+            // 'id_kks',
+            // 'nomor_kks',
+            // 'anak_ke',
             'id_kps_pkh',
             'nomor_kps_pkh',
-            'id_kip',
-            'nomor_kip',
-            'nama_tertera_kip',
-            'id_alasan_layak_pip',
-            'alasan_layak_pip',
-            'id_pip',
-            'bank',
-            'nomor_rekening',
-            'kantor_cabang_pembantu',
-            'rekening_atas_nama',
+            // 'id_kip',
+            // 'nomor_kip',
+            // 'nama_tertera_kip',
+            // 'id_alasan_layak_pip',
+            // 'alasan_layak_pip',
+            // 'id_pip',
+            // 'bank',
+            // 'nomor_rekening',
+            // 'kantor_cabang_pembantu',
+            // 'rekening_atas_nama',
         );
         $bantuan_tidak_mampu_lainnya = array(
-            'id_bantuan_tidak_mampu',
-            'nama_program',
-            'bukti',
+            // 'id_bantuan_tidak_mampu',
+            // 'nama_program',
+            // 'bukti',
         );
         $datas = null;
         try {
@@ -209,12 +216,6 @@ class Filter extends CI_Controller
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
-        foreach ($berkebutuhan_khusus as $value) {
-            if ($this->remove_id($value)) continue;
-            $sheet->setCellValue($col . "1", $value);
-            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
-            $col++;
-        }
         foreach ($alamat as $value) {
             if ($this->remove_id($value)) continue;
             $sheet->setCellValue($col . "1", $value);
@@ -222,18 +223,108 @@ class Filter extends CI_Controller
             $col++;
         }
         foreach ($bantuan_tidak_mampu as $value) {
+			if ($value == 'id_kps_pkh') {
+				$sheet->setCellValue($col . "1", 'Penerima KPS');
+				$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+				$col++;
+				continue;
+			}
             if ($this->remove_id($value)) continue;
             $sheet->setCellValue($col . "1", $value);
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
+        foreach ($kontak_siswa as $value) {
+            if ($this->remove_id($value)) continue;
+            $sheet->setCellValue($col . "1", $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+            $col++;
+        }
+        foreach ($registrasi as $value) {
+            if ($this->remove_id($value)) continue;
+            $sheet->setCellValue($col . "1", $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+            $col++;
+        }
+		$sheet->setCellValue($col . "1", 'Rombel saat ini');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'No Peserta Ujian Nasional');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'No Seri Ijazah');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Penerima KIP');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Nomor KIP');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Nama di KIP');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Nomor KKS');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'No Registrasi Akta Lahir');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Bank');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Nomor Rekening Bank');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Rekening Atas Nama');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Layak PIP (usulan dari sekolah)');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Alasan Layak PIP');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+        foreach ($berkebutuhan_khusus as $value) {
+            if ($this->remove_id($value)) continue;
+            $sheet->setCellValue($col . "1", $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+            $col++;
+        }
+		$sheet->setCellValue($col . "1", 'Anak ke-berapa');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Lintang');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Bujur');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'No KK');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Berat Badan');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Tinggi Badan');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Lingkar Kepala');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Jml. Saudara Kandung');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
+		$sheet->setCellValue($col . "1", 'Jarak Rumah ke Sekolah (KM)');
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+		$col++;
         foreach ($bantuan_tidak_mampu_lainnya as $value) {
             if ($this->remove_id($value)) continue;
             $sheet->setCellValue($col . "1", $value);
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
-
+		
         //style header tabel
         $styleHeaderTabel = [
             'alignment' => [
@@ -278,28 +369,7 @@ class Filter extends CI_Controller
                 $sheet->setCellValue("$col$row", $data[$key]);
                 $col++;
             }
-            // berkebutuhan khusus
-            if (is_array($data["berkebutuhan_khusus"])) {
-                $temp_row = $row;
-                $temp_col = $col;
-                foreach ($data["berkebutuhan_khusus"] as $bk) {
-                    $temp_col = $col;
-                    foreach ($berkebutuhan_khusus as $key) {
-                        if ($this->remove_id($key)) continue;
-                        $sheet->setCellValue("$temp_col$temp_row", $bk[$key]);
-                        $temp_col++;
-                    }
-                    $offset = ($temp_row > $offset) ? $temp_row : $offset;
-                    $temp_row++;
-                }
-                $col = $temp_col;
-            } else {
-                foreach ($berkebutuhan_khusus as $key) {
-                    if ($this->remove_id($key)) continue;
-                    $sheet->setCellValue("$col$row", null);
-                    $col++;
-                }
-            }
+            
 
             // alamat dan domisili
             foreach ($alamat as $key) {
@@ -310,33 +380,149 @@ class Filter extends CI_Controller
 
             // bantuan tidak mampu
             foreach ($bantuan_tidak_mampu as $key) {
+				if ($key == 'id_kps_pkh') {
+					if ($data['bantuan_tidak_mampu'][$key] != null) {
+						$sheet->setCellValue("$col$row", 'Ya');
+					} else {
+						$sheet->setCellValue("$col$row", 'Tidak');
+					}
+					$col++;
+					continue;
+				}
                 if ($this->remove_id($key)) continue;
                 $sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu'][$key]);
                 $col++;
             }
-            // bantuan tidak mampu lainnya
-            if (is_array($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'])) {
-                $temp_row = $row;
-                $temp_col = $col;
-                foreach ($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'] as $val) {
-                    $temp_col = $col;
-                    foreach ($bantuan_tidak_mampu_lainnya as $key) {
-                        if ($this->remove_id($key)) continue;
-                        $sheet->setCellValue("$temp_col$temp_row", $val[$key]);
-                        $temp_col++;
-                    }
-                    $offset = ($temp_row > $offset) ? $temp_row : $offset;
-                    $temp_row++;
-                }
-                $col = $temp_col;
-            } else {
-                foreach ($bantuan_tidak_mampu_lainnya as $key) {
-                    if ($this->remove_id($key)) continue;
-                    $sheet->setCellValue("$col$row", null);
-                    $col++;
-                }
+
+            // kontak_siswa
+            foreach ($kontak_siswa as $key) {
+                if ($this->remove_id($key)) continue;
+				if ($key == "nomor_hp" && is_array($data['kontak_siswa'][$key])) {
+					$sheet->setCellValue("$col$row", $data['kontak_siswa'][$key][0]['nomor_telepon_seluler']);
+					$col++;
+					continue;
+				}
+                $sheet->setCellValue("$col$row", $data['kontak_siswa'][$key]);
+                $col++;
             }
 
+            // registrasi
+            foreach ($registrasi as $key) {
+                if ($this->remove_id($key)) continue;
+				// if (is_array($data['registrasi'][$key])) {
+				// 	$sheet->setCellValue("$col$row", $data['registrasi'][$key][0]);
+				// 	$col++;
+				// 	continue;
+				// }
+                $sheet->setCellValue("$col$row", $data['registrasi'][$key]);
+                $col++;
+            }
+
+			$sheet->setCellValue("$col$row", $data['kelas'].' '.$data['registrasi']['akronim_diterima'].' '.$data['kelas']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['registrasi']['nomor_peserta_ujian']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['registrasi']['no_seri_ijazah']);
+			$col++;
+			if ($data['bantuan_tidak_mampu']['id_kip'] != null) {
+				$sheet->setCellValue("$col$row", 'Ya');
+			} else {
+				$sheet->setCellValue("$col$row", 'Tidak');
+			}
+			$col++;
+			$sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu']['nomor_kip']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu']['nama_tertera_kip']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu']['nomor_kks']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['nomor_registrasi_akta_lahir']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu']['bank']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu']['nomor_rekening']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu']['rekening_atas_nama']);
+			$col++;
+			if ($data['bantuan_tidak_mampu']['id_alasan_layak_pip'] != null) {
+				$sheet->setCellValue("$col$row", 'Ya');
+			} else {
+				$sheet->setCellValue("$col$row", 'Tidak');
+			}
+			$col++;
+			$sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu']['alasan_layak_pip']);
+			$col++;
+			// berkebutuhan khusus
+			if (is_array($data["berkebutuhan_khusus"])) {
+				// $temp_row = $row;
+				// $temp_col = $col;
+				// foreach ($data["berkebutuhan_khusus"] as $bk) {
+				// 	$temp_col = $col;
+				// 	foreach ($berkebutuhan_khusus as $key) {
+				// 		if ($this->remove_id($key)) continue;
+				// 		$sheet->setCellValue("$temp_col$temp_row", $bk[$key]);
+				// 		$temp_col++;
+				// 	}
+				// 	$offset = ($temp_row > $offset) ? $temp_row : $offset;
+				// 	$temp_row++;
+				// }
+				// $col = $temp_col;
+				$arrBK = array();
+				foreach ($data["berkebutuhan_khusus"] as $bk) {
+					foreach ($berkebutuhan_khusus as $key) {
+						if ($this->remove_id($key)) continue;
+						array_push($arrBK, $bk[$key]);
+					}
+				}
+				$sheet->setCellValue("$col$row", implode(",", $arrBK));
+				$col++;
+			} else {
+				foreach ($berkebutuhan_khusus as $key) {
+					if ($this->remove_id($key)) continue;
+					$sheet->setCellValue("$col$row", null);
+					$col++;
+				}
+			}
+			$sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu']['anak_ke']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['alamat']['lintang']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['alamat']['bujur']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['nomor_kk']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['data_periodik']['berat_badan_kg']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['data_periodik']['tinggi_badan_cm']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['data_periodik']['lingkar_kepala_cm']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['data_periodik']['jumlah_saudara_kandung']);
+			$col++;
+			$sheet->setCellValue("$col$row", $data['data_periodik']['jarak_tempat_tinggal_ke_sekolah_m']);
+			$col++;
+            // bantuan tidak mampu lainnya
+            // if (is_array($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'])) {
+            //     $temp_row = $row;
+            //     $temp_col = $col;
+            //     foreach ($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'] as $val) {
+            //         $temp_col = $col;
+            //         foreach ($bantuan_tidak_mampu_lainnya as $key) {
+            //             if ($this->remove_id($key)) continue;
+            //             $sheet->setCellValue("$temp_col$temp_row", $val[$key]);
+            //             $temp_col++;
+            //         }
+            //         $offset = ($temp_row > $offset) ? $temp_row : $offset;
+            //         $temp_row++;
+            //     }
+            //     $col = $temp_col;
+            // } else {
+            //     foreach ($bantuan_tidak_mampu_lainnya as $key) {
+            //         if ($this->remove_id($key)) continue;
+            //         $sheet->setCellValue("$col$row", null);
+            //         $col++;
+            //     }
+            // }
             $row = $offset + 1;
         }
         //membuat nama file
