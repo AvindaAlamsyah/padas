@@ -73,17 +73,17 @@ class Filter extends CI_Controller
     public function export($id)
     {
         $data_pribadi = array(
-            'id_siswa',
-            'nama',
-            'nipd',
-            'id_gender',
-            'gender',
-            'nisn',
-            'tempat_lahir',
-            'tanggal_lahir',
-            'nik',
-            'id_agama',
-            'agama',
+            'id_siswa'=>'id_siswa',
+            'nama'=>'Nama',
+            'nipd'=>'NIPD',
+            'id_gender'=>'id_gender',
+            'gender'=>'JK',
+            'nisn'=>'NISN',
+            'tempat_lahir'=>'Tempat Lahir',
+            'tanggal_lahir'=>'Tanggal Lahir',
+            'nik'=>'NIK',
+            'id_agama'=>'id_agama',
+            'agama'=>'Agama',
             // 'nomor_kk',
             // 'nomor_registrasi_akta_lahir',
             // 'kewarganegaraan',
@@ -105,24 +105,24 @@ class Filter extends CI_Controller
             // 'data_proses_pembelajaran',
         );
         $berkebutuhan_khusus = array(
-            'id_berkebutuhan_khusus',
-            'berkebutuhan_khusus'
+            'id_berkebutuhan_khusus'=>'id_berkebutuhan_khusus',
+            'berkebutuhan_khusus'=>'Kebutuhan Khusus',
         );
         $alamat = array(
-            'id_alamat',
-            'detail_alamat',
-            'rt',
-            'rw',
-            'dusun',
-            'id_desa',
-            'desa',
+            'id_alamat'=>'id_alamat',
+            'detail_alamat'=>'Alamat',
+            'rt'=>'RT',
+            'rw'=>'RW',
+            'dusun'=>'Dusun',
+            'id_desa'=>'id_desa',
+            'desa'=>'Kelurahan',
             // 'kode_desa',
-            'id_kecamatan',
-            'kecamatan',
+            'id_kecamatan'=>'id_kecamatan',
+            'kecamatan'=>'Kecamatan',
             // 'kode_kecamatan',
-            'kode_pos',
-            'id_tempat_tinggal',
-            'tempat_tinggal',
+            'kode_pos'=>'Kode Pos',
+            'id_tempat_tinggal'=>'id_tempat_tinggal',
+            'tempat_tinggal'=>'Jenis Tinggal',
             // 'nomor_rumah',
             // 'nomor_asuransi',
             // 'lintang',
@@ -158,22 +158,22 @@ class Filter extends CI_Controller
             // 'domisili_kode_provinsi',
         );
 		$kontak_siswa = array(
-			'nomor_telepon_rumah',
-			'nomor_hp',
-			'email',
+			'nomor_telepon_rumah'=>'Telepon',
+			'nomor_hp'=>'HP',
+			'email'=>'E-Mail',
 		);
 		$registrasi = array(
-			'nomor_skhun',
+			'nomor_skhun'=>'SKHUN',
 		);
 
         $bantuan_tidak_mampu = array(
-            'id_moda_transportasi',
-            'moda_transportasi',
+            'id_moda_transportasi'=>'id_moda_transportasi',
+            'moda_transportasi'=>'Alat Transportasi',
             // 'id_kks',
             // 'nomor_kks',
             // 'anak_ke',
-            'id_kps_pkh',
-            'nomor_kps_pkh',
+            'id_kps_pkh'=>'Penerima KPS',
+            'nomor_kps_pkh'=>'No. KPS',
             // 'id_kip',
             // 'nomor_kip',
             // 'nama_tertera_kip',
@@ -190,6 +190,42 @@ class Filter extends CI_Controller
             // 'nama_program',
             // 'bukti',
         );
+		$ayah= array(
+			"id_ayah"=> "Data Ayah",
+			"nama_ayah"=> "Nama",
+			"tanggal_lahir_ayah"=> "Tahun Lahir",
+			"id_pendidikan_ayah"=> "id_pendidikan_ayah",
+			"pendidikan_ayah"=> "Jenjang Pendidikan",
+			"id_pekerjaan_ayah"=> "id_pekerjaan_ayah",
+			"pekerjaan_ayah"=> "Pekerjaan",
+			"id_penghasilan_ayah"=> "id_penghasilan_ayah",
+			"penghasilan_ayah"=> "Penghasilan",
+			"nik_ayah"=> "NIK",
+			);
+		$ibu= array(
+			"id_ibu"=> "Data Ibu",
+			"nama_ibu"=> "Nama",
+			"tanggal_lahir_ibu"=> "Tahun Lahir",
+			"id_pendidikan_ibu"=> "id_pendidikan_ibu",
+			"pendidikan_ibu"=> "Jenjang Pendidikan",
+			"id_pekerjaan_ibu"=> "id_pekerjaan_ibu",
+			"pekerjaan_ibu"=> "Pekerjaan",
+			"id_penghasilan_ibu"=> "id_penghasilan_ibu",
+			"penghasilan_ibu"=> "Penghasilan",
+			"nik_ibu"=> "NIK",
+			);
+		$wali= array(
+			"id_wali"=> "Data Wali",
+			"nama_wali"=> "Nama",
+			"tanggal_lahir_wali"=> "Tahun Lahir",
+			"id_pendidikan_wali"=> "id_pendidikan_wali",
+			"pendidikan_wali"=> "Jenjang Pendidikan",
+			"id_pekerjaan_wali"=> "id_pekerjaan_wali",
+			"pekerjaan_wali"=> "Pekerjaan",
+			"id_penghasilan_wali"=> "id_penghasilan_wali",
+			"penghasilan_wali"=> "Penghasilan",
+			"nik_wali"=> "NIK",
+			);
         $datas = null;
         try {
             $datas = @file_get_contents('./application/tmp/' . $id . '.json');
@@ -205,122 +241,244 @@ class Filter extends CI_Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $spreadsheet->getDefaultStyle()->getFont()->setName('Times new Roman');
-        $spreadsheet->getDefaultStyle()->getFont()->setSize(12);
+        $spreadsheet->getDefaultStyle()->getFont()->setName('Calibri');
+        $spreadsheet->getDefaultStyle()->getFont()->setSize(11);
+
+		date_default_timezone_set('Asia/Jakarta');
+		$sheet->setCellValue("A1", 'Daftar Peserta Didik');
+		$sheet->setCellValue("A2", 'SMKN 1 GEGER');
+		$sheet->setCellValue("A3", 'Kecamatan Kec. Geger, Kabupaten Kab. Madiun, Provinsi Prov. Jawa Timur');
+		$sheet->setCellValue("A4", 'Tanggal Unduh: '.date('Y-m-d H:i:s', time()));
+		$sheet->setCellValue("C4", "Pengunduh: ".$this->session->userdata('nama')." (".$this->session->userdata('email').")");
+
+        //style header tabel
+        $styleHeaderTabel = [
+            'font' => [
+                'bold' => true,
+                'size' => 14,
+            ],
+        ];
+        $spreadsheet->getActiveSheet()->getStyle("A1:A2")->applyFromArray($styleHeaderTabel);
+		$spreadsheet->getActiveSheet()->getRowDimension(1)->setRowHeight(20);
+		$spreadsheet->getActiveSheet()->getRowDimension(2)->setRowHeight(20);
+        //style header tabel
+        $styleHeaderTabel = [
+            'font' => [
+                'size' => 12,
+            ],
+        ];
+        $spreadsheet->getActiveSheet()->getStyle("A3")->applyFromArray($styleHeaderTabel);
 
         // header
         $col = "A";
-        foreach ($data_pribadi as $value) {
-            if ($this->remove_id($value)) continue;
-            $sheet->setCellValue($col . "1", $value);
+		$row1=5;
+		$row2=6;
+		$sheet->setCellValue($col . $row1, 'No');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
+		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(false);
+		$col++;
+        foreach ($data_pribadi as $key => $value) {
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row1, $value);
+			$sheet->mergeCells($col . "$row1:".$col.$row2);
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
-        foreach ($alamat as $value) {
-            if ($this->remove_id($value)) continue;
-            $sheet->setCellValue($col . "1", $value);
+        foreach ($alamat as $key => $value) {
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row1, $value);
+			$sheet->mergeCells($col . "$row1:".$col.$row2);
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
-        foreach ($bantuan_tidak_mampu as $value) {
-			if ($value == 'id_kps_pkh') {
-				$sheet->setCellValue($col . "1", 'Penerima KPS');
+        foreach ($bantuan_tidak_mampu as $key => $value) {
+			if ($key == 'id_kps_pkh') {
+				$sheet->setCellValue($col . $row1, 'Penerima KPS');
+				$sheet->mergeCells($col . "$row1:".$col.$row2);
 				$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 				$col++;
 				continue;
 			}
-            if ($this->remove_id($value)) continue;
-            $sheet->setCellValue($col . "1", $value);
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row1, $value);
+			$sheet->mergeCells($col . "$row1:".$col.$row2);
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
-        foreach ($kontak_siswa as $value) {
-            if ($this->remove_id($value)) continue;
-            $sheet->setCellValue($col . "1", $value);
+
+		$tempCol = $col;
+		$colInc=0;
+        foreach ($ayah as $key => $value) {
+			if ($key == 'id_ayah') {
+				$sheet->setCellValue($col . $row1, $value);
+				$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+				continue;
+			}
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row2, $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+			$col++;
+			$colInc++;
+        }
+		$end = $tempCol;
+		for ($i=1; $i < $colInc; $i++) { 
+			$end++;
+		}
+		$sheet->mergeCells($tempCol . "$row1:".$end.$row1);
+		
+		$tempCol = $col;
+		$colInc=0;
+        foreach ($ibu as $key => $value) {
+			if ($key == 'id_ibu') {
+				$sheet->setCellValue($col . $row1, $value);
+				$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+				continue;
+			}
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row2, $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+			$col++;
+			$colInc++;
+        }
+		$end = $tempCol;
+		for ($i=1; $i < $colInc; $i++) { 
+			$end++;
+		}
+		$sheet->mergeCells($tempCol . "$row1:".$end.$row1);
+
+		$tempCol = $col;
+		$colInc=0;
+        foreach ($wali as $key => $value) {
+			if ($key == 'id_wali') {
+				$sheet->setCellValue($col . $row1, $value);
+				$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+				continue;
+			}
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row2, $value);
+            $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+			$col++;
+			$colInc++;
+        }
+		$end = $tempCol;
+		for ($i=1; $i < $colInc; $i++) { 
+			$end++;
+		}
+		$sheet->mergeCells($tempCol . "$row1:".$end.$row1);
+
+        foreach ($kontak_siswa as $key => $value) {
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row1, $value);
+			$sheet->mergeCells($col . "$row1:".$col.$row2);
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
-        foreach ($registrasi as $value) {
-            if ($this->remove_id($value)) continue;
-            $sheet->setCellValue($col . "1", $value);
+        foreach ($registrasi as $key => $value) {
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row1, $value);
+			$sheet->mergeCells($col . "$row1:".$col.$row2);
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
-		$sheet->setCellValue($col . "1", 'Rombel saat ini');
+		$sheet->setCellValue($col . $row1, 'Rombel saat ini');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'No Peserta Ujian Nasional');
+		$sheet->setCellValue($col . $row1, 'No Peserta Ujian Nasional');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'No Seri Ijazah');
+		$sheet->setCellValue($col . $row1, 'No Seri Ijazah');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Penerima KIP');
+		$sheet->setCellValue($col . $row1, 'Penerima KIP');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Nomor KIP');
+		$sheet->setCellValue($col . $row1, 'Nomor KIP');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Nama di KIP');
+		$sheet->setCellValue($col . $row1, 'Nama di KIP');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Nomor KKS');
+		$sheet->setCellValue($col . $row1, 'Nomor KKS');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'No Registrasi Akta Lahir');
+		$sheet->setCellValue($col . $row1, 'No Registrasi Akta Lahir');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Bank');
+		$sheet->setCellValue($col . $row1, 'Bank');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Nomor Rekening Bank');
+		$sheet->setCellValue($col . $row1, 'Nomor Rekening Bank');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Rekening Atas Nama');
+		$sheet->setCellValue($col . $row1, 'Rekening Atas Nama');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Layak PIP (usulan dari sekolah)');
+		$sheet->setCellValue($col . $row1, 'Layak PIP (usulan dari sekolah)');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Alasan Layak PIP');
+		$sheet->setCellValue($col . $row1, 'Alasan Layak PIP');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-        foreach ($berkebutuhan_khusus as $value) {
-            if ($this->remove_id($value)) continue;
-            $sheet->setCellValue($col . "1", $value);
+        foreach ($berkebutuhan_khusus as $key => $value) {
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row1, $value);
+			$sheet->mergeCells($col . "$row1:".$col.$row2);
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
-		$sheet->setCellValue($col . "1", 'Anak ke-berapa');
+		$sheet->setCellValue($col . $row1, 'Anak ke-berapa');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Lintang');
+		$sheet->setCellValue($col . $row1, 'Lintang');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Bujur');
+		$sheet->setCellValue($col . $row1, 'Bujur');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'No KK');
+		$sheet->setCellValue($col . $row1, 'No KK');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Berat Badan');
+		$sheet->setCellValue($col . $row1, 'Berat Badan');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Tinggi Badan');
+		$sheet->setCellValue($col . $row1, 'Tinggi Badan');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Lingkar Kepala');
+		$sheet->setCellValue($col . $row1, 'Lingkar Kepala');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Jml. Saudara Kandung');
+		$sheet->setCellValue($col . $row1, 'Jml. Saudara Kandung');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-		$sheet->setCellValue($col . "1", 'Jarak Rumah ke Sekolah (KM)');
+		$sheet->setCellValue($col . $row1, 'Jarak Rumah ke Sekolah (KM)');
+		$sheet->mergeCells($col . "$row1:".$col.$row2);
 		$spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
 		$col++;
-        foreach ($bantuan_tidak_mampu_lainnya as $value) {
-            if ($this->remove_id($value)) continue;
-            $sheet->setCellValue($col . "1", $value);
+        foreach ($bantuan_tidak_mampu_lainnya as $key => $value) {
+            if ($this->remove_id($key)) continue;
+            $sheet->setCellValue($col . $row1, $value);
+			$sheet->mergeCells($col . "$row1:".$col.$row2);
             $spreadsheet->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
             $col++;
         }
@@ -336,9 +494,7 @@ class Filter extends CI_Controller
                 'bold' => true,
             ],
         ];
-        $spreadsheet->getActiveSheet()->getStyle("A1:$col" . "1")->applyFromArray($styleHeaderTabel);
-        $spreadsheet->getActiveSheet()->getRowDimension(1)->setRowHeight(35);
-
+        $spreadsheet->getActiveSheet()->getStyle("A$row1:$col" . $row2)->applyFromArray($styleHeaderTabel);
 
         if (!is_array($datas)) {
             //membuat nama file
@@ -354,17 +510,19 @@ class Filter extends CI_Controller
             $writer->save('php://output');
             exit;
         }
-
+		$no = 1;
         // isi
         $col = "A";
-        $row = 2;
-        $offset = 2;
+        $row = 7;
+        $offset = 7;
         foreach ($datas as $data) {
             $col = "A";
             $offset = $row;
 
+			$sheet->setCellValue("$col$row", $no++);
+			$col++;
             // data pribadi
-            foreach ($data_pribadi as $key) {
+            foreach ($data_pribadi as $key => $value) {
                 if ($this->remove_id($key)) continue;
                 $sheet->setCellValue("$col$row", $data[$key]);
                 $col++;
@@ -372,14 +530,14 @@ class Filter extends CI_Controller
             
 
             // alamat dan domisili
-            foreach ($alamat as $key) {
+            foreach ($alamat as $key => $value) {
                 if ($this->remove_id($key)) continue;
                 $sheet->setCellValue("$col$row", $data['alamat'][$key]);
                 $col++;
             }
 
             // bantuan tidak mampu
-            foreach ($bantuan_tidak_mampu as $key) {
+            foreach ($bantuan_tidak_mampu as $key => $value) {
 				if ($key == 'id_kps_pkh') {
 					if ($data['bantuan_tidak_mampu'][$key] != null) {
 						$sheet->setCellValue("$col$row", 'Ya');
@@ -394,8 +552,24 @@ class Filter extends CI_Controller
                 $col++;
             }
 
+            foreach ($ayah as $key => $value) {
+                if ($this->remove_id($key)) continue;
+                $sheet->setCellValue("$col$row", $data['ayah'][$key]);
+                $col++;
+            }
+            foreach ($ibu as $key => $value) {
+                if ($this->remove_id($key)) continue;
+                $sheet->setCellValue("$col$row", $data['ibu'][$key]);
+                $col++;
+            }
+            foreach ($wali as $key => $value) {
+                if ($this->remove_id($key)) continue;
+                $sheet->setCellValue("$col$row", $data['wali'][$key]);
+                $col++;
+            }
+
             // kontak_siswa
-            foreach ($kontak_siswa as $key) {
+            foreach ($kontak_siswa as $key => $value) {
                 if ($this->remove_id($key)) continue;
 				if ($key == "nomor_hp" && is_array($data['kontak_siswa'][$key])) {
 					$sheet->setCellValue("$col$row", $data['kontak_siswa'][$key][0]['nomor_telepon_seluler']);
@@ -407,7 +581,7 @@ class Filter extends CI_Controller
             }
 
             // registrasi
-            foreach ($registrasi as $key) {
+            foreach ($registrasi as $key => $value) {
                 if ($this->remove_id($key)) continue;
 				// if (is_array($data['registrasi'][$key])) {
 				// 	$sheet->setCellValue("$col$row", $data['registrasi'][$key][0]);
@@ -458,7 +632,7 @@ class Filter extends CI_Controller
 				// $temp_col = $col;
 				// foreach ($data["berkebutuhan_khusus"] as $bk) {
 				// 	$temp_col = $col;
-				// 	foreach ($berkebutuhan_khusus as $key) {
+				// 	foreach ($berkebutuhan_khusus as $key => $value) {
 				// 		if ($this->remove_id($key)) continue;
 				// 		$sheet->setCellValue("$temp_col$temp_row", $bk[$key]);
 				// 		$temp_col++;
@@ -469,19 +643,18 @@ class Filter extends CI_Controller
 				// $col = $temp_col;
 				$arrBK = array();
 				foreach ($data["berkebutuhan_khusus"] as $bk) {
-					foreach ($berkebutuhan_khusus as $key) {
-						if ($this->remove_id($key)) continue;
-						array_push($arrBK, $bk[$key]);
-					}
+						array_push($arrBK, $bk['berkebutuhan_khusus']);
 				}
 				$sheet->setCellValue("$col$row", implode(",", $arrBK));
 				$col++;
 			} else {
-				foreach ($berkebutuhan_khusus as $key) {
-					if ($this->remove_id($key)) continue;
-					$sheet->setCellValue("$col$row", null);
-					$col++;
-				}
+				$sheet->setCellValue("$col$row", "Tidak ada");
+				$col++;
+				// foreach ($berkebutuhan_khusus as $key => $value) {
+				// 	if ($this->remove_id($key)) continue;
+				// 	$sheet->setCellValue("$col$row", $value);
+				// 	$col++;
+				// }
 			}
 			$sheet->setCellValue("$col$row", $data['bantuan_tidak_mampu']['anak_ke']);
 			$col++;
@@ -507,7 +680,7 @@ class Filter extends CI_Controller
             //     $temp_col = $col;
             //     foreach ($data["bantuan_tidak_mampu"]['bantuan_tidak_mampu_lainnya'] as $val) {
             //         $temp_col = $col;
-            //         foreach ($bantuan_tidak_mampu_lainnya as $key) {
+            //         foreach ($bantuan_tidak_mampu_lainnya as $key => $value) {
             //             if ($this->remove_id($key)) continue;
             //             $sheet->setCellValue("$temp_col$temp_row", $val[$key]);
             //             $temp_col++;
@@ -517,7 +690,7 @@ class Filter extends CI_Controller
             //     }
             //     $col = $temp_col;
             // } else {
-            //     foreach ($bantuan_tidak_mampu_lainnya as $key) {
+            //     foreach ($bantuan_tidak_mampu_lainnya as $key => $value) {
             //         if ($this->remove_id($key)) continue;
             //         $sheet->setCellValue("$col$row", null);
             //         $col++;

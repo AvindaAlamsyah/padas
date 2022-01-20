@@ -37,7 +37,8 @@ class Login extends CI_Controller
                     'id_user' => $user->id_user,
                     'username' => $user->username,
                     'nama' => $user->name,
-                    'akses' => $user->role
+                    'akses' => $user->role,
+                    'email' => $user->email
                 );
                 $this->session->set_userdata($session_data);
 
