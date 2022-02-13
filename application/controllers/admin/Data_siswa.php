@@ -1708,6 +1708,7 @@ class Data_siswa extends CI_Controller
         if ($this->upload->do_upload('import_file')) {
             $this->response[] = array('isi' => "Berhasil upload excel", 'status' => true);
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            $reader->setReadEmptyCells(FALSE);
             $spreadsheet = $reader->load('./assets/temp/file-import.xlsx');
 
             $sheetDataSumber = $spreadsheet->getSheetByName('Data Sumber')->toArray();
@@ -1812,6 +1813,7 @@ class Data_siswa extends CI_Controller
                 }
                 $sql = $this->insert_batch_string('siswa', $siswa, true);
                 $this->load->database();
+                $this->db->trans_start();
                 if ($this->db->query($sql)) {
 
                     //Update table siswa
@@ -1828,24 +1830,24 @@ class Data_siswa extends CI_Controller
                     }
 
                     //Insert and Delete table pendaftaran_keluar
-                    $this->pendaftaran_keluar_model->delete($whereIdSiswaForDelete);
-                    $idSiswaNisnNotImport = $this->siswa_model->get_id_siswa($whereNotNisnForDelete)->result();
-                    if (!empty($idSiswaNisnNotImport)) {
-                        for ($i = 0; $i < count($idSiswaNisnNotImport); $i++) {
-                            $pendaftaran_keluar[] = array(
-                                'siswa_id_siswa' => $idSiswaNisnNotImport[$i]->id_siswa,
-                                'jenis_pendaftaran_keluar_id_jenis_pendaftaran_keluar' => 1,
-                                'tanggal_keluar' => date("Y-m-d"),
-                                'alasan' => 'Import data excel'
-                            );
-                        }
-                        $sql = $this->insert_batch_string('pendaftaran_keluar', $pendaftaran_keluar, true);
-                        if ($this->db->query($sql)) {
-                            $this->response[] = array('isi' => "Berhasil Import Data Pendaftaran Keluar.", 'status' => true);
-                        } else {
-                            $this->response[] = array('isi' => "Gagal Import Data Pendaftaran Keluar.", 'status' => false);
-                        }
-                    }
+                    // $this->pendaftaran_keluar_model->delete($whereIdSiswaForDelete);
+                    // $idSiswaNisnNotImport = $this->siswa_model->get_id_siswa($whereNotNisnForDelete)->result();
+                    // if (!empty($idSiswaNisnNotImport)) {
+                    //     for ($i = 0; $i < count($idSiswaNisnNotImport); $i++) {
+                    //         $pendaftaran_keluar[] = array(
+                    //             'siswa_id_siswa' => $idSiswaNisnNotImport[$i]->id_siswa,
+                    //             'jenis_pendaftaran_keluar_id_jenis_pendaftaran_keluar' => 1,
+                    //             'tanggal_keluar' => date("Y-m-d"),
+                    //             'alasan' => 'Import data excel'
+                    //         );
+                    //     }
+                    //     $sql = $this->insert_batch_string('pendaftaran_keluar', $pendaftaran_keluar, true);
+                    //     if ($this->db->query($sql)) {
+                    //         $this->response[] = array('isi' => "Berhasil Import Data Pendaftaran Keluar.", 'status' => true);
+                    //     } else {
+                    //         $this->response[] = array('isi' => "Gagal Import Data Pendaftaran Keluar.", 'status' => false);
+                    //     }
+                    // }
 
                     //Insert and Delete table siswa_has_berkebutuhan_khusus
                     $this->siswa_has_berkebutuhan_khusus_model->delete($whereIdSiswaForDelete);
@@ -2680,6 +2682,7 @@ class Data_siswa extends CI_Controller
                 } else {
                     $this->response[] = array('isi' => "Gagal Import Data Keseluruhan.", 'status' => false);
                 }
+                $this->db->trans_complete();
             }
         } else {
             $this->response[] = array('isi' => "Gagal upload excel. " . $this->upload->display_errors(), 'status' => false);
@@ -2704,6 +2707,7 @@ class Data_siswa extends CI_Controller
         } else {
             $this->response[] = array('isi' => "Berhasil upload excel", 'status' => true);
             $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+            $reader->setReadEmptyCells(FALSE);
             $spreadsheet = $reader->load('./assets/temp/file-lulus.xlsx');
 
             $sheetDataMaster = $spreadsheet->getSheetByName('Data Master')->toArray();

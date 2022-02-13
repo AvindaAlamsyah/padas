@@ -21,4 +21,6 @@ application/.env
 application/vendor
 application/tmp/*
 !application/tmp/.gitkeep
+assets/temp/*
+!assets/temp/.gitkeep
 application/controllers/Test.php
