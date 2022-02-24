@@ -1896,14 +1896,16 @@ class Data_siswa extends CI_Controller
                         $alamat[$key] = array_map(array($this, 'drop_empty'), $item);
                     }
                     $sql = $this->insert_batch_string('alamat', $alamat, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data Alamat Siswa.", 'status' => true);
-                        $update = $this->db->update_batch('alamat', $alamat, 'siswa_id_siswa');
-                        if ($update === false) {
-                            $this->response[] = array('isi' => "Gagal Update Data Alamat.", 'status' => false);
+                    if (!empty($sql)) {
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data Alamat Siswa.", 'status' => true);
+                            $update = $this->db->update_batch('alamat', $alamat, 'siswa_id_siswa');
+                            if ($update === false) {
+                                $this->response[] = array('isi' => "Gagal Update Data Alamat.", 'status' => false);
+                            }
+                        } else {
+                            $this->response[] = array('isi' => "Gagal Import Data Alamat Siswa.", 'status' => false);
                         }
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data Alamat Siswa.", 'status' => false);
                     }
 
                     //Insert and Update table ayah
@@ -1977,45 +1979,49 @@ class Data_siswa extends CI_Controller
 
                     //Insert and Delete table bantuan_tidak_mampu
                     $this->bantuan_tidak_mampu_model->delete($whereIdSiswaForDelete);
-                    for ($i = 2; $i < $countBantuanLainnya; $i++) {
-                        if (empty($sheetBantuanLainnya[$i][0])) {
-                            break;
+                    if ($countBantuanLainnya > 2) {
+                        for ($i = 2; $i < $countBantuanLainnya; $i++) {
+                            if (empty($sheetBantuanLainnya[$i][0])) {
+                                break;
+                            }
+                            $temp = array_search($sheetBantuanLainnya[$i][0], array_column($idSiswaNisn, 'nisn'));
+                            $bantuan_tidak_mampu[] = array(
+                                'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
+                                'nama_program' => $sheetBantuanLainnya[$i][2],
+                                'bukti' => $sheetBantuanLainnya[$i][3]
+                            );
                         }
-                        $temp = array_search($sheetBantuanLainnya[$i][0], array_column($idSiswaNisn, 'nisn'));
-                        $bantuan_tidak_mampu[] = array(
-                            'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
-                            'nama_program' => $sheetBantuanLainnya[$i][2],
-                            'bukti' => $sheetBantuanLainnya[$i][3]
-                        );
-                    }
-                    if (count($bantuan_tidak_mampu) > 0) {
-                        if (!$this->bantuan_tidak_mampu_model->insert_batch($bantuan_tidak_mampu)) {
-                            $this->response[] = array('isi' => "Gagal Import Data Bantuan Lainnya.", 'status' => false);
-                        } else {
-                            $this->response[] = array('isi' => "Berhasil Import Data Bantuan Lainnya.", 'status' => true);
+                        if (count($bantuan_tidak_mampu) > 0) {
+                            if (!$this->bantuan_tidak_mampu_model->insert_batch($bantuan_tidak_mampu)) {
+                                $this->response[] = array('isi' => "Gagal Import Data Bantuan Lainnya.", 'status' => false);
+                            } else {
+                                $this->response[] = array('isi' => "Berhasil Import Data Bantuan Lainnya.", 'status' => true);
+                            }
                         }
                     }
 
-                    //Insert and Delete table bantuan_tidak_mampu
+                    //Insert and Delete table beasiswa
                     $this->beasiswa_model->delete($whereIdSiswaForDelete);
-                    for ($i = 2; $i < $countBeasiswa; $i++) {
-                        if (empty($sheetBeasiswa[$i][0])) {
-                            break;
+                    if ($countBeasiswa > 2) {
+                        for ($i = 2; $i < $countBeasiswa; $i++) {
+                            if (empty($sheetBeasiswa[$i][0])) {
+                                break;
+                            }
+                            $temp = array_search($sheetBeasiswa[$i][0], array_column($idSiswaNisn, 'nisn'));
+                            $beasiswa[] = array(
+                                'jenis_beasiswa_id_jenis_beasiswa' => $sheetBeasiswa[$i][2],
+                                'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
+                                'keterangan' => $sheetBeasiswa[$i][3],
+                                'tanggal_mulai' => $sheetBeasiswa[$i][4],
+                                'tanggal_selesai' => $sheetBeasiswa[$i][5]
+                            );
                         }
-                        $temp = array_search($sheetBeasiswa[$i][0], array_column($idSiswaNisn, 'nisn'));
-                        $beasiswa[] = array(
-                            'jenis_beasiswa_id_jenis_beasiswa' => $sheetBeasiswa[$i][2],
-                            'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
-                            'keterangan' => $sheetBeasiswa[$i][3],
-                            'tanggal_mulai' => $sheetBeasiswa[$i][4],
-                            'tanggal_selesai' => $sheetBeasiswa[$i][5]
-                        );
-                    }
-                    if (count($beasiswa) > 0) {
-                        if (!$this->beasiswa_model->insert_batch($beasiswa)) {
-                            $this->response[] = array('isi' => "Gagal Import Data Beasiswa.", 'status' => false);
-                        } else {
-                            $this->response[] = array('isi' => "Berhasil Import Data Beasiswa.", 'status' => true);
+                        if (count($beasiswa) > 0) {
+                            if (!$this->beasiswa_model->insert_batch($beasiswa)) {
+                                $this->response[] = array('isi' => "Gagal Import Data Beasiswa.", 'status' => false);
+                            } else {
+                                $this->response[] = array('isi' => "Berhasil Import Data Beasiswa.", 'status' => true);
+                            }
                         }
                     }
 
@@ -2050,14 +2056,16 @@ class Data_siswa extends CI_Controller
                         $domisili[$key] = array_map(array($this, 'drop_empty'), $item);
                     }
                     $sql = $this->insert_batch_string('domisili', $domisili, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data Domisili.", 'status' => true);
-                        $update = $this->db->update_batch('domisili', $domisili, 'siswa_id_siswa');
-                        if ($update === false) {
-                            $this->response[] = array('isi' => "Gagal Update Data Domisili.", 'status' => false);
+                    if (!empty($sql)) {
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data Domisili.", 'status' => true);
+                            $update = $this->db->update_batch('domisili', $domisili, 'siswa_id_siswa');
+                            if ($update === false) {
+                                $this->response[] = array('isi' => "Gagal Update Data Domisili.", 'status' => false);
+                            }
+                        } else {
+                            $this->response[] = array('isi' => "Gagal Import Data Domisili.", 'status' => false);
                         }
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data Domisili.", 'status' => false);
                     }
 
                     //Insert and Update table ibu
@@ -2144,14 +2152,16 @@ class Data_siswa extends CI_Controller
                         }
                     }
                     $sql = $this->insert_batch_string('kip', $kip, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data KIP.", 'status' => true);
-                        $update = $this->db->update_batch('kip', $kip, 'siswa_id_siswa');
-                        if ($update === false) {
-                            $this->response[] = array('isi' => "Gagal Update Data KIP.", 'status' => false);
+                    if (!empty($sql)) {
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data KIP.", 'status' => true);
+                            $update = $this->db->update_batch('kip', $kip, 'siswa_id_siswa');
+                            if ($update === false) {
+                                $this->response[] = array('isi' => "Gagal Update Data KIP.", 'status' => false);
+                            }
+                        } else {
+                            $this->response[] = array('isi' => "Gagal Import Data KIP.", 'status' => false);
                         }
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data KIP.", 'status' => false);
                     }
 
                     //Insert and Update table kks
@@ -2168,38 +2178,42 @@ class Data_siswa extends CI_Controller
                         }
                     }
                     $sql = $this->insert_batch_string('kks', $kks, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data KKS.", 'status' => true);
-                        $update = $this->db->update_batch('kks', $kks, 'siswa_id_siswa');
-                        if ($update === false) {
-                            $this->response[] = array('isi' => "Gagal Update Data KKS.", 'status' => false);
+                    if (!empty($sql)) {
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data KKS.", 'status' => true);
+                            $update = $this->db->update_batch('kks', $kks, 'siswa_id_siswa');
+                            if ($update === false) {
+                                $this->response[] = array('isi' => "Gagal Update Data KKS.", 'status' => false);
+                            }
+                        } else {
+                            $this->response[] = array('isi' => "Gagal Import Data KKS.", 'status' => false);
                         }
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data KKS.", 'status' => false);
                     }
 
                     //Insert and Delete table kontak_darurat
                     $this->kontak_darurat_model->delete($whereIdSiswaForDelete);
-                    for ($i = 2; $i < $countKontakDarurat; $i++) {
-                        if (empty($sheetKontakDarurat[$i][0])) {
-                            break;
+                    if ($countKontakDarurat > 2) {
+                        for ($i = 2; $i < $countKontakDarurat; $i++) {
+                            if (empty($sheetKontakDarurat[$i][0])) {
+                                break;
+                            }
+                            $temp = array_search($sheetKontakDarurat[$i][0], array_column($idSiswaNisn, 'nisn'));
+                            $kontak_darurat[] = array(
+                                'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
+                                'nama' => $sheetKontakDarurat[$i][2],
+                                'hubungan_peserta_didik' => $sheetKontakDarurat[$i][3],
+                                'nomor_telepon_seluler' => $sheetKontakDarurat[$i][4]
+                            );
                         }
-                        $temp = array_search($sheetKontakDarurat[$i][0], array_column($idSiswaNisn, 'nisn'));
-                        $kontak_darurat[] = array(
-                            'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
-                            'nama' => $sheetKontakDarurat[$i][2],
-                            'hubungan_peserta_didik' => $sheetKontakDarurat[$i][3],
-                            'nomor_telepon_seluler' => $sheetKontakDarurat[$i][4]
-                        );
-                    }
-                    foreach ($kontak_darurat as $key => $item) {
-                        $kontak_darurat[$key] = array_map(array($this, 'drop_empty'), $item);
-                    }
-                    if (count($kontak_darurat) > 0) {
-                        if (!$this->kontak_darurat_model->insert_batch($kontak_darurat)) {
-                            $this->response[] = array('isi' => "Gagal Import Data Kontak Darurat.", 'status' => false);
-                        } else {
-                            $this->response[] = array('isi' => "Berhasil Import Data Kontak Darurat.", 'status' => true);
+                        foreach ($kontak_darurat as $key => $item) {
+                            $kontak_darurat[$key] = array_map(array($this, 'drop_empty'), $item);
+                        }
+                        if (count($kontak_darurat) > 0) {
+                            if (!$this->kontak_darurat_model->insert_batch($kontak_darurat)) {
+                                $this->response[] = array('isi' => "Gagal Import Data Kontak Darurat.", 'status' => false);
+                            } else {
+                                $this->response[] = array('isi' => "Berhasil Import Data Kontak Darurat.", 'status' => true);
+                            }
                         }
                     }
 
@@ -2217,14 +2231,16 @@ class Data_siswa extends CI_Controller
                         }
                     }
                     $sql = $this->insert_batch_string('kps_pkh', $kps_pkh, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data KPS/PKH.", 'status' => true);
-                        $update = $this->db->update_batch('kps_pkh', $kps_pkh, 'siswa_id_siswa');
-                        if ($update === false) {
-                            $this->response[] = array('isi' => "Gagal Update Data KPS/PKH.", 'status' => false);
+                    if (!empty($sql)) {
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data KPS/PKH.", 'status' => true);
+                            $update = $this->db->update_batch('kps_pkh', $kps_pkh, 'siswa_id_siswa');
+                            if ($update === false) {
+                                $this->response[] = array('isi' => "Gagal Update Data KPS/PKH.", 'status' => false);
+                            }
+                        } else {
+                            $this->response[] = array('isi' => "Gagal Import Data KPS/PKH.", 'status' => false);
                         }
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data KPS/PKH.", 'status' => false);
                     }
 
                     //Insert and Update table nomor_telepon_seluler
@@ -2243,14 +2259,16 @@ class Data_siswa extends CI_Controller
                         $nomor_telepon_seluler[$key] = array_map(array($this, 'drop_empty'), $item);
                     }
                     $sql = $this->insert_batch_string('nomor_telepon_seluler', $nomor_telepon_seluler, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data Nomor Telepon Siswa.", 'status' => true);
-                        $update = $this->db->update_batch('nomor_telepon_seluler', $nomor_telepon_seluler, 'siswa_id_siswa');
-                        if ($update === false) {
-                            $this->response[] = array('isi' => "Gagal Update Data Nomor Telepon Siswa.", 'status' => false);
+                    if (!empty($sql)) {
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data Nomor Telepon Siswa.", 'status' => true);
+                            $update = $this->db->update_batch('nomor_telepon_seluler', $nomor_telepon_seluler, 'siswa_id_siswa');
+                            if ($update === false) {
+                                $this->response[] = array('isi' => "Gagal Update Data Nomor Telepon Siswa.", 'status' => false);
+                            }
+                        } else {
+                            $this->response[] = array('isi' => "Gagal Import Data Nomor Telepon Siswa.", 'status' => false);
                         }
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data Nomor Telepon Siswa.", 'status' => false);
                     }
 
                     //Insert and Update table pendaftaran_masuk
@@ -2282,115 +2300,122 @@ class Data_siswa extends CI_Controller
                         $pendaftaran_masuk[$key] = array_map(array($this, 'drop_empty'), $item);
                     }
                     $sql = $this->insert_batch_string('pendaftaran_masuk', $pendaftaran_masuk, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data Nomor Pendaftaran Masuk Siswa.", 'status' => true);
-                        $update = $this->db->update_batch('pendaftaran_masuk', $pendaftaran_masuk, 'siswa_id_siswa');
-                        if ($update === false) {
-                            $this->response[] = array('isi' => "Gagal Update Data Pendaftaran Masuk Siswa.", 'status' => false);
-                        }
-
-                        //Insert adn Delete table mean_mapel
-                        $idPendMasukSiswa = $this->pendaftaran_masuk_model->get_id_pendaftaran_masuk($whereIdSiswaForDelete)->result();
-                        $whereIdPendMasukForDelete = 'pendaftaran_masuk_id_pendaftaran_masuk=""';
-                        for ($i = 0; $i < count($idPendMasukSiswa); $i++) {
-                            $whereIdPendMasukForDelete .= ' OR pendaftaran_masuk_id_pendaftaran_masuk="' . $idPendMasukSiswa[$i]->id_pendaftaran_masuk . '"';
-                        }
-                        $this->mean_mapel_model->delete($whereIdPendMasukForDelete);
-                        for ($i = 3; $i < $countHasilConvert; $i++) {
-                            if (empty($sheetHasilConvert[$i][1])) {
-                                break;
+                    if (!empty($sql)) {
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data Nomor Pendaftaran Masuk Siswa.", 'status' => true);
+                            $update = $this->db->update_batch('pendaftaran_masuk', $pendaftaran_masuk, 'siswa_id_siswa');
+                            if ($update === false) {
+                                $this->response[] = array('isi' => "Gagal Update Data Pendaftaran Masuk Siswa.", 'status' => false);
                             }
-                            $temp = array_search($sheetHasilConvert[$i][4], array_column($idPendMasukSiswa, 'nisn'));
-                            $mean_mapel[] = array(
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'mata_pelajaran_id_mata_pelajaran' => 1,
-                                'nilai' => $sheetDataSumber[$i][144]
-                            );
-                            $mean_mapel[] = array(
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'mata_pelajaran_id_mata_pelajaran' => 2,
-                                'nilai' => $sheetDataSumber[$i][145]
-                            );
-                            $mean_mapel[] = array(
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'mata_pelajaran_id_mata_pelajaran' => 3,
-                                'nilai' => $sheetDataSumber[$i][149]
-                            );
-                            $mean_mapel[] = array(
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'mata_pelajaran_id_mata_pelajaran' => 4,
-                                'nilai' => $sheetDataSumber[$i][146]
-                            );
-                            $mean_mapel[] = array(
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'mata_pelajaran_id_mata_pelajaran' => 5,
-                                'nilai' => $sheetDataSumber[$i][147]
-                            );
-                            $mean_mapel[] = array(
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'mata_pelajaran_id_mata_pelajaran' => 6,
-                                'nilai' => $sheetDataSumber[$i][150]
-                            );
-                            $mean_mapel[] = array(
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'mata_pelajaran_id_mata_pelajaran' => 7,
-                                'nilai' => $sheetDataSumber[$i][148]
-                            );
-                        }
-                        if (!$this->mean_mapel_model->insert_batch($mean_mapel)) {
-                            $this->response[] = array('isi' => "Gagal Import Data Nilai Rata-rata.", 'status' => false);
-                        } else {
-                            $this->response[] = array('isi' => "Berhasil Import Data Nilai Rata-rata.", 'status' => true);
-                        }
 
-                        //Insert and Delete table pilihan_jalur_ppdb
-                        $this->pilihan_jalur_ppdb_model->delete($whereIdPendMasukForDelete);
-                        for ($i = 2; $i < $countJalurPpdb; $i++) {
-                            if (empty($sheetJalurPpdb[$i][0])) {
-                                break;
+                            //Insert adn Delete table mean_mapel
+                            $idPendMasukSiswa = $this->pendaftaran_masuk_model->get_id_pendaftaran_masuk($whereIdSiswaForDelete)->result();
+                            $whereIdPendMasukForDelete = 'pendaftaran_masuk_id_pendaftaran_masuk=""';
+                            for ($i = 0; $i < count($idPendMasukSiswa); $i++) {
+                                $whereIdPendMasukForDelete .= ' OR pendaftaran_masuk_id_pendaftaran_masuk="' . $idPendMasukSiswa[$i]->id_pendaftaran_masuk . '"';
                             }
-                            $temp = array_search($sheetJalurPpdb[$i][0], array_column($idPendMasukSiswa, 'nisn'));
-                            $pilihan_jalur_ppdb[] = array(
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'jenis_pendaftaran_masuk_id_jenis_pendaftaran_masuk' => $sheetJalurPpdb[$i][2]
-                            );
-                        }
-                        if (!$this->pilihan_jalur_ppdb_model->insert_batch($pilihan_jalur_ppdb)) {
-                            $this->response[] = array('isi' => "Gagal Import Pilihan Jalur PPDB.", 'status' => false);
-                        } else {
-                            $this->response[] = array('isi' => "Berhasil Import Pilihan Jalur PPDB.", 'status' => true);
-                        }
+                            $this->mean_mapel_model->delete($whereIdPendMasukForDelete);
+                            for ($i = 3; $i < $countHasilConvert; $i++) {
+                                if (empty($sheetHasilConvert[$i][1])) {
+                                    break;
+                                }
+                                $temp = array_search($sheetHasilConvert[$i][4], array_column($idPendMasukSiswa, 'nisn'));
+                                $mean_mapel[] = array(
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'mata_pelajaran_id_mata_pelajaran' => 1,
+                                    'nilai' => $sheetDataSumber[$i][144]
+                                );
+                                $mean_mapel[] = array(
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'mata_pelajaran_id_mata_pelajaran' => 2,
+                                    'nilai' => $sheetDataSumber[$i][145]
+                                );
+                                $mean_mapel[] = array(
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'mata_pelajaran_id_mata_pelajaran' => 3,
+                                    'nilai' => $sheetDataSumber[$i][149]
+                                );
+                                $mean_mapel[] = array(
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'mata_pelajaran_id_mata_pelajaran' => 4,
+                                    'nilai' => $sheetDataSumber[$i][146]
+                                );
+                                $mean_mapel[] = array(
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'mata_pelajaran_id_mata_pelajaran' => 5,
+                                    'nilai' => $sheetDataSumber[$i][147]
+                                );
+                                $mean_mapel[] = array(
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'mata_pelajaran_id_mata_pelajaran' => 6,
+                                    'nilai' => $sheetDataSumber[$i][150]
+                                );
+                                $mean_mapel[] = array(
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'mata_pelajaran_id_mata_pelajaran' => 7,
+                                    'nilai' => $sheetDataSumber[$i][148]
+                                );
+                            }
+                            $sql = $this->insert_batch_string('mean_mapel', $mean_mapel, true);
+                            if (!empty($sql)) {
+                                if (!$this->db->query($sql)) {
+                                    $this->response[] = array('isi' => "Gagal Import Data Nilai Rata-rata.", 'status' => false);
+                                } else {
+                                    $this->response[] = array('isi' => "Berhasil Import Data Nilai Rata-rata.", 'status' => true);
+                                }
+                            }
 
-                        //Insert and Delete table pilihan_jurusan_ppdb
-                        $this->pilihan_jurusan_ppdb_model->delete($whereIdPendMasukForDelete);
-                        for ($i = 3; $i < $countHasilConvert; $i++) {
-                            if (empty($sheetHasilConvert[$i][1])) {
-                                break;
+                            //Insert and Delete table pilihan_jalur_ppdb
+                            $this->pilihan_jalur_ppdb_model->delete($whereIdPendMasukForDelete);
+                            if ($countJalurPpdb > 2) {
+                                for ($i = 2; $i < $countJalurPpdb; $i++) {
+                                    if (empty($sheetJalurPpdb[$i][0])) {
+                                        break;
+                                    }
+                                    $temp = array_search($sheetJalurPpdb[$i][0], array_column($idPendMasukSiswa, 'nisn'));
+                                    $pilihan_jalur_ppdb[] = array(
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'jenis_pendaftaran_masuk_id_jenis_pendaftaran_masuk' => $sheetJalurPpdb[$i][2]
+                                    );
+                                }
+                                if (!$this->pilihan_jalur_ppdb_model->insert_batch($pilihan_jalur_ppdb)) {
+                                    $this->response[] = array('isi' => "Gagal Import Pilihan Jalur PPDB.", 'status' => false);
+                                } else {
+                                    $this->response[] = array('isi' => "Berhasil Import Pilihan Jalur PPDB.", 'status' => true);
+                                }
                             }
-                            $temp = array_search($sheetHasilConvert[$i][4], array_column($idPendMasukSiswa, 'nisn'));
-                            $pilihan_jurusan_ppdb[] = array(
-                                'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][76],
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'pilihan_ke' => 1
-                            );
-                            $pilihan_jurusan_ppdb[] = array(
-                                'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][77],
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'pilihan_ke' => 2
-                            );
-                            $pilihan_jurusan_ppdb[] = array(
-                                'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][78],
-                                'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                'pilihan_ke' => 3
-                            );
-                        }
-                        if (!$this->pilihan_jurusan_ppdb_model->insert_batch($pilihan_jurusan_ppdb)) {
-                            $this->response[] = array('isi' => "Gagal Import Pilihan Jurusan PPDB.", 'status' => false);
+
+                            //Insert and Delete table pilihan_jurusan_ppdb
+                            $this->pilihan_jurusan_ppdb_model->delete($whereIdPendMasukForDelete);
+                            for ($i = 3; $i < $countHasilConvert; $i++) {
+                                if (empty($sheetHasilConvert[$i][1])) {
+                                    break;
+                                }
+                                $temp = array_search($sheetHasilConvert[$i][4], array_column($idPendMasukSiswa, 'nisn'));
+                                $pilihan_jurusan_ppdb[] = array(
+                                    'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][76],
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'pilihan_ke' => 1
+                                );
+                                $pilihan_jurusan_ppdb[] = array(
+                                    'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][77],
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'pilihan_ke' => 2
+                                );
+                                $pilihan_jurusan_ppdb[] = array(
+                                    'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][78],
+                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                    'pilihan_ke' => 3
+                                );
+                            }
+                            if (!$this->pilihan_jurusan_ppdb_model->insert_batch($pilihan_jurusan_ppdb)) {
+                                $this->response[] = array('isi' => "Gagal Import Pilihan Jurusan PPDB.", 'status' => false);
+                            } else {
+                                $this->response[] = array('isi' => "Berhasil Import Pilihan Jurusan PPDB.", 'status' => true);
+                            }
                         } else {
-                            $this->response[] = array('isi' => "Berhasil Import Pilihan Jurusan PPDB.", 'status' => true);
+                            $this->response[] = array('isi' => "Gagal Import Data Pendaftaran Masuk Siswa.", 'status' => false);
                         }
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data Pendaftaran Masuk Siswa.", 'status' => false);
                     }
 
                     //Insert and Update table pip
@@ -2414,65 +2439,71 @@ class Data_siswa extends CI_Controller
                         $pip[$key] = array_map(array($this, 'drop_empty'), $item);
                     }
                     $sql = $this->insert_batch_string('pip', $pip, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data PIP.", 'status' => true);
-                        $update = $this->db->update_batch('pip', $pip, 'siswa_id_siswa');
-                        if ($update === false) {
-                            $this->response[] = array('isi' => "Gagal Update Data PIP.", 'status' => false);
+                    if (!empty($sql)) {
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data PIP.", 'status' => true);
+                            $update = $this->db->update_batch('pip', $pip, 'siswa_id_siswa');
+                            if ($update === false) {
+                                $this->response[] = array('isi' => "Gagal Update Data PIP.", 'status' => false);
+                            }
+                        } else {
+                            $this->response[] = array('isi' => "Gagal Import Data PIP.", 'status' => false);
                         }
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data PIP.", 'status' => false);
                     }
 
                     //Insert and Delete table prestasi
                     $this->prestasi_model->delete($whereIdSiswaForDelete);
-                    for ($i = 2; $i < $countPrestasi; $i++) {
-                        if (empty($sheetPrestasi[$i][0])) {
-                            break;
+                    if ($countPrestasi > 2) {
+                        for ($i = 2; $i < $countPrestasi; $i++) {
+                            if (empty($sheetPrestasi[$i][0])) {
+                                break;
+                            }
+                            $temp = array_search($sheetPrestasi[$i][0], array_column($idSiswaNisn, 'nisn'));
+                            $prestasi[] = array(
+                                'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
+                                'bidang_prestasi_id_bidang_prestasi' => $sheetPrestasi[$i][2],
+                                'tingkat_prestasi_id_tingkat_prestasi' => $sheetPrestasi[$i][3],
+                                'nama' => $sheetPrestasi[$i][4],
+                                'tahun' => $sheetPrestasi[$i][5],
+                                'penyelenggara' => $sheetPrestasi[$i][6],
+                                'peringkat' => $sheetPrestasi[$i][7]
+                            );
                         }
-                        $temp = array_search($sheetPrestasi[$i][0], array_column($idSiswaNisn, 'nisn'));
-                        $prestasi[] = array(
-                            'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
-                            'bidang_prestasi_id_bidang_prestasi' => $sheetPrestasi[$i][2],
-                            'tingkat_prestasi_id_tingkat_prestasi' => $sheetPrestasi[$i][3],
-                            'nama' => $sheetPrestasi[$i][4],
-                            'tahun' => $sheetPrestasi[$i][5],
-                            'penyelenggara' => $sheetPrestasi[$i][6],
-                            'peringkat' => $sheetPrestasi[$i][7]
-                        );
-                    }
-                    foreach ($prestasi as $key => $item) {
-                        $prestasi[$key] = array_map(array($this, 'drop_empty'), $item);
-                    }
-                    if (!$this->prestasi_model->insert_batch($prestasi)) {
-                        $this->response[] = array('isi' => "Gagal Import Data Prestasi.", 'status' => false);
-                    } else {
-                        $this->response[] = array('isi' => "Berhasil Import Data Prestasi.", 'status' => true);
+                        foreach ($prestasi as $key => $item) {
+                            $prestasi[$key] = array_map(array($this, 'drop_empty'), $item);
+                        }
+                        if (!$this->prestasi_model->insert_batch($prestasi)) {
+                            $this->response[] = array('isi' => "Gagal Import Data Prestasi.", 'status' => false);
+                        } else {
+                            $this->response[] = array('isi' => "Berhasil Import Data Prestasi.", 'status' => true);
+                        }
                     }
 
                     //Insert and Delete table proses_pembelajaran
                     $this->proses_pembelajaran_model->delete($whereIdSiswaForDelete);
-                    for ($i = 2; $i < $countProsesPembelajaran; $i++) {
-                        if (empty($sheetProsesPembelajaran[$i][0])) {
-                            break;
+                    if ($countProsesPembelajaran > 2) {
+                        for ($i = 2; $i < $countProsesPembelajaran; $i++) {
+                            if (empty($sheetProsesPembelajaran[$i][0])) {
+                                break;
+                            }
+                            $temp = array_search($sheetProsesPembelajaran[$i][0], array_column($idSiswaNisn, 'nisn'));
+                            $proses_pembelajaran[] = array(
+                                'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
+                                'tahun_ajaran_id_tahun_ajaran' => $sheetProsesPembelajaran[$i][2],
+                                'kelas_id_kelas' => $sheetProsesPembelajaran[$i][3],
+                                'nomor_absen' => $sheetProsesPembelajaran[$i][4],
+                                'wali_kelas' => $sheetProsesPembelajaran[$i][5],
+                                'guru_bk' => $sheetProsesPembelajaran[$i][6]
+                            );
                         }
-                        $temp = array_search($sheetProsesPembelajaran[$i][0], array_column($idSiswaNisn, 'nisn'));
-                        $proses_pembelajaran[] = array(
-                            'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
-                            'tahun_ajaran_id_tahun_ajaran' => $sheetProsesPembelajaran[$i][2],
-                            'kelas_id_kelas' => $sheetProsesPembelajaran[$i][3],
-                            'nomor_absen' => $sheetProsesPembelajaran[$i][4],
-                            'wali_kelas' => $sheetProsesPembelajaran[$i][5],
-                            'guru_bk' => $sheetProsesPembelajaran[$i][6]
-                        );
-                    }
-                    foreach ($proses_pembelajaran as $key => $item) {
-                        $proses_pembelajaran[$key] = array_map(array($this, 'drop_empty'), $item);
-                    }
-                    if (!$this->proses_pembelajaran_model->insert_batch($proses_pembelajaran)) {
-                        $this->response[] = array('isi' => "Gagal Import Data Proses Pembelajaran.", 'status' => false);
-                    } else {
-                        $this->response[] = array('isi' => "Berhasil Import Data Proses Pembelajaran.", 'status' => true);
+                        foreach ($proses_pembelajaran as $key => $item) {
+                            $proses_pembelajaran[$key] = array_map(array($this, 'drop_empty'), $item);
+                        }
+                        if (!$this->proses_pembelajaran_model->insert_batch($proses_pembelajaran)) {
+                            $this->response[] = array('isi' => "Gagal Import Data Proses Pembelajaran.", 'status' => false);
+                        } else {
+                            $this->response[] = array('isi' => "Berhasil Import Data Proses Pembelajaran.", 'status' => true);
+                        }
                     }
 
                     //Insert and Delete table riwayat_kesehatan
@@ -2510,28 +2541,30 @@ class Data_siswa extends CI_Controller
                         $this->response[] = array('isi' => "Berhasil Import Data Riwayat Kesehatan.", 'status' => true);
                     }
 
-                    //langkah2
+                    //Insert and Delete table saudara_kandung
                     $this->saudara_kandung_model->delete($whereIdSiswaForDelete);
-                    for ($i = 2; $i < $countSaudara; $i++) {
-                        if (empty($sheetSaudara[$i][0])) {
-                            break;
+                    if ($countSaudara > 2) {
+                        for ($i = 2; $i < $countSaudara; $i++) {
+                            if (empty($sheetSaudara[$i][0])) {
+                                break;
+                            }
+                            $temp = array_search($sheetSaudara[$i][0], array_column($idSiswaNisn, 'nisn'));
+                            $saudara_kandung[] = array(
+                                'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
+                                'gender_id_gender' => $sheetSaudara[$i][4],
+                                'nama' => $sheetSaudara[$i][2],
+                                'anak_ke' => $sheetSaudara[$i][3],
+                                'nomor_telepon_seluler' => $sheetSaudara[$i][5]
+                            );
                         }
-                        $temp = array_search($sheetSaudara[$i][0], array_column($idSiswaNisn, 'nisn'));
-                        $saudara_kandung[] = array(
-                            'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
-                            'gender_id_gender' => $sheetSaudara[$i][4],
-                            'nama' => $sheetSaudara[$i][2],
-                            'anak_ke' => $sheetSaudara[$i][3],
-                            'nomor_telepon_seluler' => $sheetSaudara[$i][5]
-                        );
-                    }
-                    foreach ($saudara_kandung as $key => $item) {
-                        $saudara_kandung[$key] = array_map(array($this, 'drop_empty'), $item);
-                    }
-                    if (!$this->saudara_kandung_model->insert_batch($saudara_kandung)) {
-                        $this->response[] = array('isi' => "Gagal Import Data Saudara Kandung.", 'status' => false);
-                    } else {
-                        $this->response[] = array('isi' => "Berhasil Import Data Saudara Kandung.", 'status' => true);
+                        foreach ($saudara_kandung as $key => $item) {
+                            $saudara_kandung[$key] = array_map(array($this, 'drop_empty'), $item);
+                        }
+                        if (!$this->saudara_kandung_model->insert_batch($saudara_kandung)) {
+                            $this->response[] = array('isi' => "Gagal Import Data Saudara Kandung.", 'status' => false);
+                        } else {
+                            $this->response[] = array('isi' => "Berhasil Import Data Saudara Kandung.", 'status' => true);
+                        }
                     }
 
                     //Insert and Delete table siswa_has_media_sosial
@@ -2624,41 +2657,43 @@ class Data_siswa extends CI_Controller
                         $wali[$key] = array_map(array($this, 'drop_empty'), $item);
                     }
                     $sql = $this->insert_batch_string('wali', $wali, true);
-                    if ($this->db->query($sql)) {
-                        $this->response[] = array('isi' => "Berhasil Import Data Wali.", 'status' => true);
-                        $update = $this->db->update_batch('wali', $wali, 'siswa_id_siswa');
-                        if ($update === false) {
-                            $this->response[] = array('isi' => "Gagal Update Data Wali.", 'status' => false);
-                        }
+                    if (!empty($sql)) {
+                        if ($this->db->query($sql)) {
+                            $this->response[] = array('isi' => "Berhasil Import Data Wali.", 'status' => true);
+                            $update = $this->db->update_batch('wali', $wali, 'siswa_id_siswa');
+                            if ($update === false) {
+                                $this->response[] = array('isi' => "Gagal Update Data Wali.", 'status' => false);
+                            }
 
-                        //Insert and Delete table ibu_has_berkebutuhan_khusus
-                        $idWaliSiswa = $this->wali_model->get_id_wali($whereIdSiswaForDelete)->result();
-                        $whereIdWaliForDelete = 'wali_id_wali=""';
-                        for ($i = 0; $i < count($idWaliSiswa); $i++) {
-                            $whereIdWaliForDelete .= ' OR wali_id_wali="' . $idWaliSiswa[$i]->id_wali . '"';
-                        }
-                        $this->wali_has_berkebutuhan_khusus_model->delete($whereIdWaliForDelete);
-                        for ($i = 3; $i < $countHasilConvert; $i++) {
-                            if (empty($sheetHasilConvert[$i][1])) {
-                                break;
+                            //Insert and Delete table ibu_has_berkebutuhan_khusus
+                            $idWaliSiswa = $this->wali_model->get_id_wali($whereIdSiswaForDelete)->result();
+                            $whereIdWaliForDelete = 'wali_id_wali=""';
+                            for ($i = 0; $i < count($idWaliSiswa); $i++) {
+                                $whereIdWaliForDelete .= ' OR wali_id_wali="' . $idWaliSiswa[$i]->id_wali . '"';
                             }
-                            if ($sheetDataSumber[$i][122] > 0) {
-                                $temp = array_search($sheetHasilConvert[$i][4], array_column($idWaliSiswa, 'nisn'));
-                                $wali_has_berkebutuhan_khusus[] = array(
-                                    'wali_id_wali' => $idWaliSiswa[$temp]->id_wali,
-                                    'berkebutuhan_khusus_id_berkebutuhan_khusus' => $sheetDataSumber[$i][122]
-                                );
+                            $this->wali_has_berkebutuhan_khusus_model->delete($whereIdWaliForDelete);
+                            for ($i = 3; $i < $countHasilConvert; $i++) {
+                                if (empty($sheetHasilConvert[$i][1])) {
+                                    break;
+                                }
+                                if ($sheetDataSumber[$i][122] > 0) {
+                                    $temp = array_search($sheetHasilConvert[$i][4], array_column($idWaliSiswa, 'nisn'));
+                                    $wali_has_berkebutuhan_khusus[] = array(
+                                        'wali_id_wali' => $idWaliSiswa[$temp]->id_wali,
+                                        'berkebutuhan_khusus_id_berkebutuhan_khusus' => $sheetDataSumber[$i][122]
+                                    );
+                                }
                             }
-                        }
-                        if (count($wali_has_berkebutuhan_khusus) > 0) {
-                            if (!$this->wali_has_berkebutuhan_khusus_model->insert_batch($wali_has_berkebutuhan_khusus)) {
-                                $this->response[] = array('isi' => "Gagal Import Data Kebutuhan Khusus Wali.", 'status' => false);
-                            } else {
-                                $this->response[] = array('isi' => "Berhasil Import Data Kebutuhan Khusus Wali.", 'status' => true);
+                            if (count($wali_has_berkebutuhan_khusus) > 0) {
+                                if (!$this->wali_has_berkebutuhan_khusus_model->insert_batch($wali_has_berkebutuhan_khusus)) {
+                                    $this->response[] = array('isi' => "Gagal Import Data Kebutuhan Khusus Wali.", 'status' => false);
+                                } else {
+                                    $this->response[] = array('isi' => "Berhasil Import Data Kebutuhan Khusus Wali.", 'status' => true);
+                                }
                             }
+                        } else {
+                            $this->response[] = array('isi' => "Gagal Import Data Wali.", 'status' => false);
                         }
-                    } else {
-                        $this->response[] = array('isi' => "Gagal Import Data Wali.", 'status' => false);
                     }
 
                     //Insert and Delete table whatsapp
