@@ -2408,10 +2408,13 @@ class Data_siswa extends CI_Controller
                                     'pilihan_ke' => 3
                                 );
                             }
-                            if (!$this->pilihan_jurusan_ppdb_model->insert_batch($pilihan_jurusan_ppdb)) {
-                                $this->response[] = array('isi' => "Gagal Import Pilihan Jurusan PPDB.", 'status' => false);
-                            } else {
-                                $this->response[] = array('isi' => "Berhasil Import Pilihan Jurusan PPDB.", 'status' => true);
+                            $sql = $this->insert_batch_string('pilihan_jurusan_ppdb', $pilihan_jurusan_ppdb, true);
+                            if (!empty($sql)) {
+                                if (!$this->db->query($sql)) {
+                                    $this->response[] = array('isi' => "Gagal Import Pilihan Jurusan PPDB.", 'status' => false);
+                                } else {
+                                    $this->response[] = array('isi' => "Berhasil Import Pilihan Jurusan PPDB.", 'status' => true);
+                                }
                             }
                         } else {
                             $this->response[] = array('isi' => "Gagal Import Data Pendaftaran Masuk Siswa.", 'status' => false);
@@ -2535,10 +2538,12 @@ class Data_siswa extends CI_Controller
                             );
                         }
                     }
-                    if (!$this->riwayat_kesehatan_model->insert_batch($riwayat_kesehatan)) {
-                        $this->response[] = array('isi' => "Gagal Import Data Riwayat Kesehatan.", 'status' => false);
-                    } else {
-                        $this->response[] = array('isi' => "Berhasil Import Data Riwayat Kesehatan.", 'status' => true);
+                    if (!empty($riwayat_kesehatan)) {
+                        if (!$this->riwayat_kesehatan_model->insert_batch($riwayat_kesehatan)) {
+                            $this->response[] = array('isi' => "Gagal Import Data Riwayat Kesehatan.", 'status' => false);
+                        } else {
+                            $this->response[] = array('isi' => "Berhasil Import Data Riwayat Kesehatan.", 'status' => true);
+                        }
                     }
 
                     //Insert and Delete table saudara_kandung
@@ -2617,10 +2622,12 @@ class Data_siswa extends CI_Controller
                             );
                         }
                     }
-                    if (!$this->siswa_has_media_sosial_model->insert_batch($siswa_has_media_sosial)) {
-                        $this->response[] = array('isi' => "Gagal Import Data Media Sosial.", 'status' => false);
-                    } else {
-                        $this->response[] = array('isi' => "Berhasil Import Data Media Sosial.", 'status' => true);
+                    if (!empty($siswa_has_media_sosial)) {
+                        if (!$this->siswa_has_media_sosial_model->insert_batch($siswa_has_media_sosial)) {
+                            $this->response[] = array('isi' => "Gagal Import Data Media Sosial.", 'status' => false);
+                        } else {
+                            $this->response[] = array('isi' => "Berhasil Import Data Media Sosial.", 'status' => true);
+                        }
                     }
 
                     //Insert and Update table wali
@@ -2702,17 +2709,21 @@ class Data_siswa extends CI_Controller
                         if (empty($sheetHasilConvert[$i][1])) {
                             break;
                         }
-                        $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
-                        $whatsapp[] = array(
-                            'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
-                            'provider_id_provider' => $sheetDataSumber[$i][124],
-                            'nomor_whatsapp' => $sheetDataSumber[$i][123]
-                        );
+                        if (!empty($sheetDataSumber[$i][123])) {
+                            $temp = array_search($sheetHasilConvert[$i][4], array_column($idSiswaNisn, 'nisn'));
+                            $whatsapp[] = array(
+                                'siswa_id_siswa' => $idSiswaNisn[$temp]->id_siswa,
+                                'provider_id_provider' => $sheetDataSumber[$i][124],
+                                'nomor_whatsapp' => $sheetDataSumber[$i][123]
+                            );
+                        }
                     }
-                    if (!$this->whatsapp_model->insert_batch($whatsapp)) {
-                        $this->response[] = array('isi' => "Gagal Import Data Whatsapp.", 'status' => false);
-                    } else {
-                        $this->response[] = array('isi' => "Berhasil Import Data Whatsapp.", 'status' => true);
+                    if (!empty($whatsapp)) {
+                        if (!$this->whatsapp_model->insert_batch($whatsapp)) {
+                            $this->response[] = array('isi' => "Gagal Import Data Whatsapp.", 'status' => false);
+                        } else {
+                            $this->response[] = array('isi' => "Berhasil Import Data Whatsapp.", 'status' => true);
+                        }
                     }
                 } else {
                     $this->response[] = array('isi' => "Gagal Import Data Keseluruhan.", 'status' => false);
