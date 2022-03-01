@@ -2320,41 +2320,55 @@ class Data_siswa extends CI_Controller
                                     break;
                                 }
                                 $temp = array_search($sheetHasilConvert[$i][4], array_column($idPendMasukSiswa, 'nisn'));
-                                $mean_mapel[] = array(
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'mata_pelajaran_id_mata_pelajaran' => 1,
-                                    'nilai' => $sheetDataSumber[$i][144]
-                                );
-                                $mean_mapel[] = array(
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'mata_pelajaran_id_mata_pelajaran' => 2,
-                                    'nilai' => $sheetDataSumber[$i][145]
-                                );
-                                $mean_mapel[] = array(
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'mata_pelajaran_id_mata_pelajaran' => 3,
-                                    'nilai' => $sheetDataSumber[$i][149]
-                                );
-                                $mean_mapel[] = array(
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'mata_pelajaran_id_mata_pelajaran' => 4,
-                                    'nilai' => $sheetDataSumber[$i][146]
-                                );
-                                $mean_mapel[] = array(
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'mata_pelajaran_id_mata_pelajaran' => 5,
-                                    'nilai' => $sheetDataSumber[$i][147]
-                                );
-                                $mean_mapel[] = array(
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'mata_pelajaran_id_mata_pelajaran' => 6,
-                                    'nilai' => $sheetDataSumber[$i][150]
-                                );
-                                $mean_mapel[] = array(
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'mata_pelajaran_id_mata_pelajaran' => 7,
-                                    'nilai' => $sheetDataSumber[$i][148]
-                                );
+                                if (!empty($sheetDataSumber[$i][144])) {
+                                    $mean_mapel[] = array(
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'mata_pelajaran_id_mata_pelajaran' => 1,
+                                        'nilai' => $sheetDataSumber[$i][144]
+                                    );
+                                }
+                                if (!empty($sheetDataSumber[$i][145])) {
+                                    $mean_mapel[] = array(
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'mata_pelajaran_id_mata_pelajaran' => 2,
+                                        'nilai' => $sheetDataSumber[$i][145]
+                                    );
+                                }
+                                if (!empty($sheetDataSumber[$i][149])) {
+                                    $mean_mapel[] = array(
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'mata_pelajaran_id_mata_pelajaran' => 3,
+                                        'nilai' => $sheetDataSumber[$i][149]
+                                    );
+                                }
+                                if (!empty($sheetDataSumber[$i][146])) {
+                                    $mean_mapel[] = array(
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'mata_pelajaran_id_mata_pelajaran' => 4,
+                                        'nilai' => $sheetDataSumber[$i][146]
+                                    );
+                                }
+                                if (!empty($sheetDataSumber[$i][147])) {
+                                    $mean_mapel[] = array(
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'mata_pelajaran_id_mata_pelajaran' => 5,
+                                        'nilai' => $sheetDataSumber[$i][147]
+                                    );
+                                }
+                                if (!empty($sheetDataSumber[$i][150])) {
+                                    $mean_mapel[] = array(
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'mata_pelajaran_id_mata_pelajaran' => 6,
+                                        'nilai' => $sheetDataSumber[$i][150]
+                                    );
+                                }
+                                if (!empty($sheetDataSumber[$i][148])) {
+                                    $mean_mapel[] = array(
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'mata_pelajaran_id_mata_pelajaran' => 7,
+                                        'nilai' => $sheetDataSumber[$i][148]
+                                    );
+                                }
                             }
                             $sql = $this->insert_batch_string('mean_mapel', $mean_mapel, true);
                             if (!empty($sql)) {
@@ -2392,21 +2406,27 @@ class Data_siswa extends CI_Controller
                                     break;
                                 }
                                 $temp = array_search($sheetHasilConvert[$i][4], array_column($idPendMasukSiswa, 'nisn'));
-                                $pilihan_jurusan_ppdb[] = array(
-                                    'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][76],
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'pilihan_ke' => 1
-                                );
-                                $pilihan_jurusan_ppdb[] = array(
-                                    'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][77],
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'pilihan_ke' => 2
-                                );
-                                $pilihan_jurusan_ppdb[] = array(
-                                    'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][78],
-                                    'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
-                                    'pilihan_ke' => 3
-                                );
+                                if (!empty($sheetHasilConvert[$i][76])) {
+                                    $pilihan_jurusan_ppdb[] = array(
+                                        'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][76],
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'pilihan_ke' => 1
+                                    );
+                                }
+                                if (!empty($sheetHasilConvert[$i][77])) {
+                                    $pilihan_jurusan_ppdb[] = array(
+                                        'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][77],
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'pilihan_ke' => 2
+                                    );
+                                }
+                                if (!empty($sheetHasilConvert[$i][78])) {
+                                    $pilihan_jurusan_ppdb[] = array(
+                                        'kompetensi_keahlian_id_kompetensi_keahlian' => $sheetHasilConvert[$i][78],
+                                        'pendaftaran_masuk_id_pendaftaran_masuk' => $idPendMasukSiswa[$temp]->id_pendaftaran_masuk,
+                                        'pilihan_ke' => 3
+                                    );
+                                }
                             }
                             $sql = $this->insert_batch_string('pilihan_jurusan_ppdb', $pilihan_jurusan_ppdb, true);
                             if (!empty($sql)) {
